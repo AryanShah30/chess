@@ -150,19 +150,43 @@ function callbackPawnPromotion(piece, id) {
 
 function movePiece(piece, id, castle) {
   const pawnIsPromoted = checkForPawnPromotion(piece, id);
-  if (piece.piece_name.includes("KING") || piece.piece_name.includes("ROOK")) {
-    piece.move = true;
-    if (piece.piece_name.includes("KING") && piece.piece_name.includes("WHITE")) {
-      if (id === 'c1' || id === 'g1') {
-        let rook = keySquareMapper[id === 'c1' ? 'a1' : 'h1'];
-        movePiece(rook.piece, id === 'c1' ? 'd1' : 'f1', true);
+  if (piece.piece_name.includes("KING") && piece.piece_name.includes("WHITE")) {
+    if (id === 'c1' || id === 'g1') {
+      let rookStartPosition;
+      if (id === 'c1') {
+        rookStartPosition = 'a1';
+      } else {
+        rookStartPosition = 'h1';
       }
+      setTimeout(() => {
+        const kingStartElement = document.getElementById('e1');
+        const rookStartElement = document.getElementById(rookStartPosition);
+        kingStartElement?.classList?.add("highlightYellow");
+        rookStartElement?.classList?.add("highlightYellow");
+      }, 10);
+      const rook = keySquareMapper[rookStartPosition];
+      const rookDestination = id === 'c1' ? 'd1' : 'f1';
+      movePiece(rook.piece, rookDestination, true);
     }
-    if (piece.piece_name.includes("KING") && piece.piece_name.includes("BLACK")) {
-      if (id === 'c8' || id === 'g8') {
-        let rook = keySquareMapper[id === 'c8' ? 'a8' : 'h8'];
-        movePiece(rook.piece, id === 'c8' ? 'd8' : 'f8', true);
+  }
+
+  if (piece.piece_name.includes("KING") && piece.piece_name.includes("BLACK")) {
+    if (id === 'c8' || id === 'g8') {
+      let rookStartPosition;
+      if (id === 'c8') {
+        rookStartPosition = 'a8';
+      } else {
+        rookStartPosition = 'h8';
       }
+      setTimeout(() => {
+        const kingStartElement = document.getElementById('e8');
+        const rookStartElement = document.getElementById(rookStartPosition);
+        kingStartElement?.classList?.add("highlightYellow");
+        rookStartElement?.classList?.add("highlightYellow");
+      }, 10);
+      const rook = keySquareMapper[rookStartPosition];
+      const rookDestination = id === 'c8' ? 'd8' : 'f8';
+      movePiece(rook.piece, rookDestination, true);
     }
   }
 
@@ -178,17 +202,24 @@ function movePiece(piece, id, castle) {
       el.piece = piece;
     }
   });
+
   clearHighlight();
   const previousPiece = document.getElementById(piece.current_position);
   const currentPiece = document.getElementById(id);
-  currentPiece?.classList?.add("highlightYellow");
+
+  if (!(piece.piece_name.includes("KING") && (id === 'c1' || id === 'g1' || id === 'c8' || id === 'g8'))) {
+    currentPiece?.classList?.add("highlightYellow");
+  }
+
   currentPiece.innerHTML = previousPiece?.innerHTML;
   clearAllHighlightsExceptMove(previousPiece, currentPiece);
   if (previousPiece) previousPiece.innerHTML = "";
   piece.current_position = id;
+
   if (pawnIsPromoted) {
     pawnPromotion(inTurn, callbackPawnPromotion, id);
   }
+
   checkForCheck();
   if (!castle) changeTurn();
 }
@@ -231,7 +262,7 @@ function whitePawnClick(square) {
 
   const current_pos = piece.current_position;
   const flatArray = globalState.flat();
-  
+
   let highlightSquareIds = null;
 
   if (current_pos[1] == "2") {
