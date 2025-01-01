@@ -217,7 +217,10 @@ function movePiece(piece, id, castle) {
   piece.current_position = id;
 
   if (pawnIsPromoted) {
-    pawnPromotion(inTurn, callbackPawnPromotion, id);
+    setTimeout(() => {
+      currentPiece?.classList?.add("highlightYellow");
+      pawnPromotion(inTurn, callbackPawnPromotion, id);
+    }, 10); 
   }
 
   checkForCheck();
