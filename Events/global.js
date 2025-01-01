@@ -34,8 +34,13 @@ import {
 
 let inTurn = "white";
 let whoInCheck = null;
+let moveCount = 0;
 
 function changeTurn() {
+  if (inTurn === "black") {
+    moveCount++;
+    console.log("No. of moves played: ", moveCount);
+  }
   inTurn = inTurn === "white" ? "black" : "white";
 }
 
