@@ -58,6 +58,11 @@ function captureInTurn(square) {
 }
 
 function checkForCheck() {
+  const whiteKingElement = document.getElementById(globalPiece.white_king.current_position);
+  const blackKingElement = document.getElementById(globalPiece.black_king.current_position);
+  whiteKingElement?.classList?.remove("captureColor");
+  blackKingElement?.classList?.remove("captureColor");
+
   if (inTurn === "black") {
     const whiteKingCurrentPosition = globalPiece.white_king.current_position;
     const knight_1 = globalPiece.black_knight_1.current_position;
@@ -86,6 +91,7 @@ function checkForCheck() {
 
     if (checkOrNot) {
       whoInCheck = "white";
+      whiteKingElement.classList.add("captureColor");
     }
   } else {
     const blackKingCurrentPosition = globalPiece.black_king.current_position;
@@ -115,6 +121,7 @@ function checkForCheck() {
 
     if (checkOrNot) {
       whoInCheck = "black";
+      blackKingElement.classList.add("captureColor");
     }
   }
 }
