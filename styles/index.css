@@ -7,6 +7,7 @@ body {
   flex-direction: column;
   width: fit-content;
   margin: auto;
+  overflow: hidden;
 }
 
 .squareRow {
@@ -68,7 +69,7 @@ body {
 }
 
 .modal img:hover {
-  border: 5px solid #F7F769;
+  border: 5px solid #302E2B;
   cursor: pointer;
 }
 
