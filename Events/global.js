@@ -254,6 +254,7 @@ let moveState = null;
 function clearHighlightLocal() {
   clearHighlight();
   highlight_state = false;
+  selfHighlightState = null;
 }
 
 function whitePawnClick(square) {
@@ -1205,6 +1206,7 @@ function globalEvent() {
       }
     } else {
       selfHighlightState = null;
+      highlight_state = false;
       const childElementsOfClickedEl = Array.from(event.target.childNodes);
       if (childElementsOfClickedEl.length == 1 || event.target.localName == "span") {
         {
