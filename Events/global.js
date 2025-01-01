@@ -150,6 +150,7 @@ function callbackPawnPromotion(piece, id) {
 
 function movePiece(piece, id, castle) {
   const pawnIsPromoted = checkForPawnPromotion(piece, id);
+
   if (piece.piece_name.includes("KING") && piece.piece_name.includes("WHITE")) {
     if (id === 'c1' || id === 'g1') {
       let rookStartPosition;
@@ -168,6 +169,8 @@ function movePiece(piece, id, castle) {
       const rookDestination = id === 'c1' ? 'd1' : 'f1';
       movePiece(rook.piece, rookDestination, true);
     }
+    castle = true;
+    changeTurn();
   }
 
   if (piece.piece_name.includes("KING") && piece.piece_name.includes("BLACK")) {
@@ -188,6 +191,8 @@ function movePiece(piece, id, castle) {
       const rookDestination = id === 'c8' ? 'd8' : 'f8';
       movePiece(rook.piece, rookDestination, true);
     }
+    castle = true;
+    changeTurn();
   }
 
   const flatData = globalState.flat();
@@ -203,16 +208,19 @@ function movePiece(piece, id, castle) {
     }
   });
 
-  clearHighlight();
   const previousPiece = document.getElementById(piece.current_position);
   const currentPiece = document.getElementById(id);
+  setTimeout(() => {
+    if (!castle) {
+      previousPiece?.classList?.add("highlightYellow");
+      currentPiece?.classList?.add("highlightYellow");
+    }
+  }, 10);
 
-  if (!(piece.piece_name.includes("KING") && (id === 'c1' || id === 'g1' || id === 'c8' || id === 'g8'))) {
-    currentPiece?.classList?.add("highlightYellow");
-  }
+  clearHighlight();
+  clearAllHighlightsExceptMove(previousPiece, currentPiece);
 
   currentPiece.innerHTML = previousPiece?.innerHTML;
-  clearAllHighlightsExceptMove(previousPiece, currentPiece);
   if (previousPiece) previousPiece.innerHTML = "";
   piece.current_position = id;
 
@@ -237,6 +245,7 @@ function clearHighlightLocal() {
 }
 
 function whitePawnClick(square) {
+
   const piece = square.piece;
 
   if (piece == selfHighlightState) {
