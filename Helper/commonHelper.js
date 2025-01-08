@@ -1,15 +1,22 @@
-import { keySquareMapper} from "../index.js";
+import { keySquareMapper } from "../index.js";
 
 function checkPieceOfOpponentOnElement(id, color) {
   const opponentColor = color === "white" ? "BLACK" : "WHITE";
   const element = keySquareMapper[id];
-  if (!element) return false;
-  if (element.piece && element.piece.piece_name.includes(opponentColor)) {
+
+  if (!element || !element.piece) return false;
+
+  const pieceName = element.piece.piece_name.toLowerCase();
+  if (
+    pieceName.includes(opponentColor.toLowerCase()) &&
+    !pieceName.includes("king")
+  ) {
     const el = document.getElementById(id);
     el.classList.add("captureColor");
     element.captureHighlight = true;
     return true;
   }
+
   return false;
 }
 
@@ -110,7 +117,6 @@ function giveRookHighlightIds(id) {
 }
 
 function giveRookCaptureIds(id, color) {
-
   if (!id) {
     return [];
   }
@@ -118,12 +124,7 @@ function giveRookCaptureIds(id, color) {
   let hightlightSquareIds = giveRookHighlightIds(id);
 
   let temp = [];
-  const {
-    bottom,
-    top,
-    right,
-    left
-  } = hightlightSquareIds;
+  const { bottom, top, right, left } = hightlightSquareIds;
   let returnArr = [];
 
   temp.push(bottom);
@@ -147,14 +148,13 @@ function giveRookCaptureIds(id, color) {
       }
 
       if (checkPieceOfOpponentOnElementNoDom(element, color)) {
-        returnArr.push(element)
+        returnArr.push(element);
         break;
       }
     }
   }
 
   return returnArr;
-
 }
 
 function giveBishopHighlightIds(id) {
@@ -225,7 +225,6 @@ function giveBishopHighlightIds(id) {
 }
 
 function giveBishopCaptureIds(id, color) {
-
   if (!id) {
     return [];
   }
@@ -233,12 +232,7 @@ function giveBishopCaptureIds(id, color) {
   let hightlightSquareIds = giveBishopHighlightIds(id);
 
   let temp = [];
-  const {
-    bottomLeft,
-    topLeft,
-    bottomRight,
-    topRight
-  } = hightlightSquareIds;
+  const { bottomLeft, topLeft, bottomRight, topRight } = hightlightSquareIds;
   let returnArr = [];
 
   temp.push(bottomLeft);
@@ -262,19 +256,16 @@ function giveBishopCaptureIds(id, color) {
       }
 
       if (checkPieceOfOpponentOnElementNoDom(element, color)) {
-        returnArr.push(element)
+        returnArr.push(element);
         break;
       }
     }
   }
 
-
   return returnArr;
-
 }
 
 function giveKnightHighlightIds(id) {
-
   if (!id) {
     return;
   }
@@ -308,7 +299,7 @@ function giveKnightHighlightIds(id) {
       if (number > 1) {
         finalReturnArray.push(`${alpha}${number - 1}`);
       }
-      return finalReturnArray
+      return finalReturnArray;
     } else {
       return [];
     }
@@ -430,14 +421,13 @@ function giveKnightHighlightIds(id) {
 }
 
 function giveKnightCaptureIds(id, color) {
-
   if (!id) {
     return [];
   }
 
   let returnArr = giveKnightHighlightIds(id);
 
-  returnArr = returnArr.filter(element => {
+  returnArr = returnArr.filter((element) => {
     if (checkPieceOfOpponentOnElementNoDom(element, color)) {
       return true;
     }
@@ -450,24 +440,23 @@ function giveQueenHighlightIds(id) {
   const rookMoves = giveRookHighlightIds(id);
   const bishopMoves = giveBishopHighlightIds(id);
   return {
-    "left": rookMoves.left,
-    "right": rookMoves.right,
-    "top": rookMoves.top,
-    "bottom": rookMoves.bottom,
-    "topLeft": bishopMoves.topLeft,
-    "bottomLeft": bishopMoves.bottomLeft,
-    "bottomRight": bishopMoves.bottomRight,
-    "topRight": bishopMoves.topRight,
-  }
+    left: rookMoves.left,
+    right: rookMoves.right,
+    top: rookMoves.top,
+    bottom: rookMoves.bottom,
+    topLeft: bishopMoves.topLeft,
+    bottomLeft: bishopMoves.bottomLeft,
+    bottomRight: bishopMoves.bottomRight,
+    topRight: bishopMoves.topRight,
+  };
 }
 
 function giveQueenCaptureIds(id, color) {
-
   if (!id) return [];
 
   let returnArr = [];
-  returnArr.push(giveBishopCaptureIds(id, color))
-  returnArr.push(giveRookCaptureIds(id, color))
+  returnArr.push(giveBishopCaptureIds(id, color));
+  returnArr.push(giveRookCaptureIds(id, color));
   return returnArr.flat();
 }
 
@@ -475,15 +464,15 @@ function giveKingHighlightIds(id) {
   const rookMoves = giveRookHighlightIds(id);
   const bishopMoves = giveBishopHighlightIds(id);
   const returnResult = {
-    "left": rookMoves.left,
-    "right": rookMoves.right,
-    "top": rookMoves.top,
-    "bottom": rookMoves.bottom,
-    "topLeft": bishopMoves.topLeft,
-    "bottomLeft": bishopMoves.bottomLeft,
-    "bottomRight": bishopMoves.bottomRight,
-    "topRight": bishopMoves.topRight,
-  }
+    left: rookMoves.left,
+    right: rookMoves.right,
+    top: rookMoves.top,
+    bottom: rookMoves.bottom,
+    topLeft: bishopMoves.topLeft,
+    bottomLeft: bishopMoves.bottomLeft,
+    bottomRight: bishopMoves.bottomRight,
+    topRight: bishopMoves.topRight,
+  };
   for (const key in returnResult) {
     if (Object.hasOwnProperty.call(returnResult, key)) {
       const element = returnResult[key];
@@ -496,18 +485,17 @@ function giveKingHighlightIds(id) {
 }
 
 function giveKingCaptureIds(id, color) {
-
   if (!id) {
     return [];
   }
 
   let result = giveKingHighlightIds(id);
   result = Object.values(result).flat();
-  result = result.filter(element => {
+  result = result.filter((element) => {
     if (checkPieceOfOpponentOnElementNoDom(element, color)) {
       return true;
     }
-  })
+  });
 
   return result;
 }
