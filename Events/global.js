@@ -1,17 +1,12 @@
-import {
-  ROOT_DIV
-} from "../Helper/constants.js";
-import {
-  globalState,
-  keySquareMapper
-} from "../index.js";
+import { ROOT_DIV } from "../Helper/constants.js";
+import { globalState, keySquareMapper } from "../index.js";
 import {
   clearHighlight,
   selfHighlight,
   globalPiece,
   clearPreviousSelfHighlight,
   globalStateRender,
-  clearAllHighlightsExceptMove
+  clearAllHighlightsExceptMove,
 } from "../Render/main.js";
 import {
   checkPieceOfOpponentOnElement,
@@ -26,11 +21,9 @@ import {
   giveKingCaptureIds,
   giveBishopCaptureIds,
   giveRookCaptureIds,
-  giveQueenCaptureIds
+  giveQueenCaptureIds,
 } from "../Helper/commonHelper.js";
-import {
-  pawnPromotion
-} from "../Helper/modalCreator.js";
+import { pawnPromotion } from "../Helper/modalCreator.js";
 
 let inTurn = "white";
 let whoInCheck = null;
@@ -63,8 +56,12 @@ function captureInTurn(square) {
 }
 
 function checkForCheck() {
-  const whiteKingElement = document.getElementById(globalPiece.white_king.current_position);
-  const blackKingElement = document.getElementById(globalPiece.black_king.current_position);
+  const whiteKingElement = document.getElementById(
+    globalPiece.white_king.current_position
+  );
+  const blackKingElement = document.getElementById(
+    globalPiece.black_king.current_position
+  );
   whiteKingElement?.classList?.remove("captureColor");
   blackKingElement?.classList?.remove("captureColor");
 
@@ -133,13 +130,19 @@ function checkForCheck() {
 
 function checkForPawnPromotion(piece, id) {
   if (inTurn === "white") {
-    if (piece?.piece_name?.toLowerCase()?.includes("pawn") && id?.includes("8")) {
+    if (
+      piece?.piece_name?.toLowerCase()?.includes("pawn") &&
+      id?.includes("8")
+    ) {
       return true;
     } else {
       return false;
     }
   } else {
-    if (piece?.piece_name?.toLowerCase()?.includes("pawn") && id?.includes("1")) {
+    if (
+      piece?.piece_name?.toLowerCase()?.includes("pawn") &&
+      id?.includes("1")
+    ) {
       return true;
     } else {
       return false;
@@ -152,7 +155,7 @@ function callbackPawnPromotion(piece, id) {
   const currentSquare = keySquareMapper[id];
   piece.current_position = id;
   currentSquare.piece = realPiece;
-  const image = document.createElement('img');
+  const image = document.createElement("img");
   image.src = realPiece.img;
   image.classList.add("piece");
   const currentElement = document.getElementById(id);
@@ -164,21 +167,21 @@ function movePiece(piece, id, castle) {
   const pawnIsPromoted = checkForPawnPromotion(piece, id);
 
   if (piece.piece_name.includes("KING") && piece.piece_name.includes("WHITE")) {
-    if (id === 'c1' || id === 'g1') {
+    if (id === "c1" || id === "g1") {
       let rookStartPosition;
-      if (id === 'c1') {
-        rookStartPosition = 'a1';
+      if (id === "c1") {
+        rookStartPosition = "a1";
       } else {
-        rookStartPosition = 'h1';
+        rookStartPosition = "h1";
       }
       setTimeout(() => {
-        const kingStartElement = document.getElementById('e1');
+        const kingStartElement = document.getElementById("e1");
         const rookStartElement = document.getElementById(rookStartPosition);
         kingStartElement?.classList?.add("highlightYellow");
         rookStartElement?.classList?.add("highlightYellow");
       }, 10);
       const rook = keySquareMapper[rookStartPosition];
-      const rookDestination = id === 'c1' ? 'd1' : 'f1';
+      const rookDestination = id === "c1" ? "d1" : "f1";
       movePiece(rook.piece, rookDestination, true);
     }
     castle = true;
@@ -186,21 +189,21 @@ function movePiece(piece, id, castle) {
   }
 
   if (piece.piece_name.includes("KING") && piece.piece_name.includes("BLACK")) {
-    if (id === 'c8' || id === 'g8') {
+    if (id === "c8" || id === "g8") {
       let rookStartPosition;
-      if (id === 'c8') {
-        rookStartPosition = 'a8';
+      if (id === "c8") {
+        rookStartPosition = "a8";
       } else {
-        rookStartPosition = 'h8';
+        rookStartPosition = "h8";
       }
       setTimeout(() => {
-        const kingStartElement = document.getElementById('e8');
+        const kingStartElement = document.getElementById("e8");
         const rookStartElement = document.getElementById(rookStartPosition);
         kingStartElement?.classList?.add("highlightYellow");
         rookStartElement?.classList?.add("highlightYellow");
       }, 10);
       const rook = keySquareMapper[rookStartPosition];
-      const rookDestination = id === 'c8' ? 'd8' : 'f8';
+      const rookDestination = id === "c8" ? "d8" : "f8";
       movePiece(rook.piece, rookDestination, true);
     }
     castle = true;
@@ -208,7 +211,7 @@ function movePiece(piece, id, castle) {
   }
 
   const flatData = globalState.flat();
-  flatData.forEach(el => {
+  flatData.forEach((el) => {
     if (el.id == piece.current_position) {
       delete el.piece;
     }
@@ -258,7 +261,6 @@ function clearHighlightLocal() {
 }
 
 function whitePawnClick(square) {
-
   const piece = square.piece;
 
   if (piece == selfHighlightState) {
@@ -304,10 +306,12 @@ function whitePawnClick(square) {
     element.highlight = true;
   });
 
-  const col1 = `${String.fromCharCode(current_pos[0].charCodeAt(0) - 1)}${Number(current_pos[1]) + 1
-    }`;
-  const col2 = `${String.fromCharCode(current_pos[0].charCodeAt(0) + 1)}${Number(current_pos[1]) + 1
-    }`;
+  const col1 = `${String.fromCharCode(current_pos[0].charCodeAt(0) - 1)}${
+    Number(current_pos[1]) + 1
+  }`;
+  const col2 = `${String.fromCharCode(current_pos[0].charCodeAt(0) + 1)}${
+    Number(current_pos[1]) + 1
+  }`;
 
   let captureIds = [col1, col2];
 
@@ -349,12 +353,7 @@ function whiteBishopClick(square) {
   let highlightSquareIds = giveBishopHighlightIds(current_pos);
   let temp = [];
 
-  const {
-    bottomLeft,
-    topLeft,
-    bottomRight,
-    topRight
-  } = highlightSquareIds;
+  const { bottomLeft, topLeft, bottomRight, topRight } = highlightSquareIds;
 
   let result = [];
   result.push(checkSquareCaptureId(bottomLeft));
@@ -381,7 +380,11 @@ function whiteBishopClick(square) {
       const element = arr[j];
 
       let checkPieceResult = checkWhetherPieceExistsOrNot(element);
-      if (checkPieceResult && checkPieceResult.piece && checkPieceResult.piece.piece_name.toLowerCase().includes("white")) {
+      if (
+        checkPieceResult &&
+        checkPieceResult.piece &&
+        checkPieceResult.piece.piece_name.toLowerCase().includes("white")
+      ) {
         break;
       }
       if (checkPieceOfOpponentOnElement(element, "white")) {
@@ -424,12 +427,7 @@ function whiteRookClick(square) {
   let highlightSquareIds = giveRookHighlightIds(current_pos);
   let temp = [];
 
-  const {
-    bottom,
-    top,
-    right,
-    left
-  } = highlightSquareIds;
+  const { bottom, top, right, left } = highlightSquareIds;
 
   let result = [];
   result.push(checkSquareCaptureId(bottom));
@@ -456,7 +454,11 @@ function whiteRookClick(square) {
       const element = arr[j];
 
       let checkPieceResult = checkWhetherPieceExistsOrNot(element);
-      if (checkPieceResult && checkPieceResult.piece && checkPieceResult.piece.piece_name.toLowerCase().includes("white")) {
+      if (
+        checkPieceResult &&
+        checkPieceResult.piece &&
+        checkPieceResult.piece.piece_name.toLowerCase().includes("white")
+      ) {
         break;
       }
       if (checkPieceOfOpponentOnElement(element, "white")) {
@@ -551,7 +553,7 @@ function whiteQueenClick(square) {
     top,
     bottom,
     left,
-    right
+    right,
   } = highlightSquareIds;
 
   let result = [];
@@ -587,7 +589,11 @@ function whiteQueenClick(square) {
       const element = arr[j];
 
       let checkPieceResult = checkWhetherPieceExistsOrNot(element);
-      if (checkPieceResult && checkPieceResult.piece && checkPieceResult.piece.piece_name.toLowerCase().includes("white")) {
+      if (
+        checkPieceResult &&
+        checkPieceResult.piece &&
+        checkPieceResult.piece.piece_name.toLowerCase().includes("white")
+      ) {
         break;
       }
       if (checkPieceOfOpponentOnElement(element, "white")) {
@@ -638,7 +644,7 @@ function whiteKingClick(square) {
     top,
     bottom,
     left,
-    right
+    right,
   } = highlightSquareIds;
 
   let result = [];
@@ -647,18 +653,18 @@ function whiteKingClick(square) {
     const rook1 = globalPiece.white_rook_1;
     const rook2 = globalPiece.white_rook_2;
     if (!rook1.move) {
-      const b1 = keySquareMapper['b1'];
-      const c1 = keySquareMapper['c1'];
-      const d1 = keySquareMapper['d1'];
+      const b1 = keySquareMapper["b1"];
+      const c1 = keySquareMapper["c1"];
+      const d1 = keySquareMapper["d1"];
       if (!b1.piece && !c1.piece && !d1.piece) {
-        result.push('c1');
+        result.push("c1");
       }
     }
     if (!rook2.move) {
-      const g1 = keySquareMapper['g1'];
-      const f1 = keySquareMapper['f1'];
+      const g1 = keySquareMapper["g1"];
+      const f1 = keySquareMapper["f1"];
       if (!g1.piece && !f1.piece) {
-        result.push('g1');
+        result.push("g1");
       }
     }
   }
@@ -695,7 +701,11 @@ function whiteKingClick(square) {
       const element = arr[j];
 
       let checkPieceResult = checkWhetherPieceExistsOrNot(element);
-      if (checkPieceResult && checkPieceResult.piece && checkPieceResult.piece.piece_name.toLowerCase().includes("white")) {
+      if (
+        checkPieceResult &&
+        checkPieceResult.piece &&
+        checkPieceResult.piece.piece_name.toLowerCase().includes("white")
+      ) {
         break;
       }
       if (checkPieceOfOpponentOnElement(element, "white")) {
@@ -708,7 +718,6 @@ function whiteKingClick(square) {
 }
 
 function blackPawnClick(square) {
-
   const piece = square.piece;
 
   if (piece == selfHighlightState) {
@@ -754,10 +763,12 @@ function blackPawnClick(square) {
     element.highlight = true;
   });
 
-  const col1 = `${String.fromCharCode(current_pos[0].charCodeAt(0) - 1)}${Number(current_pos[1]) - 1
-    }`;
-  const col2 = `${String.fromCharCode(current_pos[0].charCodeAt(0) + 1)}${Number(current_pos[1]) - 1
-    }`;
+  const col1 = `${String.fromCharCode(current_pos[0].charCodeAt(0) - 1)}${
+    Number(current_pos[1]) - 1
+  }`;
+  const col2 = `${String.fromCharCode(current_pos[0].charCodeAt(0) + 1)}${
+    Number(current_pos[1]) - 1
+  }`;
 
   let captureIds = [col1, col2];
 
@@ -799,12 +810,7 @@ function blackBishopClick(square) {
   let highlightSquareIds = giveBishopHighlightIds(current_pos);
   let temp = [];
 
-  const {
-    bottomLeft,
-    topLeft,
-    bottomRight,
-    topRight
-  } = highlightSquareIds;
+  const { bottomLeft, topLeft, bottomRight, topRight } = highlightSquareIds;
 
   let result = [];
   result.push(checkSquareCaptureId(bottomLeft));
@@ -831,7 +837,11 @@ function blackBishopClick(square) {
       const element = arr[j];
 
       let checkPieceResult = checkWhetherPieceExistsOrNot(element);
-      if (checkPieceResult && checkPieceResult.piece && checkPieceResult.piece.piece_name.toLowerCase().includes("black")) {
+      if (
+        checkPieceResult &&
+        checkPieceResult.piece &&
+        checkPieceResult.piece.piece_name.toLowerCase().includes("black")
+      ) {
         break;
       }
       if (checkPieceOfOpponentOnElement(element, "black")) {
@@ -874,12 +884,7 @@ function blackRookClick(square) {
   let highlightSquareIds = giveRookHighlightIds(current_pos);
   let temp = [];
 
-  const {
-    bottom,
-    top,
-    right,
-    left
-  } = highlightSquareIds;
+  const { bottom, top, right, left } = highlightSquareIds;
 
   let result = [];
   result.push(checkSquareCaptureId(bottom));
@@ -906,7 +911,11 @@ function blackRookClick(square) {
       const element = arr[j];
 
       let checkPieceResult = checkWhetherPieceExistsOrNot(element);
-      if (checkPieceResult && checkPieceResult.piece && checkPieceResult.piece.piece_name.toLowerCase().includes("black")) {
+      if (
+        checkPieceResult &&
+        checkPieceResult.piece &&
+        checkPieceResult.piece.piece_name.toLowerCase().includes("black")
+      ) {
         break;
       }
       if (checkPieceOfOpponentOnElement(element, "black")) {
@@ -1001,7 +1010,7 @@ function blackQueenClick(square) {
     top,
     bottom,
     left,
-    right
+    right,
   } = highlightSquareIds;
 
   let result = [];
@@ -1037,7 +1046,11 @@ function blackQueenClick(square) {
       const element = arr[j];
 
       let checkPieceResult = checkWhetherPieceExistsOrNot(element);
-      if (checkPieceResult && checkPieceResult.piece && checkPieceResult.piece.piece_name.toLowerCase().includes("black")) {
+      if (
+        checkPieceResult &&
+        checkPieceResult.piece &&
+        checkPieceResult.piece.piece_name.toLowerCase().includes("black")
+      ) {
         break;
       }
       if (checkPieceOfOpponentOnElement(element, "black")) {
@@ -1088,7 +1101,7 @@ function blackKingClick(square) {
     top,
     bottom,
     left,
-    right
+    right,
   } = highlightSquareIds;
 
   let result = [];
@@ -1097,18 +1110,18 @@ function blackKingClick(square) {
     const rook1 = globalPiece.black_rook_1;
     const rook2 = globalPiece.black_rook_2;
     if (!rook1.move) {
-      const b8 = keySquareMapper['b8'];
-      const c8 = keySquareMapper['c8'];
-      const d8 = keySquareMapper['d8'];
+      const b8 = keySquareMapper["b8"];
+      const c8 = keySquareMapper["c8"];
+      const d8 = keySquareMapper["d8"];
       if (!b8.piece && !c8.piece && !d8.piece) {
-        result.push('c8');
+        result.push("c8");
       }
     }
     if (!rook2.move) {
-      const g8 = keySquareMapper['g8'];
-      const f8 = keySquareMapper['f8'];
+      const g8 = keySquareMapper["g8"];
+      const f8 = keySquareMapper["f8"];
       if (!g8.piece && !f8.piece) {
-        result.push('g8');
+        result.push("g8");
       }
     }
   }
@@ -1145,7 +1158,11 @@ function blackKingClick(square) {
       const element = arr[j];
 
       let checkPieceResult = checkWhetherPieceExistsOrNot(element);
-      if (checkPieceResult && checkPieceResult.piece && checkPieceResult.piece.piece_name.toLowerCase().includes("black")) {
+      if (
+        checkPieceResult &&
+        checkPieceResult.piece &&
+        checkPieceResult.piece.piece_name.toLowerCase().includes("black")
+      ) {
         break;
       }
       if (checkPieceOfOpponentOnElement(element, "black")) {
@@ -1162,53 +1179,46 @@ function globalEvent() {
     if (event.target.localName == "img") {
       const clickId = event.target.parentNode.id;
       const square = keySquareMapper[clickId];
-      if (square.piece.piece_name.includes("WHITE") && inTurn === "black" ||
-        square.piece.piece_name.includes("BLACK") && inTurn === "white") {
+      if (
+        (square.piece.piece_name.includes("WHITE") && inTurn === "black") ||
+        (square.piece.piece_name.includes("BLACK") && inTurn === "white")
+      ) {
         captureInTurn(square);
         return;
       }
       if (square.piece.piece_name == "WHITE_PAWN") {
-        if (inTurn == "white")
-          whitePawnClick(square);
+        if (inTurn == "white") whitePawnClick(square);
       } else if (square.piece.piece_name == "BLACK_PAWN") {
-        if (inTurn == "black")
-          blackPawnClick(square);
+        if (inTurn == "black") blackPawnClick(square);
       } else if (square.piece.piece_name == "WHITE_BISHOP") {
-        if (inTurn == "white")
-          whiteBishopClick(square);
+        if (inTurn == "white") whiteBishopClick(square);
       } else if (square.piece.piece_name == "BLACK_BISHOP") {
-        if (inTurn == "black")
-          blackBishopClick(square);
+        if (inTurn == "black") blackBishopClick(square);
       } else if (square.piece.piece_name == "WHITE_ROOK") {
-        if (inTurn == "white")
-          whiteRookClick(square);
+        if (inTurn == "white") whiteRookClick(square);
       } else if (square.piece.piece_name == "BLACK_ROOK") {
-        if (inTurn == "black")
-          blackRookClick(square);
+        if (inTurn == "black") blackRookClick(square);
       } else if (square.piece.piece_name == "WHITE_KNIGHT") {
-        if (inTurn == "white")
-          whiteKnightClick(square);
+        if (inTurn == "white") whiteKnightClick(square);
       } else if (square.piece.piece_name == "BLACK_KNIGHT") {
-        if (inTurn == "black")
-          blackKnightClick(square);
+        if (inTurn == "black") blackKnightClick(square);
       } else if (square.piece.piece_name == "WHITE_QUEEN") {
-        if (inTurn == "white")
-          whiteQueenClick(square);
+        if (inTurn == "white") whiteQueenClick(square);
       } else if (square.piece.piece_name == "BLACK_QUEEN") {
-        if (inTurn == "black")
-          blackQueenClick(square);
+        if (inTurn == "black") blackQueenClick(square);
       } else if (square.piece.piece_name == "WHITE_KING") {
-        if (inTurn == "white")
-          whiteKingClick(square);
+        if (inTurn == "white") whiteKingClick(square);
       } else if (square.piece.piece_name == "BLACK_KING") {
-        if (inTurn == "black")
-          blackKingClick(square);
+        if (inTurn == "black") blackKingClick(square);
       }
     } else {
       selfHighlightState = null;
       highlight_state = false;
       const childElementsOfClickedEl = Array.from(event.target.childNodes);
-      if (childElementsOfClickedEl.length == 1 || event.target.localName == "span") {
+      if (
+        childElementsOfClickedEl.length == 1 ||
+        event.target.localName == "span"
+      ) {
         {
           if (event.target.localName == "span") {
             const id = event.target.parentNode.id;
@@ -1228,9 +1238,7 @@ function globalEvent() {
         clearPreviousSelfHighlight(selfHighlightState);
       }
     }
-  })
+  });
 }
 
-export {
-  globalEvent
-};
+export { globalEvent };

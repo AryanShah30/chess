@@ -5,14 +5,11 @@ import { globalEvent } from "./Events/global.js";
 const globalState = initGame();
 let keySquareMapper = {};
 
-globalState.flat().forEach(square => {
+globalState.flat().forEach((square) => {
   keySquareMapper[square.id] = square;
 });
 
 initGameRender(globalState);
 globalEvent();
 
-export {
-  globalState,
-  keySquareMapper
-};
+export { globalState, keySquareMapper };

@@ -1,5 +1,5 @@
 body {
-  background-color: #302E2B;
+  background-color: #302e2b;
 }
 
 #root {
@@ -69,10 +69,9 @@ body {
 }
 
 .modal img:hover {
-  border: 5px solid #302E2B;
+  border: 5px solid #302e2b;
   cursor: pointer;
 }
-
 
 .blur {
   filter: blur(15px);

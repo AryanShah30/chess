@@ -99,6 +99,4 @@ function pawnPromotion(color, callback, id) {
   }
 }
 
-export {
-  pawnPromotion
-};
+export { pawnPromotion };

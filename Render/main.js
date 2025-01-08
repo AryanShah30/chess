@@ -5,8 +5,8 @@ import { globalState } from "../index.js";
 const globalPiece = new Object();
 
 function globalStateRender() {
-  globalState.forEach(row => {
-    row.forEach(element => {
+  globalState.forEach((row) => {
+    row.forEach((element) => {
       if (element.highlight) {
         const highlightSpan = document.createElement("span");
         highlightSpan.classList.add("highlight");
@@ -14,7 +14,7 @@ function globalStateRender() {
       } else if (element.highlight === null) {
         const el = document.getElementById(element.id);
         const highlights = Array.from(el.getElementsByTagName("span"));
-        highlights.forEach(element => {
+        highlights.forEach((element) => {
           el.removeChild(element);
         });
       }
@@ -24,29 +24,31 @@ function globalStateRender() {
 
 function clearPreviousSelfHighlight(piece) {
   if (piece) {
-    document.getElementById(piece.current_position).classList.remove("highlightYellow")
+    document
+      .getElementById(piece.current_position)
+      .classList.remove("highlightYellow");
   }
 }
 
 function selfHighlight(piece) {
-  document.getElementById(piece.current_position).classList.add("highlightYellow");
+  document
+    .getElementById(piece.current_position)
+    .classList.add("highlightYellow");
 }
 
 function clearAllHighlightsExceptMove(previousPiece, currentPiece) {
-  const highlightedElements = document.querySelectorAll('.highlightYellow');
-  highlightedElements.forEach(element => {
+  const highlightedElements = document.querySelectorAll(".highlightYellow");
+  highlightedElements.forEach((element) => {
     if (element !== previousPiece && element !== currentPiece) {
-      element.classList.remove('highlightYellow');
+      element.classList.remove("highlightYellow");
     }
   });
 }
 
 function pieceRender(data) {
-  data.forEach(row => {
+  data.forEach((row) => {
     row.forEach((square) => {
-
       if (square.piece) {
-
         const squareEl = document.getElementById(square.id);
 
         const piece = document.createElement("img");
@@ -62,11 +64,9 @@ function pieceRender(data) {
 }
 
 function initGameRender(data) {
-  data.forEach(element => {
-
+  data.forEach((element) => {
     const rowEl = document.createElement("div");
     element.forEach((square) => {
-
       const squareDiv = document.createElement("div");
 
       squareDiv.id = square.id;
@@ -175,7 +175,7 @@ function renderHighlight(squareId) {
 
 function clearHighlight() {
   const flatData = globalState.flat();
-  flatData.forEach(el => {
+  flatData.forEach((el) => {
     if (el.captureHighlight) {
       document.getElementById(el.id).classList.remove("captureColor");
       el.captureHighlight = false;
