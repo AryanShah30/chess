@@ -44,7 +44,7 @@ function checkPieceOfOpponentOnElementNoDom(id, color) {
   if (!element) return false;
 
   // check if the square contains a piece and if the piece belongs to the opponent
-  if (element.piece && element.piece.piece_name.includes(opponentColor)) {
+  if (element.piece && element.piece.piece_name.includes(opponentColor) && !element.piece.piece_name.toLowerCase().includes("king")) {
     // return true if an opponent's piece is found
     return true;
   }
