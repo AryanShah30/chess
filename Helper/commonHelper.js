@@ -16,7 +16,7 @@ function checkPieceOfOpponentOnElement(id, color) {
   const pieceName = element.piece.piece_name.toLowerCase();
 
   // check if the piece belongs to the opponent
-  if (pieceName.includes(opponentColor.toLowerCase())) {
+  if (pieceName.includes(opponentColor.toLowerCase()) && !pieceName.includes("king")) {
     // add a visual highlight to the square to indicate a capture target
     const el = document.getElementById(id);
     el.classList.add("captureColor");
