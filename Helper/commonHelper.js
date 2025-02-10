@@ -660,6 +660,47 @@ function giveKingCaptureIds(id, color) {
   return result;
 }
 
+function givePawnCaptureIds(currentPosition, color) {
+  const file = currentPosition[0];
+  const rank = parseInt(currentPosition[1], 10);
+  const captures = [];
+
+  if (color === "white") {
+    const newRank = rank + 1;
+    if (newRank > 8) {
+      return captures;
+    }
+    
+    const leftFile = String.fromCharCode(file.charCodeAt(0) - 1);
+    if (leftFile >= "a") {
+      captures.push(`${leftFile}${newRank}`);
+    }
+    
+    const rightFile = String.fromCharCode(file.charCodeAt(0) + 1);
+    if (rightFile <= "h") {
+      captures.push(`${rightFile}${newRank}`);
+    }
+  } else {
+    const newRank = rank - 1;
+    if (newRank < 1) {
+      return captures;
+    }
+    
+    const leftFile = String.fromCharCode(file.charCodeAt(0) - 1);
+    if (leftFile >= "a") {
+      captures.push(`${leftFile}${newRank}`);
+    }
+    
+    const rightFile = String.fromCharCode(file.charCodeAt(0) + 1);
+    if (rightFile <= "h") {
+      captures.push(`${rightFile}${newRank}`);
+    }
+  }
+  
+  const finalCaptures = captures.filter((sq) => sq.length === 2);
+  return finalCaptures;
+} 
+
 export {
   checkPieceOfOpponentOnElement,
   checkSquareCaptureId,
@@ -674,4 +715,5 @@ export {
   giveBishopCaptureIds,
   giveRookCaptureIds,
   giveQueenCaptureIds,
+  givePawnCaptureIds,
 };
