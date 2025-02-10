@@ -96,26 +96,34 @@ function pieceRender(data) {
 
 // initializes the game board by creating HTML elements for the squares and rendering the pieces
 function initGameRender(data) {
-  // loops through each row of the board and creates a <div> for each square (squareDiv)
-  data.forEach((element) => {
+  // Initialize pawn counters on the global object
+  globalPiece.white_pawn_count = 0;
+  globalPiece.black_pawn_count = 0;
+
+  // Loop through each row of the board
+  data.forEach((row) => {
     const rowEl = document.createElement("div");
 
-    // loops through each square and handles piece placement
-    element.forEach((square) => {
+    // Loop through each square in the row
+    row.forEach((square) => {
       const squareDiv = document.createElement("div");
-
-      // assigns the square's id and CSS class based on its color
       squareDiv.id = square.id;
       squareDiv.classList.add(square.color, "square");
 
-      // pieces are placed on their starting position
-
-      if (square.id[1] == 7) {
+      // -------------------------------
+      // Place Black Pieces
+      // -------------------------------
+      // Black Pawns on rank 7 (note: square.id[1] returns a string)
+      if (square.id[1] === "7") {
         square.piece = piece.blackPawn(square.id);
-        globalPiece.black_pawn = square.piece;
+        globalPiece.black_pawn_count++;
+        // Save each pawn under a unique key
+        globalPiece[`black_pawn_${globalPiece.black_pawn_count}`] =
+          square.piece;
       }
 
-      if (square.id == "h8" || square.id == "a8") {
+      // Black Rooks (positions: a8 and h8)
+      if (square.id === "h8" || square.id === "a8") {
         square.piece = piece.blackRook(square.id);
         if (globalPiece.black_rook_1) {
           globalPiece.black_rook_2 = square.piece;
@@ -124,7 +132,8 @@ function initGameRender(data) {
         }
       }
 
-      if (square.id == "b8" || square.id == "g8") {
+      // Black Knights (positions: b8 and g8)
+      if (square.id === "b8" || square.id === "g8") {
         square.piece = piece.blackKnight(square.id);
         if (globalPiece.black_knight_1) {
           globalPiece.black_knight_2 = square.piece;
@@ -133,7 +142,8 @@ function initGameRender(data) {
         }
       }
 
-      if (square.id == "c8" || square.id == "f8") {
+      // Black Bishops (positions: c8 and f8)
+      if (square.id === "c8" || square.id === "f8") {
         square.piece = piece.blackBishop(square.id);
         if (globalPiece.black_bishop_1) {
           globalPiece.black_bishop_2 = square.piece;
@@ -142,22 +152,31 @@ function initGameRender(data) {
         }
       }
 
-      if (square.id == "d8") {
+      // Black Queen (position: d8)
+      if (square.id === "d8") {
         square.piece = piece.blackQueen(square.id);
         globalPiece.black_queen = square.piece;
       }
 
-      if (square.id == "e8") {
+      // Black King (position: e8)
+      if (square.id === "e8") {
         square.piece = piece.blackKing(square.id);
         globalPiece.black_king = square.piece;
       }
 
-      if (square.id[1] == 2) {
+      // -------------------------------
+      // Place White Pieces
+      // -------------------------------
+      // White Pawns on rank 2
+      if (square.id[1] === "2") {
         square.piece = piece.whitePawn(square.id);
-        globalPiece.white_pawn = square.piece;
+        globalPiece.white_pawn_count++;
+        globalPiece[`white_pawn_${globalPiece.white_pawn_count}`] =
+          square.piece;
       }
 
-      if (square.id == "h1" || square.id == "a1") {
+      // White Rooks (positions: a1 and h1)
+      if (square.id === "h1" || square.id === "a1") {
         square.piece = piece.whiteRook(square.id);
         if (globalPiece.white_rook_1) {
           globalPiece.white_rook_2 = square.piece;
@@ -166,7 +185,8 @@ function initGameRender(data) {
         }
       }
 
-      if (square.id == "b1" || square.id == "g1") {
+      // White Knights (positions: b1 and g1)
+      if (square.id === "b1" || square.id === "g1") {
         square.piece = piece.whiteKnight(square.id);
         if (globalPiece.white_knight_1) {
           globalPiece.white_knight_2 = square.piece;
@@ -175,7 +195,8 @@ function initGameRender(data) {
         }
       }
 
-      if (square.id == "c1" || square.id == "f1") {
+      // White Bishops (positions: c1 and f1)
+      if (square.id === "c1" || square.id === "f1") {
         square.piece = piece.whiteBishop(square.id);
         if (globalPiece.white_bishop_1) {
           globalPiece.white_bishop_2 = square.piece;
@@ -184,26 +205,28 @@ function initGameRender(data) {
         }
       }
 
-      if (square.id == "d1") {
+      // White Queen (position: d1)
+      if (square.id === "d1") {
         square.piece = piece.whiteQueen(square.id);
         globalPiece.white_queen = square.piece;
       }
 
-      if (square.id == "e1") {
+      // White King (position: e1)
+      if (square.id === "e1") {
         square.piece = piece.whiteKing(square.id);
         globalPiece.white_king = square.piece;
       }
 
-      // appends the square element to the row
+      // Append the square element to the row
       rowEl.appendChild(squareDiv);
     });
 
-    // appends the row to the main chessboard container (ROOT_DIV)
+    // Set row class and append the row to the chessboard container
     rowEl.classList.add("squareRow");
     ROOT_DIV.appendChild(rowEl);
   });
 
-  // calls 'pieceRender' function to render the pieces on the board
+  // Call pieceRender to render the pieces on the board
   pieceRender(data);
 }
 
