@@ -15,6 +15,11 @@ function checkPieceOfOpponentOnElement(id, color) {
   // get the name of the piece on the square in lowercase for comparison
   const pieceName = element.piece.piece_name.toLowerCase();
 
+  // extra check: if the piece is a king, do not allow its capture
+  if (pieceName.includes("king")) {
+    return false;
+  }
+
   // check if the piece belongs to the opponent
   if (pieceName.includes(opponentColor.toLowerCase())) {
     // add a visual highlight to the square to indicate a capture target
@@ -24,7 +29,7 @@ function checkPieceOfOpponentOnElement(id, color) {
     // mark the square's state as highlighted for capture
     element.captureHighlight = true;
 
-    // return true since an opponent's piece was found
+    // return true since an opponent's piece (that is not a king) was found
     return true;
   }
 
@@ -34,21 +39,21 @@ function checkPieceOfOpponentOnElement(id, color) {
 
 // omits DOM related operations and only checks logical conditions
 function checkPieceOfOpponentOnElementNoDom(id, color) {
-  // determine the opponent's color based on the player's color
   const opponentColor = color === "white" ? "BLACK" : "WHITE";
-
-  // retrieve the square data using the square's id
   const element = keySquareMapper[id];
-
-  // if the square is invalid or not found, return false
   if (!element) return false;
 
-  // check if the square contains a piece and if the piece belongs to the opponent
-  if (element.piece && element.piece.piece_name.includes(opponentColor)) {
-    // return true if an opponent's piece is found
-    return true;
+  // Check if the square contains a piece
+  if (element.piece) {
+    // Avoid capturing the king
+    if (element.piece.piece_name.toLowerCase().includes("king")) {
+      return false;
+    }
+    // Check if the piece belongs to the opponent
+    if (element.piece.piece_name.includes(opponentColor)) {
+      return true;
+    }
   }
-  // if no opponent's piece is found, return false
   return false;
 }
 
