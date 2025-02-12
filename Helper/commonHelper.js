@@ -1,4 +1,5 @@
 import { keySquareMapper } from "../index.js";
+import { globalPiece } from "../Render/main.js";
 
 // determine if a given square contains an opponent's piece
 // if it finds an opponent's piece, it highlights the square as a potential capture target
@@ -606,13 +607,16 @@ function giveQueenCaptureIds(id, color) {
 
 // calculates all possible squares a king can move to based on its current position
 function giveKingHighlightIds(id) {
-  // get rook moves for king
-  const rookMoves = giveRookHighlightIds(id);
+  if (!id) return;
 
-  // get bishop moves for king
+  const piece = keySquareMapper[id].piece;
+  const color = piece.piece_name.toLowerCase().includes("white") ? "white" : "black";
+  
+  // Get basic moves
+  const rookMoves = giveRookHighlightIds(id);
   const bishopMoves = giveBishopHighlightIds(id);
 
-  const returnResult = {
+  let returnResult = {
     left: rookMoves.left,
     right: rookMoves.right,
     top: rookMoves.top,
@@ -623,17 +627,56 @@ function giveKingHighlightIds(id) {
     topRight: bishopMoves.topRight,
   };
 
-  // loop through each direction
-  for (const key in returnResult) {
-    if (Object.hasOwnProperty.call(returnResult, key)) {
-      const element = returnResult[key];
-      if (element.length != 0) {
-        // for king, only one step in each direction
-        returnResult[key] = new Array(element[0]);
+  // Limit to one square in each direction
+  for (const direction in returnResult) {
+    if (returnResult[direction].length > 0) {
+      returnResult[direction] = [returnResult[direction][0]];
+    }
+  }
+
+  // Filter out moves that would put king in check
+  for (const direction in returnResult) {
+    returnResult[direction] = returnResult[direction].filter(square => {
+      // Check if target square has own piece
+      const targetSquare = keySquareMapper[square];
+      if (targetSquare?.piece?.piece_name?.toLowerCase().includes(color)) {
+        return false;
+      }
+      
+      // Check if move is legal (not into check)
+      return isMoveLegal(piece, square, color);
+    });
+  }
+
+  // Handle castling
+  if (!piece.move && !isKingInCheck(color)) {
+    const rank = color === "white" ? "1" : "8";
+    
+    // Kingside castling
+    const kingsideRook = keySquareMapper[`h${rank}`]?.piece;
+    if (kingsideRook && !kingsideRook.move) {
+      const kingsidePath = [`f${rank}`, `g${rank}`];
+      if (kingsidePath.every(square => {
+        return !keySquareMapper[square].piece && 
+               isMoveLegal(piece, square, color);
+      })) {
+        returnResult.right.push(`g${rank}`);
+      }
+    }
+    
+    // Queenside castling
+    const queensideRook = keySquareMapper[`a${rank}`]?.piece;
+    if (queensideRook && !queensideRook.move) {
+      const queensidePath = [`b${rank}`, `c${rank}`, `d${rank}`];
+      if (queensidePath.every(square => {
+        return !keySquareMapper[square].piece && 
+               isMoveLegal(piece, square, color);
+      })) {
+        returnResult.left.push(`c${rank}`);
       }
     }
   }
-  // return the valid moves for the king
+
   return returnResult;
 }
 
@@ -699,10 +742,109 @@ function givePawnCaptureIds(currentPosition, color) {
   
   const finalCaptures = captures.filter((sq) => sq.length === 2);
   return finalCaptures;
-} 
+}
+
+// Define isKingInCheck first since it's used by isMoveLegal
+function isKingInCheck(color) {
+  const kingPosition = color === "white" ? 
+    globalPiece.white_king.current_position : 
+    globalPiece.black_king.current_position;
+    
+  const opponentColor = color === "white" ? "black" : "white";
+  
+  // Get all opponent's pieces
+  const pieces = Object.entries(globalPiece)
+    .filter(([key, piece]) => 
+      key.toLowerCase().includes(opponentColor) && 
+      piece.current_position &&
+      !key.includes("king") // Exclude king to prevent infinite recursion
+    )
+    .map(([_, piece]) => piece);
+    
+  // Check if any opponent piece can capture the king
+  for (const piece of pieces) {
+    const pieceName = piece.piece_name.toLowerCase();
+    let attackSquares = [];
+    
+    if (pieceName.includes('pawn')) {
+      attackSquares = givePawnCaptureIds(piece.current_position, opponentColor);
+    } else if (pieceName.includes('knight')) {
+      attackSquares = giveKnightCaptureIds(piece.current_position, opponentColor);
+    } else if (pieceName.includes('bishop')) {
+      attackSquares = giveBishopCaptureIds(piece.current_position, opponentColor);
+    } else if (pieceName.includes('rook')) {
+      attackSquares = giveRookCaptureIds(piece.current_position, opponentColor);
+    } else if (pieceName.includes('queen')) {
+      attackSquares = giveQueenCaptureIds(piece.current_position, opponentColor);
+    }
+    
+    if (attackSquares.includes(kingPosition)) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+// Then define isMoveLegal
+function isMoveLegal(piece, targetSquare, color) {
+  if (!piece || !targetSquare) return false;
+
+  // Store original state
+  const originalPosition = piece.current_position;
+  const targetPiece = keySquareMapper[targetSquare]?.piece;
+  
+  // Temporarily make the move
+  piece.current_position = targetSquare;
+  if (keySquareMapper[targetSquare]) {
+    keySquareMapper[targetSquare].piece = piece;
+  }
+  keySquareMapper[originalPosition].piece = null;
+  
+  // Check if king is in check after the move
+  const isInCheck = isKingInCheck(color);
+  
+  // Restore original state
+  piece.current_position = originalPosition;
+  keySquareMapper[originalPosition].piece = piece;
+  keySquareMapper[targetSquare].piece = targetPiece;
+  
+  return !isInCheck;
+}
+
+// Define canCastle
+function canCastle(kingPos, rookPos, color) {
+  const king = keySquareMapper[kingPos].piece;
+  const rook = keySquareMapper[rookPos]?.piece;
+  
+  // Basic castling requirements
+  if (!king || king.move || !rook || rook.move) {
+    return false;
+  }
+  
+  // Check if path is clear
+  const file = rookPos[0];
+  const rank = rookPos[1];
+  const path = file === 'h' ? 
+    [`f${rank}`, `g${rank}`] : 
+    [`b${rank}`, `c${rank}`, `d${rank}`];
+    
+  if (path.some(square => keySquareMapper[square].piece)) {
+    return false;
+  }
+  
+  // Check if king is in check or passes through check
+  if (isKingInCheck(color)) {
+    return false;
+  }
+  
+  // Check if squares king moves through are under attack
+  return !path.some(square => !isMoveLegal(king, square, color));
+}
 
 export {
   checkPieceOfOpponentOnElement,
+  checkPieceOfOpponentOnElementNoDom,
   checkSquareCaptureId,
   giveBishopHighlightIds,
   checkWhetherPieceExistsOrNot,
@@ -716,4 +858,7 @@ export {
   giveRookCaptureIds,
   giveQueenCaptureIds,
   givePawnCaptureIds,
+  isMoveLegal,
+  isKingInCheck,
+  canCastle,
 };

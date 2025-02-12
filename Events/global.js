@@ -22,7 +22,8 @@ import {
   giveBishopCaptureIds,
   giveRookCaptureIds,
   giveQueenCaptureIds,
-  givePawnCaptureIds
+  givePawnCaptureIds,
+  isMoveLegal,
 } from "../Helper/commonHelper.js";
 import { pawnPromotion } from "../Helper/modalCreator.js";
 
@@ -57,7 +58,7 @@ function changeTurn() {
   inTurn = inTurn === "white" ? "black" : "white";
 }
 
-// handle the logic when a player selects a piece and either highlights it or captures an opponent’s piece
+// handle the logic when a player selects a piece and either highlights it or captures an opponent's piece
 function captureInTurn(square) {
   // get the piece on the current square
   const piece = square.piece;
@@ -284,6 +285,21 @@ function clearHighlightLocal() {
 // managing the movement of chess pieces
 // includes special handling for castling, pawn promotion, and regular piece movement
 function movePiece(piece, id, castle) {
+  // Check if move is legal (not putting/leaving king in check)
+  const color = piece.piece_name.toLowerCase().includes("white") ? "white" : "black";
+  
+  // Prevent the king from being captured by checking if the target square is under attack
+  if (piece.piece_name.includes("KING")) {
+    const targetSquare = keySquareMapper[id];
+    if (targetSquare?.piece?.piece_name?.toLowerCase().includes(color)) {
+      return; // Can't capture own pieces
+    }
+  }
+
+  // Check if move would put/leave king in check
+  if (!isMoveLegal(piece, id, color)) {
+    return;
+  }
   // Check for en passant capture
   if (piece.piece_name.includes("PAWN") && lastMove?.enPassantTarget === id) {
     const direction = piece.piece_name.includes("WHITE") ? -1 : 1;
