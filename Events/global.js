@@ -41,6 +41,11 @@ let moveState = null;
 
 let lastMove = null;
 
+let lastMoveSquares = {
+  from: null,
+  to: null
+};
+
 function changeTurn() {
   if (inTurn === "black") {
 
@@ -227,7 +232,9 @@ function clearHighlightLocal() {
   selfHighlightState = null;
   
   document.querySelectorAll('.highlightYellow').forEach(el => {
-    el.classList.remove('highlightYellow');
+    if (el.id !== lastMoveSquares.from && el.id !== lastMoveSquares.to) {
+      el.classList.remove('highlightYellow');
+    }
   });
 }
 
@@ -304,6 +311,16 @@ function isCastlingLegal(king, targetSquare) {
 function movePiece(piece, id, castle) {
   const color = piece.piece_name.toLowerCase().includes("white") ? "white" : "black";
   const rank = color === "white" ? "1" : "8";
+
+  if (lastMoveSquares.from) {
+    document.getElementById(lastMoveSquares.from)?.classList?.remove("highlightYellow");
+  }
+  if (lastMoveSquares.to) {
+    document.getElementById(lastMoveSquares.to)?.classList?.remove("highlightYellow");
+  }
+
+  lastMoveSquares.from = piece.current_position;
+  lastMoveSquares.to = id;
 
   if (piece.piece_name.includes("KING")) {
     const prevSquare = document.getElementById(piece.current_position);
@@ -388,12 +405,11 @@ function movePiece(piece, id, castle) {
 
   const previousPiece = document.getElementById(piece.current_position);
   const currentPiece = document.getElementById(id);
-  setTimeout(() => {
-    if (!castle) {
-      previousPiece?.classList?.add("highlightYellow");
-      currentPiece?.classList?.add("highlightYellow");
-    }
-  }, 10);
+  
+  if (!castle) {
+    previousPiece?.classList?.add("highlightYellow");
+    currentPiece?.classList?.add("highlightYellow");
+  }
 
   clearHighlight();
   clearAllHighlightsExceptMove(previousPiece, currentPiece);
