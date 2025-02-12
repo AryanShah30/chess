@@ -323,7 +323,6 @@ function movePiece(piece, id, castle) {
 
     castle = true;
   } else if (piece.piece_name.includes("KING") || piece.piece_name.includes("ROOK")) {
-
     piece.hasMoved = true;
   }
 
@@ -404,7 +403,9 @@ function movePiece(piece, id, castle) {
 
   checkForCheck();
 
-  if (!castle) changeTurn();
+  if (!castle || (castle && piece.piece_name.includes("KING"))) {
+    changeTurn();
+  }
 }
 
 function whitePawnClick(square) {
