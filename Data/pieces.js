@@ -1,9 +1,3 @@
-// each function represents a specific type of chess piece
-// accepts the piece's current position as an argument
-// returns an object containing the position, piece's image, piece name
-
-// for rook and king, 'move' defined for tracking castling restrictions
-
 function blackPawn(current_position) {
   return {
     current_position,
