@@ -304,6 +304,11 @@ function movePiece(piece, id, castle) {
   const color = piece.piece_name.toLowerCase().includes("white") ? "white" : "black";
   const rank = color === "white" ? "1" : "8";
 
+  if (piece.piece_name.includes("KING")) {
+    const prevSquare = document.getElementById(piece.current_position);
+    prevSquare?.classList?.remove("captureColor");
+  }
+
   if (piece.piece_name.includes("KING") && 
       (id === `c${rank}` || id === `g${rank}`) && 
       piece.current_position === `e${rank}`) {  

@@ -614,21 +614,32 @@ function givePawnCaptureIds(currentPosition, color) {
 function getBasicKingMoves(piece, color) {
   const moves = [];
   const directions = [
-    [-1,-1], [-1,0], [-1,1],
-    [0,-1],         [0,1],
-    [1,-1],  [1,0],  [1,1]
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, -1],
+    [0, 1],
+    [1, -1],
+    [1, 0],
+    [1, 1],
   ];
 
-  const [file, rank] = [piece.current_position[0], Number(piece.current_position[1])];
+  const [file, rank] = [
+    piece.current_position[0],
+    Number(piece.current_position[1]),
+  ];
 
   directions.forEach(([dx, dy]) => {
     const newFile = String.fromCharCode(file.charCodeAt(0) + dx);
     const newRank = rank + dy;
 
-    if (newFile >= 'a' && newFile <= 'h' && newRank >= 1 && newRank <= 8) {
+    if (newFile >= "a" && newFile <= "h" && newRank >= 1 && newRank <= 8) {
       const newSquare = `${newFile}${newRank}`;
       const targetPiece = keySquareMapper[newSquare]?.piece;
-      if (!targetPiece || !targetPiece.piece_name.toLowerCase().includes(color)) {
+      if (
+        !targetPiece ||
+        !targetPiece.piece_name.toLowerCase().includes(color)
+      ) {
         moves.push(newSquare);
       }
     }
@@ -660,9 +671,14 @@ function isSquareUnderAttack(squareId, color, excludeKing = false) {
   const opponentColor = color === "white" ? "black" : "white";
   let attackingSquares = [];
 
-  Object.values(keySquareMapper).forEach(square => {
-    if (square.piece && square.piece.piece_name.toLowerCase().includes(opponentColor)) {
-      attackingSquares.push(...getAttackingSquares(square.piece, opponentColor, excludeKing));
+  Object.values(keySquareMapper).forEach((square) => {
+    if (
+      square.piece &&
+      square.piece.piece_name.toLowerCase().includes(opponentColor)
+    ) {
+      attackingSquares.push(
+        ...getAttackingSquares(square.piece, opponentColor, excludeKing)
+      );
     }
   });
 
@@ -670,9 +686,10 @@ function isSquareUnderAttack(squareId, color, excludeKing = false) {
 }
 
 function isKingInCheck(color) {
-  const kingPosition = color === "white" ? 
-    globalPiece.white_king.current_position : 
-    globalPiece.black_king.current_position;
+  const kingPosition =
+    color === "white"
+      ? globalPiece.white_king.current_position
+      : globalPiece.black_king.current_position;
 
   return isSquareUnderAttack(kingPosition, color, true);
 }
