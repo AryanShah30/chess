@@ -282,24 +282,122 @@ function clearHighlightLocal() {
   selfHighlightState = null;
 }
 
+// Helper function to check if a square is under attack
+function isSquareUnderAttack(squareId, color) {
+  const opponentColor = color === "white" ? "black" : "white";
+  let attackingSquares = [];
+  
+  // Get all opponent pieces' possible capture squares
+  globalState.flat().forEach(square => {
+    if (square.piece && square.piece.piece_name.toLowerCase().includes(opponentColor)) {
+      const piece = square.piece;
+      if (piece.piece_name.includes("PAWN")) {
+        attackingSquares.push(...givePawnCaptureIds(piece.current_position, opponentColor));
+      } else if (piece.piece_name.includes("KNIGHT")) {
+        attackingSquares.push(...giveKnightCaptureIds(piece.current_position, opponentColor));
+      } else if (piece.piece_name.includes("BISHOP")) {
+        attackingSquares.push(...giveBishopCaptureIds(piece.current_position, opponentColor));
+      } else if (piece.piece_name.includes("ROOK")) {
+        attackingSquares.push(...giveRookCaptureIds(piece.current_position, opponentColor));
+      } else if (piece.piece_name.includes("QUEEN")) {
+        attackingSquares.push(...giveQueenCaptureIds(piece.current_position, opponentColor));
+      } else if (piece.piece_name.includes("KING")) {
+        attackingSquares.push(...giveKingCaptureIds(piece.current_position, opponentColor));
+      }
+    }
+  });
+  
+  return attackingSquares.includes(squareId);
+}
+
+// Function to check if castling is legal
+function isCastlingLegal(king, targetSquare) {
+  const color = king.piece_name.toLowerCase().includes("white") ? "white" : "black";
+  const rank = color === "white" ? "1" : "8";
+  const kingStartPos = `e${rank}`;
+  
+  // 1. Check if king and rook have moved
+  if (king.hasMoved || king.current_position !== kingStartPos) {
+    return false;
+  }
+  
+  // Determine if it's kingside or queenside castling
+  const isKingside = targetSquare === `g${rank}`;
+  const rookStartPos = isKingside ? `h${rank}` : `a${rank}`;
+  const rook = keySquareMapper[rookStartPos]?.piece;
+  
+  if (!rook || rook.hasMoved) {
+    return false;
+  }
+  
+  // 2. Check if squares between king and rook are empty
+  const betweenSquares = isKingside ? 
+    [`f${rank}`, `g${rank}`] : 
+    [`b${rank}`, `c${rank}`, `d${rank}`];
+    
+  for (let square of betweenSquares) {
+    if (keySquareMapper[square].piece) {
+      return false;
+    }
+  }
+  
+  // 3. Check if king is in check
+  if (isSquareUnderAttack(kingStartPos, color)) {
+    return false;
+  }
+  
+  // 4. Check if king passes through or ends up on attacked square
+  const passingSquares = isKingside ? 
+    [`f${rank}`, `g${rank}`] : 
+    [`c${rank}`, `d${rank}`];
+    
+  for (let square of passingSquares) {
+    if (isSquareUnderAttack(square, color)) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
 // managing the movement of chess pieces
 // includes special handling for castling, pawn promotion, and regular piece movement
 function movePiece(piece, id, castle) {
-  // Check if move is legal (not putting/leaving king in check)
   const color = piece.piece_name.toLowerCase().includes("white") ? "white" : "black";
+  const rank = color === "white" ? "1" : "8";
   
-  // Prevent the king from being captured by checking if the target square is under attack
-  if (piece.piece_name.includes("KING")) {
-    const targetSquare = keySquareMapper[id];
-    if (targetSquare?.piece?.piece_name?.toLowerCase().includes(color)) {
-      return; // Can't capture own pieces
+  // Handle castling moves - only attempt castling if king is on starting square
+  if (piece.piece_name.includes("KING") && 
+      (id === `c${rank}` || id === `g${rank}`) && 
+      piece.current_position === `e${rank}`) {  // Only check for castling from e1/e8
+    if (!isCastlingLegal(piece, id)) {
+      return;
     }
+    
+    // If castling is legal, move both pieces
+    const isKingside = id === `g${rank}`;
+    const rookStartPos = isKingside ? `h${rank}` : `a${rank}`;
+    const rookEndPos = isKingside ? `f${rank}` : `d${rank}`;
+    const rook = keySquareMapper[rookStartPos].piece;
+    
+    // Move rook
+    movePiece(rook, rookEndPos, true);
+    
+    // Update hasMoved for both pieces
+    piece.hasMoved = true;
+    rook.hasMoved = true;
+    
+    castle = true;
+  } else if (piece.piece_name.includes("KING") || piece.piece_name.includes("ROOK")) {
+    // Regular move - just update hasMoved
+    piece.hasMoved = true;
   }
-
-  // Check if move would put/leave king in check
+  
+  // Check if move is legal (not putting/leaving king in check)
   if (!isMoveLegal(piece, id, color)) {
     return;
   }
+  
   // Check for en passant capture
   if (piece.piece_name.includes("PAWN") && lastMove?.enPassantTarget === id) {
     const direction = piece.piece_name.includes("WHITE") ? -1 : 1;
@@ -336,71 +434,6 @@ function movePiece(piece, id, castle) {
   }
   // check if the pawn has been promoted
   const pawnIsPromoted = checkForPawnPromotion(piece, id);
-
-  // check for castling for white king
-  if (piece.piece_name.includes("KING") && piece.piece_name.includes("WHITE")) {
-    // castling on c1 or g1
-    if (id === "c1" || id === "g1") {
-      let rookStartPosition;
-      // set rook's starting position based on castling direction
-      if (id === "c1") {
-        rookStartPosition = "a1";
-      } else {
-        rookStartPosition = "h1";
-      }
-
-      // highlight the king and rook temporarily for castling
-      setTimeout(() => {
-        const kingStartElement = document.getElementById("e1");
-        const rookStartElement = document.getElementById(rookStartPosition);
-        kingStartElement?.classList?.add("highlightYellow");
-        rookStartElement?.classList?.add("highlightYellow");
-      }, 10);
-
-      // move the rook as part of castling
-      const rook = keySquareMapper[rookStartPosition];
-      const rookDestination = id === "c1" ? "d1" : "f1";
-
-      // recursive call to move the rook
-      movePiece(rook.piece, rookDestination, true);
-    }
-
-    // set castling flag to true and change turn
-    castle = true;
-    changeTurn();
-  }
-
-  // check for castling for black king
-  if (piece.piece_name.includes("KING") && piece.piece_name.includes("BLACK")) {
-    // castling on c8 or g8
-    if (id === "c8" || id === "g8") {
-      let rookStartPosition;
-      if (id === "c8") {
-        rookStartPosition = "a8";
-      } else {
-        rookStartPosition = "h8";
-      }
-
-      // highlight the king and rook temporarily for castling
-      setTimeout(() => {
-        const kingStartElement = document.getElementById("e8");
-        const rookStartElement = document.getElementById(rookStartPosition);
-        kingStartElement?.classList?.add("highlightYellow");
-        rookStartElement?.classList?.add("highlightYellow");
-      }, 10);
-
-      // move the rook as part of castling
-      const rook = keySquareMapper[rookStartPosition];
-      const rookDestination = id === "c8" ? "d8" : "f8";
-
-      // recursive call to move the rook
-      movePiece(rook.piece, rookDestination, true);
-    }
-
-    // set castling flag to true and change turn
-    castle = true;
-    changeTurn();
-  }
 
   // flatten globalState to find the current square of the piece
   const flatData = globalState.flat();
