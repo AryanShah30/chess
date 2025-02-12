@@ -222,12 +222,13 @@ function callbackPawnPromotion(piece, id) {
 }
 
 function clearHighlightLocal() {
-
   clearHighlight();
-
   highlight_state = false;
-
   selfHighlightState = null;
+  
+  document.querySelectorAll('.highlightYellow').forEach(el => {
+    el.classList.remove('highlightYellow');
+  });
 }
 
 function isSquareUnderAttack(squareId, color) {
@@ -1371,16 +1372,15 @@ function blackKingClick(square) {
 
 function globalEvent() {
   ROOT_DIV.addEventListener("click", function (event) {
-
     if (event.target.localName == "img") {
-      const clickId = event.target.parentNode.id; 
-      const square = keySquareMapper[clickId]; 
+      const clickId = event.target.parentNode.id;
+      const square = keySquareMapper[clickId];
 
       if (
         (square.piece.piece_name.includes("WHITE") && inTurn === "black") ||
         (square.piece.piece_name.includes("BLACK") && inTurn === "white")
       ) {
-        captureInTurn(square); 
+        captureInTurn(square);
         return;
       }
 
@@ -1410,9 +1410,6 @@ function globalEvent() {
         if (inTurn == "black") blackKingClick(square); 
       }
     } else {
-
-      selfHighlightState = null; 
-      highlight_state = false; 
       const targetElement = event.target;
       const isCaptureSquare = targetElement.classList.contains("captureColor");
       const id = targetElement.id || targetElement.parentNode.id;
@@ -1428,27 +1425,24 @@ function globalEvent() {
 
       const childElementsOfClickedEl = Array.from(event.target.childNodes);
 
-      if (
-        childElementsOfClickedEl.length == 1 ||
-        event.target.localName == "span"
-      ) {
-
+      if (childElementsOfClickedEl.length == 1 || event.target.localName == "span") {
         if (event.target.localName == "span") {
-          const id = event.target.parentNode.id; 
-          movePiece(moveState, id); 
-          moveState = null; 
+          const id = event.target.parentNode.id;
+          if (moveState) {
+            movePiece(moveState, id);
+            moveState = null;
+          }
         } else {
-          const id = event.target.id; 
-          movePiece(moveState, id); 
-          moveState = null; 
+          const id = event.target.id;
+          if (moveState) {
+            movePiece(moveState, id);
+            moveState = null;
+          }
         }
-        clearHighlightLocal(); 
-        clearPreviousSelfHighlight(selfHighlightState); 
-        selfHighlightState = null; 
-      } else {
-
         clearHighlightLocal();
-        clearPreviousSelfHighlight(selfHighlightState);
+      } else {
+        clearHighlightLocal();
+        moveState = null;
       }
     }
   });
