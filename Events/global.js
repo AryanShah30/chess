@@ -1387,6 +1387,75 @@ function blackKingClick(square) {
 }
 
 function globalEvent() {
+  function attachDragListeners() {
+    document.querySelectorAll('.piece').forEach(piece => {
+      piece.draggable = true;
+    });
+  }
+
+  attachDragListeners();
+
+  document.addEventListener('dragstart', (e) => {
+    if (!e.target.matches('.piece')) return;
+    
+    const square = keySquareMapper[e.target.parentNode.id];
+    const pieceObj = square.piece;
+    
+    if ((pieceObj.piece_name.includes('WHITE') && inTurn === 'black') ||
+        (pieceObj.piece_name.includes('BLACK') && inTurn === 'white')) {
+      e.preventDefault();
+      return;
+    }
+    
+    e.dataTransfer.setData('text/plain', e.target.parentNode.id);
+
+    if (pieceObj.piece_name.includes('PAWN')) {
+      if (inTurn === 'white') whitePawnClick(square);
+      else blackPawnClick(square);
+    } else if (pieceObj.piece_name.includes('BISHOP')) {
+      if (inTurn === 'white') whiteBishopClick(square);
+      else blackBishopClick(square);
+    } else if (pieceObj.piece_name.includes('ROOK')) {
+      if (inTurn === 'white') whiteRookClick(square);
+      else blackRookClick(square);
+    } else if (pieceObj.piece_name.includes('KNIGHT')) {
+      if (inTurn === 'white') whiteKnightClick(square);
+      else blackKnightClick(square);
+    } else if (pieceObj.piece_name.includes('QUEEN')) {
+      if (inTurn === 'white') whiteQueenClick(square);
+      else blackQueenClick(square);
+    } else if (pieceObj.piece_name.includes('KING')) {
+      if (inTurn === 'white') whiteKingClick(square);
+      else blackKingClick(square);
+    }
+  });
+
+  document.addEventListener('dragover', (e) => {
+    const square = e.target.closest('.square');
+    if (!square) return;
+    
+    if (square.querySelector('.highlight') || square.classList.contains('captureColor')) {
+      e.preventDefault();
+    }
+  });
+
+  document.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const square = e.target.closest('.square');
+    if (!square) return;
+    
+    const fromId = e.dataTransfer.getData('text/plain');
+    const toId = square.id;
+    
+    const fromSquare = keySquareMapper[fromId];
+    const piece = fromSquare.piece;
+    
+    if (piece) {
+      movePiece(piece, toId);
+      clearHighlightLocal();
+    }
+  });
+
   ROOT_DIV.addEventListener("click", function (event) {
     if (event.target.localName == "img") {
       const clickId = event.target.parentNode.id;
