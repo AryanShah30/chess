@@ -52,22 +52,19 @@ function changeTurn() {
 }
 
 function captureInTurn(square) {
-
   const piece = square.piece;
 
   if (piece == selfHighlightState) {
-    clearPreviousSelfHighlight(selfHighlightState); 
-    clearHighlightLocal(); 
-    return; 
+    clearPreviousSelfHighlight(selfHighlightState);
+    clearHighlightLocal();
+    return;
   }
 
   if (square.captureHighlight) {
-
     movePiece(selfHighlightState, piece.current_position);
-
-    clearPreviousSelfHighlight(selfHighlightState); 
-    clearHighlightLocal(); 
-    return; 
+    clearPreviousSelfHighlight(selfHighlightState);
+    clearHighlightLocal();
+    return;
   }
 
   return;

@@ -611,54 +611,70 @@ function givePawnCaptureIds(currentPosition, color) {
   return finalCaptures;
 }
 
-function isKingInCheck(color) {
-  const kingPosition =
-    color === "white"
-      ? globalPiece.white_king.current_position
-      : globalPiece.black_king.current_position;
+function getBasicKingMoves(piece, color) {
+  const moves = [];
+  const directions = [
+    [-1,-1], [-1,0], [-1,1],
+    [0,-1],         [0,1],
+    [1,-1],  [1,0],  [1,1]
+  ];
 
-  const opponentColor = color === "white" ? "black" : "white";
+  const [file, rank] = [piece.current_position[0], Number(piece.current_position[1])];
 
-  const pieces = Object.entries(globalPiece)
-    .filter(
-      ([key, piece]) =>
-        key.toLowerCase().includes(opponentColor) &&
-        piece.current_position &&
-        !key.includes("king")
-    )
-    .map(([_, piece]) => piece);
+  directions.forEach(([dx, dy]) => {
+    const newFile = String.fromCharCode(file.charCodeAt(0) + dx);
+    const newRank = rank + dy;
 
-  for (const piece of pieces) {
-    const pieceName = piece.piece_name.toLowerCase();
-    let attackSquares = [];
-
-    if (pieceName.includes("pawn")) {
-      attackSquares = givePawnCaptureIds(piece.current_position, opponentColor);
-    } else if (pieceName.includes("knight")) {
-      attackSquares = giveKnightCaptureIds(
-        piece.current_position,
-        opponentColor
-      );
-    } else if (pieceName.includes("bishop")) {
-      attackSquares = giveBishopCaptureIds(
-        piece.current_position,
-        opponentColor
-      );
-    } else if (pieceName.includes("rook")) {
-      attackSquares = giveRookCaptureIds(piece.current_position, opponentColor);
-    } else if (pieceName.includes("queen")) {
-      attackSquares = giveQueenCaptureIds(
-        piece.current_position,
-        opponentColor
-      );
+    if (newFile >= 'a' && newFile <= 'h' && newRank >= 1 && newRank <= 8) {
+      const newSquare = `${newFile}${newRank}`;
+      const targetPiece = keySquareMapper[newSquare]?.piece;
+      if (!targetPiece || !targetPiece.piece_name.toLowerCase().includes(color)) {
+        moves.push(newSquare);
+      }
     }
+  });
 
-    if (attackSquares.includes(kingPosition)) {
-      return true;
-    }
+  return moves;
+}
+
+function getAttackingSquares(piece, color, excludeKing = false) {
+  if (!piece || !piece.current_position) return [];
+
+  if (piece.piece_name.includes("PAWN")) {
+    return givePawnCaptureIds(piece.current_position, color);
+  } else if (piece.piece_name.includes("KNIGHT")) {
+    return giveKnightCaptureIds(piece.current_position, color);
+  } else if (piece.piece_name.includes("BISHOP")) {
+    return giveBishopCaptureIds(piece.current_position, color);
+  } else if (piece.piece_name.includes("ROOK")) {
+    return giveRookCaptureIds(piece.current_position, color);
+  } else if (piece.piece_name.includes("QUEEN")) {
+    return giveQueenCaptureIds(piece.current_position, color);
+  } else if (!excludeKing && piece.piece_name.includes("KING")) {
+    return getBasicKingMoves(piece, color);
   }
+  return [];
+}
 
-  return false;
+function isSquareUnderAttack(squareId, color, excludeKing = false) {
+  const opponentColor = color === "white" ? "black" : "white";
+  let attackingSquares = [];
+
+  Object.values(keySquareMapper).forEach(square => {
+    if (square.piece && square.piece.piece_name.toLowerCase().includes(opponentColor)) {
+      attackingSquares.push(...getAttackingSquares(square.piece, opponentColor, excludeKing));
+    }
+  });
+
+  return attackingSquares.includes(squareId);
+}
+
+function isKingInCheck(color) {
+  const kingPosition = color === "white" ? 
+    globalPiece.white_king.current_position : 
+    globalPiece.black_king.current_position;
+
+  return isSquareUnderAttack(kingPosition, color, true);
 }
 
 function isMoveLegal(piece, targetSquare, color) {
@@ -667,19 +683,20 @@ function isMoveLegal(piece, targetSquare, color) {
   const originalPosition = piece.current_position;
   const targetPiece = keySquareMapper[targetSquare]?.piece;
 
+  const originalSquare = keySquareMapper[originalPosition];
+  const targetSquareObj = keySquareMapper[targetSquare];
+
+  originalSquare.piece = null;
+  targetSquareObj.piece = piece;
   piece.current_position = targetSquare;
-  if (keySquareMapper[targetSquare]) {
-    keySquareMapper[targetSquare].piece = piece;
-  }
-  keySquareMapper[originalPosition].piece = null;
 
-  const isInCheck = isKingInCheck(color);
+  const stillInCheck = isKingInCheck(color);
 
+  originalSquare.piece = piece;
+  targetSquareObj.piece = targetPiece;
   piece.current_position = originalPosition;
-  keySquareMapper[originalPosition].piece = piece;
-  keySquareMapper[targetSquare].piece = targetPiece;
 
-  return !isInCheck;
+  return !stillInCheck;
 }
 
 function canCastle(kingPos, rookPos, color) {
