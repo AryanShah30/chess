@@ -157,6 +157,7 @@ let lastMoveSquares = {
   to: null,
 };
 let promotedPieces = [];
+let halfMoveCount = 0;
 
 function changeTurn() {
   if (inTurn === "black") {
@@ -466,6 +467,34 @@ function movePiece(piece, id, castle) {
     ? "white"
     : "black";
   const rank = color === "white" ? "1" : "8";
+
+  // Reset halfMoveCount if it's a pawn move or capture
+  const targetSquare = keySquareMapper[id];
+  const isCapture = targetSquare.piece !== null && 
+                   targetSquare.piece !== undefined && 
+                   targetSquare.piece.piece_name && 
+                   targetSquare.piece.piece_name.toLowerCase().includes(color === "white" ? "black" : "white");
+  const isPawnMove = piece.piece_name.includes("PAWN");
+  
+  if (isCapture || isPawnMove) {
+    console.log(`Resetting half-move count: ${isCapture ? 'Capture' : 'Pawn move'}`);
+    halfMoveCount = 0;
+  } else {
+    halfMoveCount++;
+    console.log(`Half-move count: ${halfMoveCount}/100`);
+    
+    // Check for 50-move rule immediately after incrementing
+    if (halfMoveCount >= 100) {
+      console.log("50-move rule reached!");
+      setTimeout(() => {
+        alert("Draw by 50-move rule!");
+      }, 100);
+      return;
+    }
+  }
+
+  // Log the move details
+  console.log(`Move: ${piece.piece_name} from ${piece.current_position} to ${id}${isCapture ? ' (Capture)' : ''}`);
 
   if (lastMoveSquares.from) {
     document
