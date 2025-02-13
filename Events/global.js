@@ -344,17 +344,24 @@ function checkForPawnPromotion(piece, id) {
 function callbackPawnPromotion(piece, id) {
   const realPiece = piece(id);
   const currentSquare = keySquareMapper[id];
+  const oldPiece = currentSquare.piece;
 
-  piece.current_position = id;
-
-  currentSquare.piece = realPiece;
   realPiece.current_position = id;
 
+  currentSquare.piece = realPiece;
+
+  if (oldPiece) {
+    Object.keys(globalPiece).forEach((key) => {
+      if (globalPiece[key] === oldPiece) {
+        globalPiece[key] = realPiece;
+      }
+    });
+  }
+
+  const currentElement = document.getElementById(id);
   const image = document.createElement("img");
   image.src = realPiece.img;
   image.classList.add("piece");
-
-  const currentElement = document.getElementById(id);
   currentElement.innerHTML = "";
   currentElement.append(image);
 
