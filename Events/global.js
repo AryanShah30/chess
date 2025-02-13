@@ -43,7 +43,7 @@ function getAllLegalMoves(color) {
       const direction = color === "white" ? 1 : -1;
       const startRow = color === "white" ? "2" : "7";
       const oneStep = `${pos[0]}${parseInt(pos[1]) + direction}`;
-      
+
       if (!keySquareMapper[oneStep].piece) {
         possibleMoves.push(oneStep);
         if (pos[1] === startRow) {
@@ -53,15 +53,18 @@ function getAllLegalMoves(color) {
           }
         }
       }
-      
+
       const captures = givePawnCaptureIds(pos, color);
-      captures.forEach(captureSquare => {
+      captures.forEach((captureSquare) => {
         const targetSquare = keySquareMapper[captureSquare];
-        if (targetSquare?.piece?.piece_name.toLowerCase().includes(color === "white" ? "black" : "white")) {
+        if (
+          targetSquare?.piece?.piece_name
+            .toLowerCase()
+            .includes(color === "white" ? "black" : "white")
+        ) {
           possibleMoves.push(captureSquare);
         }
       });
-
     } else if (piece.piece_name.includes("KNIGHT")) {
       possibleMoves = giveKnightHighlightIds(pos, color);
     } else if (piece.piece_name.includes("BISHOP")) {
@@ -72,7 +75,11 @@ function getAllLegalMoves(color) {
           if (!targetSquare.piece) {
             possibleMoves.push(square);
           } else {
-            if (targetSquare.piece.piece_name.toLowerCase().includes(color === "white" ? "black" : "white")) {
+            if (
+              targetSquare.piece.piece_name
+                .toLowerCase()
+                .includes(color === "white" ? "black" : "white")
+            ) {
               possibleMoves.push(square);
             }
             break;
@@ -87,7 +94,11 @@ function getAllLegalMoves(color) {
           if (!targetSquare.piece) {
             possibleMoves.push(square);
           } else {
-            if (targetSquare.piece.piece_name.toLowerCase().includes(color === "white" ? "black" : "white")) {
+            if (
+              targetSquare.piece.piece_name
+                .toLowerCase()
+                .includes(color === "white" ? "black" : "white")
+            ) {
               possibleMoves.push(square);
             }
             break;
@@ -102,7 +113,11 @@ function getAllLegalMoves(color) {
           if (!targetSquare.piece) {
             possibleMoves.push(square);
           } else {
-            if (targetSquare.piece.piece_name.toLowerCase().includes(color === "white" ? "black" : "white")) {
+            if (
+              targetSquare.piece.piece_name
+                .toLowerCase()
+                .includes(color === "white" ? "black" : "white")
+            ) {
               possibleMoves.push(square);
             }
             break;
@@ -113,21 +128,20 @@ function getAllLegalMoves(color) {
       possibleMoves = Object.values(giveKingHighlightIds(pos)).flat();
     }
 
-    possibleMoves = possibleMoves.filter(move => {
+    possibleMoves = possibleMoves.filter((move) => {
       if (move && isMoveLegal(piece, move, color)) {
         return true;
       }
       return false;
     });
 
-    possibleMoves.forEach(move => {
+    possibleMoves.forEach((move) => {
       if (move) {
         legalMoves.push(`${piece.piece_name} from ${pos} to ${move}`);
       }
     });
   });
 
-  console.log(`Legal moves for ${color}:`, legalMoves);
   return legalMoves;
 }
 
@@ -147,7 +161,6 @@ let promotedPieces = [];
 function changeTurn() {
   if (inTurn === "black") {
     moveCount++;
-    console.log("No. of moves played: ", moveCount);
   }
 
   inTurn = inTurn === "white" ? "black" : "white";
@@ -185,7 +198,6 @@ function checkForCheck() {
       ? globalPiece.black_king.current_position
       : globalPiece.white_king.current_position;
 
-  console.log(`${currentPlayerColor} is checking for checks`);
   let attackedSquares = [];
 
   Object.values(globalPiece).forEach((piece) => {
@@ -222,7 +234,6 @@ function checkForCheck() {
     });
 
     if (validCaptures.length > 0) {
-      console.log(`${piece.piece_name} at ${pos} attacks:`, validCaptures);
       attackedSquares.push(...validCaptures);
     }
   });
@@ -230,17 +241,16 @@ function checkForCheck() {
   if (attackedSquares.includes(opponentKingPosition)) {
     document.getElementById(opponentKingPosition).classList.add("captureColor");
     whoInCheck = currentPlayerColor === "white" ? "black" : "white";
-    console.log(`CHECK! ${whoInCheck}'s king is under attack!`);
+    alert(`Check! ${whoInCheck}'s king is under attack!`);
 
     const blockingSquares = getBlockingSquares(opponentKingPosition);
-    console.log("Squares that can block/capture:", blockingSquares);
-
     checkLegalMovesInCheck(blockingSquares);
   } else {
-    // Check for stalemate - if no legal moves and king is not in check
-    const legalMoves = getAllLegalMoves(currentPlayerColor === "white" ? "black" : "white");
+    const legalMoves = getAllLegalMoves(
+      currentPlayerColor === "white" ? "black" : "white"
+    );
     if (legalMoves.length === 0) {
-      console.log("STALEMATE! No legal moves available and king is not in check!");
+      alert("STALEMATE! No legal moves available and king is not in check!");
     }
   }
 }
@@ -301,15 +311,10 @@ function getBlockingSquares(kingPosition) {
 
 function checkLegalMovesInCheck(blockingSquares) {
   let legalMoves = [];
-
-  // Get all legal moves for the checked color
   legalMoves = getAllLegalMoves(whoInCheck);
 
-  // If there are any legal moves, it's not checkmate
-  if (legalMoves.length > 0) {
-    console.log("Legal moves to get out of check:", legalMoves);
-  } else {
-    console.log("CHECKMATE! No legal moves to get out of check!");
+  if (legalMoves.length === 0) {
+    alert("CHECKMATE! No legal moves to get out of check!");
   }
 }
 
