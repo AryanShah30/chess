@@ -296,50 +296,10 @@ function getBlockingSquares(kingPosition) {
 function checkLegalMovesInCheck(blockingSquares) {
   let legalMoves = [];
 
-  Object.values(globalPiece).forEach((piece) => {
-    if (!piece || !piece.piece_name || !piece.current_position) return;
-    if (!piece.piece_name.toLowerCase().includes(whoInCheck)) return;
+  // Get all legal moves for the checked color
+  legalMoves = getAllLegalMoves(whoInCheck);
 
-    const square = keySquareMapper[piece.current_position];
-    if (!square) return;
-
-    clearHighlightLocal();
-
-    const previousHighlights = document.querySelectorAll(
-      ".highlight, .captureColor"
-    );
-    const previousHighlightIds = Array.from(previousHighlights).map(
-      (el) => el.id
-    );
-
-    if (whoInCheck === "black") {
-      if (piece.piece_name.includes("PAWN")) blackPawnClick(square);
-      else if (piece.piece_name.includes("KNIGHT")) blackKnightClick(square);
-      else if (piece.piece_name.includes("BISHOP")) blackBishopClick(square);
-      else if (piece.piece_name.includes("ROOK")) blackRookClick(square);
-      else if (piece.piece_name.includes("QUEEN")) blackQueenClick(square);
-      else if (piece.piece_name.includes("KING")) blackKingClick(square);
-    } else {
-      if (piece.piece_name.includes("PAWN")) whitePawnClick(square);
-      else if (piece.piece_name.includes("KNIGHT")) whiteKnightClick(square);
-      else if (piece.piece_name.includes("BISHOP")) whiteBishopClick(square);
-      else if (piece.piece_name.includes("ROOK")) whiteRookClick(square);
-      else if (piece.piece_name.includes("QUEEN")) whiteQueenClick(square);
-      else if (piece.piece_name.includes("KING")) whiteKingClick(square);
-    }
-
-    const currentHighlights = document.querySelectorAll(
-      ".highlight, .captureColor"
-    );
-    Array.from(currentHighlights).forEach((move) => {
-      if (blockingSquares.includes(move.id)) {
-        legalMoves.push(`${piece.piece_name} to ${move.id}`);
-      }
-    });
-
-    clearHighlightLocal();
-  });
-
+  // If there are any legal moves, it's not checkmate
   if (legalMoves.length > 0) {
     console.log("Legal moves to get out of check:", legalMoves);
   } else {
