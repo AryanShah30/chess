@@ -571,6 +571,10 @@ function giveKingCaptureIds(id, color) {
 }
 
 function givePawnCaptureIds(currentPosition, color) {
+  if (!currentPosition) {
+    return [];
+  }
+
   const file = currentPosition[0];
   const rank = parseInt(currentPosition[1], 10);
   const captures = [];
