@@ -460,6 +460,54 @@ function isCastlingLegal(king, targetSquare) {
   return true;
 }
 
+function isDeadPosition() {
+  const pieces = Object.values(globalPiece)
+    .filter((piece) => piece && piece.current_position)
+    .map((piece) => piece.piece_name);
+
+  if (pieces.length === 2) {
+    const isKingVsKing = pieces.every((pieceName) =>
+      pieceName.includes("KING")
+    );
+    if (isKingVsKing) {
+      return true;
+    }
+  }
+
+  if (pieces.length === 3) {
+    const kings = pieces.filter((pieceName) => pieceName.includes("KING"));
+    const others = pieces.filter((pieceName) => !pieceName.includes("KING"));
+
+    if (kings.length === 2 && others.length === 1) {
+      const isDeadMaterial =
+        others[0].includes("BISHOP") || others[0].includes("KNIGHT");
+      if (isDeadMaterial) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+function checkForDraw() {
+  if (isDeadPosition()) {
+    setTimeout(() => {
+      alert("Draw by insufficient material!");
+    }, 100);
+    return true;
+  }
+
+  if (halfMoveCount >= 100) {
+    setTimeout(() => {
+      alert("Draw by 50-move rule!");
+    }, 100);
+    return true;
+  }
+
+  return false;
+}
+
 function movePiece(piece, id, castle) {
   if (!piece || !id) return;
 
@@ -468,33 +516,28 @@ function movePiece(piece, id, castle) {
     : "black";
   const rank = color === "white" ? "1" : "8";
 
-  // Reset halfMoveCount if it's a pawn move or capture
   const targetSquare = keySquareMapper[id];
-  const isCapture = targetSquare.piece !== null && 
-                   targetSquare.piece !== undefined && 
-                   targetSquare.piece.piece_name && 
-                   targetSquare.piece.piece_name.toLowerCase().includes(color === "white" ? "black" : "white");
+  const isCapture =
+    targetSquare.piece !== null &&
+    targetSquare.piece !== undefined &&
+    targetSquare.piece.piece_name &&
+    targetSquare.piece.piece_name
+      .toLowerCase()
+      .includes(color === "white" ? "black" : "white");
   const isPawnMove = piece.piece_name.includes("PAWN");
-  
+
   if (isCapture || isPawnMove) {
-    console.log(`Resetting half-move count: ${isCapture ? 'Capture' : 'Pawn move'}`);
     halfMoveCount = 0;
   } else {
     halfMoveCount++;
-    console.log(`Half-move count: ${halfMoveCount}/100`);
-    
-    // Check for 50-move rule immediately after incrementing
+
     if (halfMoveCount >= 100) {
-      console.log("50-move rule reached!");
       setTimeout(() => {
         alert("Draw by 50-move rule!");
       }, 100);
       return;
     }
   }
-
-  // Log the move details
-  console.log(`Move: ${piece.piece_name} from ${piece.current_position} to ${id}${isCapture ? ' (Capture)' : ''}`);
 
   if (lastMoveSquares.from) {
     document
@@ -618,6 +661,10 @@ function movePiece(piece, id, castle) {
 
   if (!castle || (castle && piece.piece_name.includes("KING"))) {
     changeTurn();
+  }
+
+  if (checkForDraw()) {
+    return;
   }
 }
 
