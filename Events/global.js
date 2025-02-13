@@ -27,6 +27,110 @@ import {
 } from "../Helper/commonHelper.js";
 import { pawnPromotion } from "../Helper/modalCreator.js";
 
+function getAllLegalMoves(color) {
+  let legalMoves = [];
+
+  Object.values(globalPiece).forEach((piece) => {
+    if (!piece || !piece.piece_name) return;
+    if (!piece.piece_name.toLowerCase().includes(color)) return;
+
+    const pos = piece.current_position;
+    if (!pos) return;
+
+    let possibleMoves = [];
+
+    if (piece.piece_name.includes("PAWN")) {
+      const direction = color === "white" ? 1 : -1;
+      const startRow = color === "white" ? "2" : "7";
+      const oneStep = `${pos[0]}${parseInt(pos[1]) + direction}`;
+      
+      if (!keySquareMapper[oneStep].piece) {
+        possibleMoves.push(oneStep);
+        if (pos[1] === startRow) {
+          const twoStep = `${pos[0]}${parseInt(pos[1]) + 2 * direction}`;
+          if (!keySquareMapper[twoStep].piece) {
+            possibleMoves.push(twoStep);
+          }
+        }
+      }
+      
+      const captures = givePawnCaptureIds(pos, color);
+      captures.forEach(captureSquare => {
+        const targetSquare = keySquareMapper[captureSquare];
+        if (targetSquare?.piece?.piece_name.toLowerCase().includes(color === "white" ? "black" : "white")) {
+          possibleMoves.push(captureSquare);
+        }
+      });
+
+    } else if (piece.piece_name.includes("KNIGHT")) {
+      possibleMoves = giveKnightHighlightIds(pos, color);
+    } else if (piece.piece_name.includes("BISHOP")) {
+      const directions = giveBishopHighlightIds(pos);
+      for (const direction of Object.values(directions)) {
+        for (const square of direction) {
+          const targetSquare = keySquareMapper[square];
+          if (!targetSquare.piece) {
+            possibleMoves.push(square);
+          } else {
+            if (targetSquare.piece.piece_name.toLowerCase().includes(color === "white" ? "black" : "white")) {
+              possibleMoves.push(square);
+            }
+            break;
+          }
+        }
+      }
+    } else if (piece.piece_name.includes("ROOK")) {
+      const directions = giveRookHighlightIds(pos);
+      for (const direction of Object.values(directions)) {
+        for (const square of direction) {
+          const targetSquare = keySquareMapper[square];
+          if (!targetSquare.piece) {
+            possibleMoves.push(square);
+          } else {
+            if (targetSquare.piece.piece_name.toLowerCase().includes(color === "white" ? "black" : "white")) {
+              possibleMoves.push(square);
+            }
+            break;
+          }
+        }
+      }
+    } else if (piece.piece_name.includes("QUEEN")) {
+      const directions = giveQueenHighlightIds(pos);
+      for (const direction of Object.values(directions)) {
+        for (const square of direction) {
+          const targetSquare = keySquareMapper[square];
+          if (!targetSquare.piece) {
+            possibleMoves.push(square);
+          } else {
+            if (targetSquare.piece.piece_name.toLowerCase().includes(color === "white" ? "black" : "white")) {
+              possibleMoves.push(square);
+            }
+            break;
+          }
+        }
+      }
+    } else if (piece.piece_name.includes("KING")) {
+      possibleMoves = Object.values(giveKingHighlightIds(pos)).flat();
+    }
+
+    possibleMoves = possibleMoves.filter(move => {
+      if (move && isMoveLegal(piece, move, color)) {
+        return true;
+      }
+      return false;
+    });
+
+    possibleMoves.forEach(move => {
+      if (move) {
+        legalMoves.push(`${piece.piece_name} from ${pos} to ${move}`);
+      }
+    });
+  });
+
+  console.log(`Legal moves for ${color}:`, legalMoves);
+  return legalMoves;
+}
+
 let inTurn = "white";
 let whoInCheck = null;
 let moveCount = 0;
@@ -47,6 +151,7 @@ function changeTurn() {
   }
 
   inTurn = inTurn === "white" ? "black" : "white";
+  getAllLegalMoves(inTurn);
 }
 
 function captureInTurn(square) {

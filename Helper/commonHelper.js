@@ -282,7 +282,7 @@ function giveBishopCaptureIds(id, color) {
   return returnArr;
 }
 
-function giveKnightHighlightIds(id) {
+function giveKnightHighlightIds(id, color) {
   if (!id) {
     return;
   }
@@ -430,7 +430,10 @@ function giveKnightHighlightIds(id) {
     }
   }
 
-  return [...top(), ...bottom(), ...left(), ...right()];
+  return [...top(), ...bottom(), ...left(), ...right()].filter(square => {
+    const targetSquare = keySquareMapper[square];
+    return !targetSquare.piece || !targetSquare.piece.piece_name.toLowerCase().includes(color);
+  });
 }
 
 function giveKnightCaptureIds(id, color) {
@@ -438,7 +441,7 @@ function giveKnightCaptureIds(id, color) {
     return [];
   }
 
-  let returnArr = giveKnightHighlightIds(id);
+  let returnArr = giveKnightHighlightIds(id, color);
 
   returnArr = returnArr.filter((element) => {
     if (checkPieceOfOpponentOnElementNoDom(element, color)) {
@@ -707,16 +710,20 @@ function isMoveLegal(piece, targetSquare, color) {
   const originalSquare = keySquareMapper[originalPosition];
   const targetSquareObj = keySquareMapper[targetSquare];
 
+  // Temporarily move the piece to the target square
   originalSquare.piece = null;
   targetSquareObj.piece = piece;
   piece.current_position = targetSquare;
 
+  // Check if the king is in check after the move
   const stillInCheck = isKingInCheck(color);
 
+  // Revert the move
   originalSquare.piece = piece;
   targetSquareObj.piece = targetPiece;
   piece.current_position = originalPosition;
 
+  // The move is legal if it does not leave the king in check
   return !stillInCheck;
 }
 
