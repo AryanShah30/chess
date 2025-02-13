@@ -236,6 +236,12 @@ function checkForCheck() {
     console.log("Squares that can block/capture:", blockingSquares);
 
     checkLegalMovesInCheck(blockingSquares);
+  } else {
+    // Check for stalemate - if no legal moves and king is not in check
+    const legalMoves = getAllLegalMoves(currentPlayerColor === "white" ? "black" : "white");
+    if (legalMoves.length === 0) {
+      console.log("STALEMATE! No legal moves available and king is not in check!");
+    }
   }
 }
 
