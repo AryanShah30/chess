@@ -347,7 +347,6 @@ function callbackPawnPromotion(piece, id) {
   const oldPiece = currentSquare.piece;
 
   realPiece.current_position = id;
-
   currentSquare.piece = realPiece;
 
   if (oldPiece) {
@@ -366,6 +365,11 @@ function callbackPawnPromotion(piece, id) {
   currentElement.append(image);
 
   checkForCheck();
+  changeTurn();
+
+  if (checkForDraw()) {
+    return;
+  }
 }
 
 function clearHighlightLocal() {
@@ -662,6 +666,7 @@ function movePiece(piece, id, castle) {
   if (pawnIsPromoted) {
     currentPiece?.classList?.add("highlightYellow");
     pawnPromotion(inTurn, callbackPawnPromotion, id);
+    return;
   }
 
   checkForCheck();
