@@ -765,4 +765,5 @@ export {
   isMoveLegal,
   isKingInCheck,
   canCastle,
+  getAttackingSquares,
 };
