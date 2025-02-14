@@ -36,10 +36,11 @@ function createNotificationModal(message, isGameOver = false) {
         buttonContainer.appendChild(continueButton);
         modalContent.appendChild(buttonContainer);
     } else {
+        // For check notifications, auto-dismiss after 1.5 seconds
         setTimeout(() => {
             modalOverlay.remove();
             if (chessClock && !chessClock.isGameOver) chessClock.resume();
-        }, 2000);
+        }, 900);
     }
     
     modalOverlay.appendChild(modalContent);
