@@ -242,16 +242,26 @@ function checkForCheck() {
   if (attackedSquares.includes(opponentKingPosition)) {
     document.getElementById(opponentKingPosition).classList.add("captureColor");
     whoInCheck = currentPlayerColor === "white" ? "black" : "white";
-    alert(`Check! ${whoInCheck}'s king is under attack!`);
-
+    
     const blockingSquares = getBlockingSquares(opponentKingPosition);
     checkLegalMovesInCheck(blockingSquares);
+    
+    const legalMoves = getAllLegalMoves(whoInCheck);
+    if (legalMoves.length === 0) {
+      if (confirm(`Checkmate! ${currentPlayerColor} wins! Click OK to reset the game, or Cancel to stay on the board.`)) {
+        location.reload();
+      }
+    } else {
+      alert(`Check! ${whoInCheck}'s king is under attack!`);
+    }
   } else {
     const legalMoves = getAllLegalMoves(
       currentPlayerColor === "white" ? "black" : "white"
     );
     if (legalMoves.length === 0) {
-      alert("STALEMATE! No legal moves available and king is not in check!");
+      if (confirm("STALEMATE! No legal moves available and king is not in check! Click OK to reset the game, or Cancel to stay on the board.")) {
+        location.reload();
+      }
     }
   }
 }
@@ -510,14 +520,18 @@ function isDeadPosition() {
 function checkForDraw() {
   if (isDeadPosition()) {
     setTimeout(() => {
-      alert("Draw by insufficient material!");
+      if (confirm("Draw by insufficient material! Click OK to reset the game, or Cancel to stay on the board.")) {
+        location.reload();
+      }
     }, 100);
     return true;
   }
 
   if (halfMoveCount >= 100) {
     setTimeout(() => {
-      alert("Draw by 50-move rule!");
+      if (confirm("Draw by 50-move rule! Click OK to reset the game, or Cancel to stay on the board.")) {
+        location.reload();
+      }
     }, 100);
     return true;
   }
