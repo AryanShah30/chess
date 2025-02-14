@@ -2,6 +2,7 @@ class Scoresheet {
   constructor() {
     this.moves = [];
     this.currentMove = 1;
+    this.promotedTo = null;
   }
 
   getPieceSymbol(piece) {
@@ -36,27 +37,48 @@ class Scoresheet {
     isCheckmate,
     isCastle
   ) {
+    console.log('Converting to notation:', {
+      piece_name: piece.piece_name,
+      fromPos,
+      toPos,
+      isCapture,
+      isCheck,
+      isCheckmate,
+      isCastle,
+      promotedTo: this.promotedTo
+    });
+
+    let notation = "";
+
+    // Handle castling first
     if (isCastle) {
       return toPos[0] === "g" ? "O-O" : "O-O-O";
     }
 
-    let notation = "";
-
-    // Add piece symbol (except for pawns)
-    notation += this.getPieceSymbol(piece);
-
-    // Add source file for pawn captures (including en passant)
-    if (piece.piece_name.includes("PAWN") && (isCapture || fromPos[0] !== toPos[0])) {
-      notation += fromPos[0];
+    // For pawns, only add piece symbol for non-pawns
+    if (!piece.piece_name.includes("PAWN")) {
+      notation += this.getPieceSymbol(piece);
+      console.log('Added piece symbol:', notation);
     }
 
-    // Add capture symbol
-    if (isCapture || (piece.piece_name.includes("PAWN") && fromPos[0] !== toPos[0])) {
+    // For pawn captures, add the file of origin
+    if (isCapture) {
+      if (piece.piece_name.includes("PAWN")) {
+        notation += fromPos[0];
+        console.log('Added pawn capture file:', notation, 'from position:', fromPos);
+      }
       notation += "x";
     }
 
     // Add destination square
     notation += toPos;
+
+    // Add promotion symbol if applicable
+    if (this.promotedTo) {
+      notation += "=" + this.promotedTo;
+      console.log('Added promotion:', notation);
+      this.promotedTo = null; // Reset after using
+    }
 
     // Add check or checkmate symbol
     if (isCheckmate) {
@@ -65,10 +87,12 @@ class Scoresheet {
       notation += "+";
     }
 
+    console.log('Final notation:', notation);
     return notation;
   }
 
-  addMove(piece, fromPos, toPos, isCapture, isCheck, isCheckmate, isCastle) {
+  addMove(piece, fromPos, toPos, isCapture, isCheck, isCheckmate, isCastle, promotedTo = null) {
+    this.promotedTo = promotedTo; // Store the promotion piece
     const notation = this.convertPositionToNotation(
       piece,
       fromPos,
