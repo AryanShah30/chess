@@ -249,9 +249,9 @@ function checkForCheck() {
 
     const legalMoves = getAllLegalMoves(whoInCheck);
     if (legalMoves.length === 0) {
-      createNotificationModal(`Checkmate! ${currentPlayerColor} wins!`, true);
+      createNotificationModal(`Checkmate! ${currentPlayerColor === 'white' ? 'White' : 'Black'} wins!`, true);
     } else {
-      createNotificationModal(`Check! ${whoInCheck}'s king is under attack!`);
+      createNotificationModal(`Check! ${whoInCheck === 'white' ? 'White' : 'Black'}'s king is under attack!`);
     }
   } else {
     const legalMoves = getAllLegalMoves(
@@ -320,6 +320,10 @@ function getBlockingSquares(kingPosition) {
 function checkLegalMovesInCheck(blockingSquares) {
   let legalMoves = [];
   legalMoves = getAllLegalMoves(whoInCheck);
+
+  if (legalMoves.length === 0) {
+    createNotificationModal(`Checkmate! ${inTurn === 'white' ? 'White' : 'Black'} wins!`, true);
+  }
 }
 
 function checkForPawnPromotion(piece, id) {
