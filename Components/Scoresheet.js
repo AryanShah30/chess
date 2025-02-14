@@ -77,14 +77,15 @@ class Scoresheet {
     if (this.promotedTo) {
       notation += "=" + this.promotedTo;
       console.log('Added promotion:', notation);
-      this.promotedTo = null; // Reset after using
     }
 
     // Add check or checkmate symbol
     if (isCheckmate) {
       notation += "#";
+      console.log('Added checkmate:', notation);
     } else if (isCheck) {
       notation += "+";
+      console.log('Added check:', notation);
     }
 
     console.log('Final notation:', notation);

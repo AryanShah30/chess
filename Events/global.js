@@ -363,17 +363,27 @@ function checkForPawnPromotion(piece, id) {
   }
 }
 
-function callbackPawnPromotion(piece, id) {
+function callbackPawnPromotion(piece, id, originalPosition) {
+  console.log("DEBUG Promotion - Initial values:", {
+    piece: piece,
+    id: id,
+    originalPosition: originalPosition
+  });
+  
   const realPiece = piece(id);
   const currentSquare = keySquareMapper[id];
   const oldPiece = currentSquare.piece;
-  const fromPosition = realPiece.current_position;
 
-  console.log('Pawn Promotion Details:', {
-    fromPosition,
-    targetPosition: id,
-    oldPiece: oldPiece ? oldPiece.piece_name : null,
-    newPiece: realPiece.piece_name
+  console.log("DEBUG Promotion - After initialization:", {
+    realPiece,
+    currentSquare,
+    oldPiece,
+    originalPosition,
+    pieceDetails: {
+      realPieceName: realPiece?.piece_name,
+      oldPieceName: oldPiece?.piece_name,
+      currentSquareId: currentSquare?.id
+    }
   });
 
   realPiece.current_position = id;
@@ -383,7 +393,7 @@ function callbackPawnPromotion(piece, id) {
   const isPawnCapture = oldPiece !== null;
   const pawnPiece = {
     piece_name: realPiece.piece_name.includes("WHITE") ? "WHITE_PAWN" : "BLACK_PAWN",
-    current_position: fromPosition
+    current_position: originalPosition  // Use the passed original position
   };
 
   console.log('Pawn piece for scoresheet:', pawnPiece);
@@ -403,7 +413,6 @@ function callbackPawnPromotion(piece, id) {
   currentElement.innerHTML = "";
   currentElement.append(image);
 
-  // Get promotion type from piece name
   let promotedTo = null;
   if (realPiece.piece_name.includes("QUEEN")) promotedTo = "Q";
   else if (realPiece.piece_name.includes("ROOK")) promotedTo = "R";
@@ -412,25 +421,40 @@ function callbackPawnPromotion(piece, id) {
 
   console.log('Adding move to scoresheet:', {
     piece: pawnPiece,
-    from: fromPosition,
+    from: originalPosition,
     to: id,
     isCapture: isPawnCapture,
     promotedTo
   });
 
-  // Add the move to scoresheet with the original pawn information and correct from position
+  // Check for check/checkmate before adding the move
+  checkForCheck(); // This updates whoInCheck
+
+  // Get legal moves for the opponent after promotion
+  const opponentColor = realPiece.piece_name.includes("WHITE") ? "black" : "white";
+  const legalMovesAfterPromotion = getAllLegalMoves(opponentColor);
+  
+  const isCheck = whoInCheck !== null;
+  const isCheckmate = isCheck && legalMovesAfterPromotion.length === 0;
+
+  console.log('Check/Checkmate status:', {
+    whoInCheck,
+    isCheck,
+    isCheckmate,
+    legalMovesAfterPromotion: legalMovesAfterPromotion.length
+  });
+
   scoresheet.addMove(
     pawnPiece,
-    fromPosition,
+    originalPosition,
     id,
     isPawnCapture,
-    whoInCheck !== null,
-    whoInCheck !== null && getAllLegalMoves(whoInCheck).length === 0,
+    isCheck,          // Pass check status
+    isCheckmate,      // Pass checkmate status
     false,
     promotedTo
   );
 
-  checkForCheck();
   changeTurn();
   chessClock.switchTurn();
 
@@ -599,7 +623,7 @@ function movePiece(piece, id, castle) {
     ? "white"
     : "black";
 
-  const originalPosition = piece.current_position;
+  const originalPosition = piece.current_position;  // Store this before any moves
 
   if (checkForPawnPromotion(piece, id)) {
     const currentSquare = keySquareMapper[piece.current_position];
@@ -631,7 +655,8 @@ function movePiece(piece, id, castle) {
           targetElement.innerHTML = capturedPieceHTML;
           return;
         }
-        callbackPawnPromotion(promotedPiece, targetId);
+        // Pass the original position to the callback
+        callbackPawnPromotion(promotedPiece, targetId, originalPosition);
       },
       id
     );
