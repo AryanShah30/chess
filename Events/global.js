@@ -249,9 +249,18 @@ function checkForCheck() {
 
     const legalMoves = getAllLegalMoves(whoInCheck);
     if (legalMoves.length === 0) {
-      createNotificationModal(`Checkmate! ${currentPlayerColor === 'white' ? 'White' : 'Black'} wins!`, true);
+      createNotificationModal(
+        `Checkmate! ${
+          currentPlayerColor === "white" ? "White" : "Black"
+        } wins!`,
+        true
+      );
     } else {
-      createNotificationModal(`Check! ${whoInCheck === 'white' ? 'White' : 'Black'}'s king is under attack!`);
+      createNotificationModal(
+        `Check! ${
+          whoInCheck === "white" ? "White" : "Black"
+        }'s king is under attack!`
+      );
     }
   } else {
     const legalMoves = getAllLegalMoves(
@@ -322,7 +331,10 @@ function checkLegalMovesInCheck(blockingSquares) {
   legalMoves = getAllLegalMoves(whoInCheck);
 
   if (legalMoves.length === 0) {
-    createNotificationModal(`Checkmate! ${inTurn === 'white' ? 'White' : 'Black'} wins!`, true);
+    createNotificationModal(
+      `Checkmate! ${inTurn === "white" ? "White" : "Black"} wins!`,
+      true
+    );
   }
 }
 
@@ -538,6 +550,46 @@ function movePiece(piece, id, castle) {
   const color = piece.piece_name.toLowerCase().includes("white")
     ? "white"
     : "black";
+
+  const originalPosition = piece.current_position;
+
+  if (checkForPawnPromotion(piece, id)) {
+    const currentSquare = keySquareMapper[piece.current_position];
+    const targetSquare = keySquareMapper[id];
+    const capturedPiece = targetSquare.piece;
+    const capturedPieceHTML = document.getElementById(id).innerHTML;
+
+    currentSquare.piece = null;
+    targetSquare.piece = piece;
+    piece.current_position = id;
+
+    const currentElement = document.getElementById(originalPosition);
+    const targetElement = document.getElementById(id);
+    const pieceImage = currentElement.querySelector("img");
+    currentElement.innerHTML = "";
+    targetElement.innerHTML = "";
+    targetElement.appendChild(pieceImage);
+
+    pawnPromotion(
+      color,
+      (promotedPiece, targetId) => {
+        if (!promotedPiece) {
+          currentSquare.piece = piece;
+          targetSquare.piece = capturedPiece;
+          piece.current_position = originalPosition;
+
+          currentElement.innerHTML = "";
+          currentElement.appendChild(pieceImage);
+          targetElement.innerHTML = capturedPieceHTML;
+          return;
+        }
+        callbackPawnPromotion(promotedPiece, targetId);
+      },
+      id
+    );
+    return;
+  }
+
   const rank = color === "white" ? "1" : "8";
 
   const targetSquare = keySquareMapper[id];
@@ -642,8 +694,6 @@ function movePiece(piece, id, castle) {
     }
   }
 
-  const pawnIsPromoted = checkForPawnPromotion(piece, id);
-
   const flatData = globalState.flat();
   flatData.forEach((el) => {
     if (el.id == piece.current_position) {
@@ -672,12 +722,6 @@ function movePiece(piece, id, castle) {
   currentPiece.innerHTML = previousPiece?.innerHTML;
   if (previousPiece) previousPiece.innerHTML = "";
   piece.current_position = id;
-
-  if (pawnIsPromoted) {
-    currentPiece?.classList?.add("highlightYellow");
-    pawnPromotion(inTurn, callbackPawnPromotion, id);
-    return;
-  }
 
   checkForCheck();
 

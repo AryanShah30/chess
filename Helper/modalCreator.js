@@ -39,19 +39,31 @@ class ModalCreator {
 
 function pawnPromotion(color, callback, id) {
   const rook = document.createElement("img");
-  rook.onclick = rookCallback;
+  rook.onclick = (e) => {
+    e.stopPropagation();
+    rookCallback();
+  };
   rook.src = `../Assets/images/pieces/${color}/rook.png`;
 
   const knight = document.createElement("img");
-  knight.onclick = knightCallback;
+  knight.onclick = (e) => {
+    e.stopPropagation();
+    knightCallback();
+  };
   knight.src = `../Assets/images/pieces/${color}/knight.png`;
 
   const bishop = document.createElement("img");
-  bishop.onclick = bishopCallback;
+  bishop.onclick = (e) => {
+    e.stopPropagation();
+    bishopCallback();
+  };
   bishop.src = `../Assets/images/pieces/${color}/bishop.png`;
 
   const queen = document.createElement("img");
-  queen.onclick = queenCallback;
+  queen.onclick = (e) => {
+    e.stopPropagation();
+    queenCallback();
+  };
   queen.src = `../Assets/images/pieces/${color}/queen.png`;
 
   const imageContainer = document.createElement("div");
@@ -59,10 +71,17 @@ function pawnPromotion(color, callback, id) {
   imageContainer.appendChild(knight);
   imageContainer.appendChild(bishop);
   imageContainer.appendChild(queen);
+  imageContainer.onclick = (e) => e.stopPropagation();
 
   const finalContainer = document.createElement("div");
   finalContainer.appendChild(imageContainer);
   finalContainer.classList.add("modal");
+
+  finalContainer.onclick = () => {
+    modal.hide();
+
+    callback(null, id);
+  };
 
   const modal = new ModalCreator(finalContainer);
   modal.show();
