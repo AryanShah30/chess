@@ -28,7 +28,8 @@ class Scoresheet {
     isCapture,
     isCheck,
     isCheckmate,
-    isCastle
+    isCastle,
+    isEnPassant
   ) {
     console.log("Converting to notation:", {
       piece_name: piece.piece_name,
@@ -39,6 +40,7 @@ class Scoresheet {
       isCheckmate,
       isCastle,
       promotedTo: this.promotedTo,
+      isEnPassant,
     });
 
     let notation = "";
@@ -80,6 +82,11 @@ class Scoresheet {
       console.log("Added check:", notation);
     }
 
+    if (isEnPassant) {
+      notation += " e.p.";
+      console.log("Added en passant:", notation);
+    }
+
     console.log("Final notation:", notation);
     return notation;
   }
@@ -92,7 +99,8 @@ class Scoresheet {
     isCheck,
     isCheckmate,
     isCastle,
-    promotedTo = null
+    promotedTo = null,
+    isEnPassant = false
   ) {
     this.promotedTo = promotedTo;
     const notation = this.convertPositionToNotation(
@@ -102,7 +110,8 @@ class Scoresheet {
       isCapture,
       isCheck,
       isCheckmate,
-      isCastle
+      isCastle,
+      isEnPassant
     );
 
     const isWhite = piece.piece_name.includes("WHITE");

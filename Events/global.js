@@ -625,6 +625,8 @@ function movePiece(piece, id, castle) {
     : "black";
 
   const originalPosition = piece.current_position;
+  let isCapture = false;
+  let whoInCheck = null;
 
   if (checkForPawnPromotion(piece, id)) {
     const currentSquare = keySquareMapper[piece.current_position];
@@ -667,7 +669,7 @@ function movePiece(piece, id, castle) {
   const rank = color === "white" ? "1" : "8";
 
   const targetSquare = keySquareMapper[id];
-  const isCapture =
+  isCapture =
     targetSquare.piece !== null &&
     targetSquare.piece !== undefined &&
     targetSquare.piece.piece_name &&
@@ -742,6 +744,7 @@ function movePiece(piece, id, castle) {
     const capturedSquare = keySquareMapper[capturedSquareId];
 
     if (capturedSquare?.piece) {
+      isCapture = true;
       capturedSquare.piece = null;
       document.getElementById(capturedSquareId).innerHTML = "";
     }
