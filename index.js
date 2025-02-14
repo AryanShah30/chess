@@ -9,11 +9,21 @@ let globalState;
 let keySquareMapper = {};
 
 function initializeGame(player1Name, player2Name, time1, time2, increment1, increment2) {
+    // Log the received values
+    console.log('Received values:', {
+        player1Name,
+        player2Name,
+        time1,
+        time2,
+        increment1,
+        increment2
+    });
+
     globalState = initGame();
     
     chessClock = new ChessClock(
-        player1Name || "Player 1", 
-        player2Name || "Player 2", 
+        player1Name, 
+        player2Name, 
         time1, 
         time2, 
         increment1, 
@@ -22,8 +32,17 @@ function initializeGame(player1Name, player2Name, time1, time2, increment1, incr
     chessClock.start();
 
     // Update player names in the DOM
-    document.getElementById('player1-name').textContent = player1Name || "Player 1";
-    document.getElementById('player2-name').textContent = player2Name || "Player 2";
+    const player1Element = document.getElementById('player1-name');
+    const player2Element = document.getElementById('player2-name');
+    
+    if (player1Element) player1Element.textContent = player1Name;
+    if (player2Element) player2Element.textContent = player2Name;
+
+    // Log the DOM update
+    console.log('Updated DOM with names:', {
+        player1: player1Element?.textContent,
+        player2: player2Element?.textContent
+    });
 
     // Update player clock styles
     document.getElementById('player1-clock').classList.add('active');
