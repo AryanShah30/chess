@@ -1,5 +1,5 @@
-/* General Body and Layout Styles */
-html, body {
+html,
+body {
   overflow-y: hidden;
   background-color: #302e2b;
   margin: 0;
@@ -20,7 +20,6 @@ html, body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Board Styles */
 .squareRow {
   display: flex;
 }
@@ -44,7 +43,6 @@ html, body {
   background-color: #72c9dd;
 }
 
-/* Piece Styles */
 .piece {
   width: 100%;
   height: 100%;
@@ -60,7 +58,6 @@ html, body {
   background-color: #e77c66;
 }
 
-/* Highlight Styles */
 .highlight {
   width: 30px;
   height: 30px;
@@ -71,7 +68,6 @@ html, body {
   display: block;
 }
 
-/* Modal Styles */
 .modal {
   display: flex;
   position: absolute;
@@ -94,7 +90,6 @@ html, body {
   cursor: pointer;
 }
 
-/* Blur Effect */
 .blur {
   filter: blur(15px);
 }
@@ -165,7 +160,6 @@ html, body {
   transform: translateY(0);
 }
 
-/* Chess Container Styles */
 .chess-container {
   display: flex;
   align-items: flex-start;
@@ -175,7 +169,6 @@ html, body {
   padding: 15px;
 }
 
-/* Scoresheet Styles */
 .scoresheet {
   background-color: #262522;
   padding: 20px;
@@ -213,7 +206,6 @@ html, body {
   font-weight: bold;
 }
 
-/* Chess Clock Styles */
 .chess-clock {
   display: flex;
   flex-direction: column;
@@ -276,7 +268,6 @@ html, body {
   letter-spacing: 2px;
 }
 
-/* Setup Modal Styles */
 .clock-setup-overlay {
   position: fixed;
   top: 0;
@@ -329,7 +320,7 @@ html, body {
 
 #player1-name-input,
 #player2-name-input {
-  width: calc(100% - 3px); /* Adjust width accounting for padding */
+  width: calc(100% - 3px);
   padding: 12px;
   margin-bottom: 5px;
   border: 1px solid #3a3937;
@@ -338,7 +329,7 @@ html, body {
   color: white;
   font-size: 16px;
   transition: all 0.2s ease;
-  box-sizing: border-box; /* This prevents padding from adding to width */
+  box-sizing: border-box;
 }
 
 #player1-name-input:focus,
@@ -354,7 +345,7 @@ html, body {
 }
 
 .time-setup input {
-  width: calc(100% - 3px); /* Adjust width accounting for padding */
+  width: calc(100% - 3px);
   padding: 10px;
   border: 1px solid #3a3937;
   border-radius: 6px;
@@ -363,10 +354,10 @@ html, body {
   text-align: center;
   font-size: 14px;
   transition: all 0.2s ease;
-  box-sizing: border-box; /* This prevents padding from adding to width */
+  box-sizing: border-box;
 }
 
-.time-setup input:focus{
+.time-setup input:focus {
   outline: none;
   border-color: #4caf50;
   box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);

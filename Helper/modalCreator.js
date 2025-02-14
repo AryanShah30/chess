@@ -124,11 +124,11 @@ function pawnPromotion(color, callback, id) {
 }
 
 function callbackPawnPromotion(newPiece, id) {
-  console.log('Callback called with:', newPiece, id);
-  if (typeof newPiece === 'function') {
+  console.log("Callback called with:", newPiece, id);
+  if (typeof newPiece === "function") {
     const piece = newPiece(id);
   } else {
-    console.error('Expected a function to create a piece, but got:', newPiece);
+    console.error("Expected a function to create a piece, but got:", newPiece);
   }
 }
 

@@ -367,9 +367,9 @@ function callbackPawnPromotion(piece, id, originalPosition) {
   console.log("DEBUG Promotion - Initial values:", {
     piece: piece,
     id: id,
-    originalPosition: originalPosition
+    originalPosition: originalPosition,
   });
-  
+
   const realPiece = piece(id);
   const currentSquare = keySquareMapper[id];
   const oldPiece = currentSquare.piece;
@@ -382,21 +382,22 @@ function callbackPawnPromotion(piece, id, originalPosition) {
     pieceDetails: {
       realPieceName: realPiece?.piece_name,
       oldPieceName: oldPiece?.piece_name,
-      currentSquareId: currentSquare?.id
-    }
+      currentSquareId: currentSquare?.id,
+    },
   });
 
   realPiece.current_position = id;
   currentSquare.piece = realPiece;
 
-  // Store the original pawn information with the correct position
   const isPawnCapture = oldPiece !== null;
   const pawnPiece = {
-    piece_name: realPiece.piece_name.includes("WHITE") ? "WHITE_PAWN" : "BLACK_PAWN",
-    current_position: originalPosition  // Use the passed original position
+    piece_name: realPiece.piece_name.includes("WHITE")
+      ? "WHITE_PAWN"
+      : "BLACK_PAWN",
+    current_position: originalPosition,
   };
 
-  console.log('Pawn piece for scoresheet:', pawnPiece);
+  console.log("Pawn piece for scoresheet:", pawnPiece);
 
   if (oldPiece) {
     Object.keys(globalPiece).forEach((key) => {
@@ -419,29 +420,29 @@ function callbackPawnPromotion(piece, id, originalPosition) {
   else if (realPiece.piece_name.includes("BISHOP")) promotedTo = "B";
   else if (realPiece.piece_name.includes("KNIGHT")) promotedTo = "N";
 
-  console.log('Adding move to scoresheet:', {
+  console.log("Adding move to scoresheet:", {
     piece: pawnPiece,
     from: originalPosition,
     to: id,
     isCapture: isPawnCapture,
-    promotedTo
+    promotedTo,
   });
 
-  // Check for check/checkmate before adding the move
-  checkForCheck(); // This updates whoInCheck
+  checkForCheck();
 
-  // Get legal moves for the opponent after promotion
-  const opponentColor = realPiece.piece_name.includes("WHITE") ? "black" : "white";
+  const opponentColor = realPiece.piece_name.includes("WHITE")
+    ? "black"
+    : "white";
   const legalMovesAfterPromotion = getAllLegalMoves(opponentColor);
-  
+
   const isCheck = whoInCheck !== null;
   const isCheckmate = isCheck && legalMovesAfterPromotion.length === 0;
 
-  console.log('Check/Checkmate status:', {
+  console.log("Check/Checkmate status:", {
     whoInCheck,
     isCheck,
     isCheckmate,
-    legalMovesAfterPromotion: legalMovesAfterPromotion.length
+    legalMovesAfterPromotion: legalMovesAfterPromotion.length,
   });
 
   scoresheet.addMove(
@@ -449,8 +450,8 @@ function callbackPawnPromotion(piece, id, originalPosition) {
     originalPosition,
     id,
     isPawnCapture,
-    isCheck,          // Pass check status
-    isCheckmate,      // Pass checkmate status
+    isCheck,
+    isCheckmate,
     false,
     promotedTo
   );
@@ -623,7 +624,7 @@ function movePiece(piece, id, castle) {
     ? "white"
     : "black";
 
-  const originalPosition = piece.current_position;  // Store this before any moves
+  const originalPosition = piece.current_position;
 
   if (checkForPawnPromotion(piece, id)) {
     const currentSquare = keySquareMapper[piece.current_position];
@@ -655,7 +656,7 @@ function movePiece(piece, id, castle) {
           targetElement.innerHTML = capturedPieceHTML;
           return;
         }
-        // Pass the original position to the callback
+
         callbackPawnPromotion(promotedPiece, targetId, originalPosition);
       },
       id
@@ -808,7 +809,7 @@ function movePiece(piece, id, castle) {
       whoInCheck !== null && getAllLegalMoves(whoInCheck).length === 0,
       castle
     );
-    
+
     changeTurn();
     chessClock.switchTurn();
   }
@@ -1220,7 +1221,7 @@ function whiteKingClick(square) {
   const flatArray = globalState.flat();
 
   let highlightSquareIds = giveKingHighlightIds(current_pos);
-  
+
   const {
     bottomLeft,
     topLeft,
@@ -1276,10 +1277,18 @@ function whiteKingClick(square) {
     element.highlight = true;
   });
 
-  // Check captures for each direction
-  [bottomLeft, topLeft, bottomRight, topRight, top, bottom, left, right].forEach(arr => {
+  [
+    bottomLeft,
+    topLeft,
+    bottomRight,
+    topRight,
+    top,
+    bottom,
+    left,
+    right,
+  ].forEach((arr) => {
     if (arr && arr.length > 0) {
-      const element = arr[0]; // King can only move one square
+      const element = arr[0];
       if (element) {
         checkPieceOfOpponentOnElement(element, "white");
       }
@@ -1691,7 +1700,7 @@ function blackKingClick(square) {
   const flatArray = globalState.flat();
 
   let highlightSquareIds = giveKingHighlightIds(current_pos);
-  
+
   const {
     bottomLeft,
     topLeft,
@@ -1747,10 +1756,18 @@ function blackKingClick(square) {
     element.highlight = true;
   });
 
-  // Check captures for each direction
-  [bottomLeft, topLeft, bottomRight, topRight, top, bottom, left, right].forEach(arr => {
+  [
+    bottomLeft,
+    topLeft,
+    bottomRight,
+    topRight,
+    top,
+    bottom,
+    left,
+    right,
+  ].forEach((arr) => {
     if (arr && arr.length > 0) {
-      const element = arr[0]; // King can only move one square
+      const element = arr[0];
       if (element) {
         checkPieceOfOpponentOnElement(element, "black");
       }
