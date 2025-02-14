@@ -31,15 +31,15 @@ body {
 }
 
 .white {
-  background-color: #e8edf9;
+  background-color: #c5d5dc;
 }
 
 .black {
-  background-color: #b7c0d8;
+  background-color: #7a9db2;
 }
 
 .highlightYellow {
-  background-color: #fff176;
+  background-color: #72c9dd;
 }
 
 /* Piece Styles */
@@ -55,7 +55,7 @@ body {
 }
 
 .captureColor {
-  background-color: #ef5350;
+  background-color: #e77c66;
 }
 
 /* Highlight Styles */
