@@ -200,11 +200,32 @@ body {
   box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
 }
 
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.player-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4CAF50;
+}
+
+.player-clock.active .player-avatar {
+  border-color: #4CAF50;
+  transform: scale(1.1);
+}
+
 .player-name {
   font-size: 18px;
-  margin-bottom: 12px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
+  flex-grow: 1;
+  text-align: left;
 }
 
 .player-time {

@@ -11,11 +11,19 @@ let keySquareMapper = {};
 function initializeGame(player1Name, player2Name, time1, time2, increment1, increment2) {
     globalState = initGame();
     
-    chessClock = new ChessClock(player1Name, player2Name, time1, time2, increment1, increment2);
+    chessClock = new ChessClock(
+        player1Name || "Player 1", 
+        player2Name || "Player 2", 
+        time1, 
+        time2, 
+        increment1, 
+        increment2
+    );
     chessClock.start();
 
-    document.getElementById('player1-name').textContent = player1Name;
-    document.getElementById('player2-name').textContent = player2Name;
+    // Update player names in the DOM
+    document.getElementById('player1-name').textContent = player1Name || "Player 1";
+    document.getElementById('player2-name').textContent = player2Name || "Player 2";
 
     // Update player clock styles
     document.getElementById('player1-clock').classList.add('active');
