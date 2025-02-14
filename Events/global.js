@@ -1097,11 +1097,11 @@ function whiteKingClick(square) {
 
   let result = [];
 
-  if (!piece.move) {
+  if (!piece.hasMoved) {
     const rook1 = globalPiece.white_rook_1;
     const rook2 = globalPiece.white_rook_2;
 
-    if (!rook1.move) {
+    if (!rook1.hasMoved) {
       const b1 = keySquareMapper["b1"];
       const c1 = keySquareMapper["c1"];
       const d1 = keySquareMapper["d1"];
@@ -1110,7 +1110,7 @@ function whiteKingClick(square) {
       }
     }
 
-    if (!rook2.move) {
+    if (!rook2.hasMoved) {
       const g1 = keySquareMapper["g1"];
       const f1 = keySquareMapper["f1"];
       if (!g1.piece && !f1.piece) {
@@ -1128,14 +1128,9 @@ function whiteKingClick(square) {
   result.push(checkSquareCaptureId(right));
   result.push(checkSquareCaptureId(left));
 
-  temp.push(bottomLeft);
-  temp.push(topLeft);
-  temp.push(bottomRight);
-  temp.push(topRight);
-  temp.push(left);
-  temp.push(right);
-  temp.push(bottom);
-  temp.push(top);
+  if (piece.hasMoved) {
+    result = result.map((arr) => (arr.length > 0 ? [arr[0]] : arr));
+  }
 
   highlightSquareIds = result.flat();
 
@@ -1587,11 +1582,11 @@ function blackKingClick(square) {
 
   let result = [];
 
-  if (!piece.move) {
+  if (!piece.hasMoved) {
     const rook1 = globalPiece.black_rook_1;
     const rook2 = globalPiece.black_rook_2;
 
-    if (!rook1.move) {
+    if (!rook1.hasMoved) {
       const b8 = keySquareMapper["b8"];
       const c8 = keySquareMapper["c8"];
       const d8 = keySquareMapper["d8"];
@@ -1600,7 +1595,7 @@ function blackKingClick(square) {
       }
     }
 
-    if (!rook2.move) {
+    if (!rook2.hasMoved) {
       const g8 = keySquareMapper["g8"];
       const f8 = keySquareMapper["f8"];
       if (!g8.piece && !f8.piece) {
@@ -1618,14 +1613,9 @@ function blackKingClick(square) {
   result.push(checkSquareCaptureId(right));
   result.push(checkSquareCaptureId(left));
 
-  temp.push(bottomLeft);
-  temp.push(topLeft);
-  temp.push(bottomRight);
-  temp.push(topRight);
-  temp.push(left);
-  temp.push(right);
-  temp.push(bottom);
-  temp.push(top);
+  if (piece.hasMoved) {
+    result = result.map((arr) => (arr.length > 0 ? [arr[0]] : arr));
+  }
 
   highlightSquareIds = result.flat();
 

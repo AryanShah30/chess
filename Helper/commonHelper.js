@@ -520,11 +520,16 @@ function giveKingHighlightIds(id) {
     });
   }
 
-  if (!piece.move && !isKingInCheck(color)) {
+  // Check if this is a king's initial position
+  const isInitialPosition = (color === "white" && id === "e1") || 
+                          (color === "black" && id === "e8");
+
+  // Only allow castling if king is in initial position and has never moved
+  if (isInitialPosition && !piece.hasMoved && !isKingInCheck(color)) {
     const rank = color === "white" ? "1" : "8";
 
     const kingsideRook = keySquareMapper[`h${rank}`]?.piece;
-    if (kingsideRook && !kingsideRook.move) {
+    if (kingsideRook && !kingsideRook.hasMoved) {
       const kingsidePath = [`f${rank}`, `g${rank}`];
       if (
         kingsidePath.every((square) => {
@@ -538,7 +543,7 @@ function giveKingHighlightIds(id) {
     }
 
     const queensideRook = keySquareMapper[`a${rank}`]?.piece;
-    if (queensideRook && !queensideRook.move) {
+    if (queensideRook && !queensideRook.hasMoved) {
       const queensidePath = [`b${rank}`, `c${rank}`, `d${rank}`];
       if (
         queensidePath.every((square) => {
@@ -548,6 +553,13 @@ function giveKingHighlightIds(id) {
         })
       ) {
         returnResult.left.push(`c${rank}`);
+      }
+    }
+  } else {
+    // If the king has moved, only allow one highlight square
+    for (const direction in returnResult) {
+      if (returnResult[direction].length > 1) {
+        returnResult[direction] = [returnResult[direction][0]];
       }
     }
   }
