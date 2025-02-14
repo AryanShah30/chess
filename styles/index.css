@@ -325,6 +325,12 @@ body {
   box-sizing: border-box; /* This prevents padding from adding to width */
 }
 
+.time-setup input:focus{
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
 .time-setup input::-webkit-inner-spin-button,
 .time-setup input::-webkit-outer-spin-button {
   -webkit-appearance: none;
