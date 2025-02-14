@@ -430,9 +430,12 @@ function giveKnightHighlightIds(id, color) {
     }
   }
 
-  return [...top(), ...bottom(), ...left(), ...right()].filter(square => {
+  return [...top(), ...bottom(), ...left(), ...right()].filter((square) => {
     const targetSquare = keySquareMapper[square];
-    return !targetSquare.piece || !targetSquare.piece.piece_name.toLowerCase().includes(color);
+    return (
+      !targetSquare.piece ||
+      !targetSquare.piece.piece_name.toLowerCase().includes(color)
+    );
   });
 }
 
@@ -520,11 +523,9 @@ function giveKingHighlightIds(id) {
     });
   }
 
-  // Check if this is a king's initial position
-  const isInitialPosition = (color === "white" && id === "e1") || 
-                          (color === "black" && id === "e8");
+  const isInitialPosition =
+    (color === "white" && id === "e1") || (color === "black" && id === "e8");
 
-  // Only allow castling if king is in initial position and has never moved
   if (isInitialPosition && !piece.hasMoved && !isKingInCheck(color)) {
     const rank = color === "white" ? "1" : "8";
 
@@ -556,7 +557,6 @@ function giveKingHighlightIds(id) {
       }
     }
   } else {
-    // If the king has moved, only allow one highlight square
     for (const direction in returnResult) {
       if (returnResult[direction].length > 1) {
         returnResult[direction] = [returnResult[direction][0]];
@@ -722,20 +722,16 @@ function isMoveLegal(piece, targetSquare, color) {
   const originalSquare = keySquareMapper[originalPosition];
   const targetSquareObj = keySquareMapper[targetSquare];
 
-  // Temporarily move the piece to the target square
   originalSquare.piece = null;
   targetSquareObj.piece = piece;
   piece.current_position = targetSquare;
 
-  // Check if the king is in check after the move
   const stillInCheck = isKingInCheck(color);
 
-  // Revert the move
   originalSquare.piece = piece;
   targetSquareObj.piece = targetPiece;
   piece.current_position = originalPosition;
 
-  // The move is legal if it does not leave the king in check
   return !stillInCheck;
 }
 
