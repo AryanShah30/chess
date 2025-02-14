@@ -395,3 +395,40 @@ body {
 #start-game:active {
   transform: translateY(0);
 }
+
+/* Scoresheet Styles */
+.scoresheet {
+  background-color: #262522;
+  padding: 20px;
+  border-radius: 12px;
+  width: 250px;
+  max-height: 640px;
+  overflow-y: auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.move-row {
+  display: grid;
+  grid-template-columns: 40px 105px 105px;
+  color: white;
+  padding: 5px 0;
+  font-family: "Roboto Mono", monospace;
+}
+
+.move-row:nth-child(even) {
+  background-color: #302e2b;
+}
+
+.move-number {
+  color: #888;
+  text-align: center;
+}
+
+.move {
+  padding: 0 10px;
+}
+
+.move.last {
+  color: #4caf50;
+  font-weight: bold;
+}

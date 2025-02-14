@@ -27,6 +27,9 @@ import {
 } from "../Helper/commonHelper.js";
 import { pawnPromotion } from "../Helper/modalCreator.js";
 import { createNotificationModal } from "../Helper/notifications.js";
+import { Scoresheet } from "../Components/Scoresheet.js";
+
+const scoresheet = new Scoresheet();
 
 function getAllLegalMoves(color) {
   let legalMoves = [];
@@ -726,6 +729,16 @@ function movePiece(piece, id, castle) {
   checkForCheck();
 
   if (!castle || (castle && piece.piece_name.includes("KING"))) {
+    scoresheet.addMove(
+      piece,
+      originalPosition,
+      id,
+      isCapture,
+      whoInCheck !== null,
+      whoInCheck !== null && getAllLegalMoves(whoInCheck).length === 0,
+      castle
+    );
+    
     changeTurn();
     chessClock.switchTurn();
   }

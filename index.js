@@ -3,10 +3,12 @@ import { initGameRender } from "./Render/main.js";
 import { globalEvent } from "./Events/global.js";
 import { ChessClock } from "./Components/ChessClock.js";
 import { createClockSetup } from "./Components/ClockSetup.js";
+import { Scoresheet } from "./Components/Scoresheet.js";
 
 let chessClock;
 let globalState;
 let keySquareMapper = {};
+let scoresheet;
 
 function initializeGame(player1Name, player2Name, time1, time2, increment1, increment2) {
     // Log the received values
@@ -54,9 +56,11 @@ function initializeGame(player1Name, player2Name, time1, time2, increment1, incr
 
     initGameRender(globalState);
     globalEvent();
+
+    scoresheet = new Scoresheet();
 }
 
 // Show setup form when page loads
 createClockSetup(initializeGame);
 
-export { globalState, keySquareMapper, chessClock };
+export { globalState, keySquareMapper, chessClock, scoresheet };
