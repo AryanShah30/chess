@@ -3,7 +3,7 @@ body {
   background-color: #302e2b;
   margin: 0;
   padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #root {
@@ -145,7 +145,7 @@ body {
 }
 
 .button-container button:first-child {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 
@@ -195,7 +195,7 @@ body {
 }
 
 .player-clock.active {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   transform: scale(1.02);
   box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
 }
@@ -212,11 +212,11 @@ body {
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #4CAF50;
+  border: 2px solid #4caf50;
 }
 
 .player-clock.active .player-avatar {
-  border-color: #4CAF50;
+  border-color: #4caf50;
   transform: scale(1.1);
 }
 
@@ -230,7 +230,7 @@ body {
 
 .player-time {
   font-size: 32px;
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
   font-weight: 700;
   letter-spacing: 2px;
 }
@@ -263,7 +263,7 @@ body {
 .clock-setup-modal h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: #4CAF50;
+  color: #4caf50;
   font-size: 24px;
 }
 
@@ -286,21 +286,43 @@ body {
   margin-top: 15px;
 }
 
+#player1-name-input,
+#player2-name-input {
+  width: calc(100% - 3px); /* Adjust width accounting for padding */
+  padding: 12px;
+  margin-bottom: 5px;
+  border: 1px solid #3a3937;
+  border-radius: 6px;
+  background-color: #262522;
+  color: white;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  box-sizing: border-box; /* This prevents padding from adding to width */
+}
+
+#player1-name-input:focus,
+#player2-name-input:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+#player1-name-input::placeholder,
+#player2-name-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .time-setup input {
-  width: 100%;
+  width: calc(100% - 3px); /* Adjust width accounting for padding */
   padding: 10px;
   border: 1px solid #3a3937;
   border-radius: 6px;
   background-color: #262522;
   color: white;
+  text-align: center;
   font-size: 14px;
   transition: all 0.2s ease;
-}
-
-.time-setup input:focus {
-  outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  box-sizing: border-box; /* This prevents padding from adding to width */
 }
 
 .time-setup input::-webkit-inner-spin-button,
@@ -309,21 +331,45 @@ body {
   margin: 0;
 }
 
-#player1-name, #player2-name {
-  width: 100%;
+.time-setup {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.time-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.time-input-group label {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+}
+
+.time-setup input {
+  width: 90%;
   padding: 10px;
-  margin-bottom: 15px;
+  text-align: center;
   border: 1px solid #3a3937;
   border-radius: 6px;
   background-color: #262522;
   color: white;
   font-size: 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
 #start-game {
   width: 100%;
   padding: 15px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 8px;
@@ -342,27 +388,4 @@ body {
 
 #start-game:active {
   transform: translateY(0);
-}
-
-/* Update the name input styling */
-#player1-name-input, #player2-name-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #3a3937;
-  border-radius: 6px;
-  background-color: #262522;
-  color: white;
-  font-size: 16px;
-  transition: all 0.2s ease;
-}
-
-#player1-name-input:focus, #player2-name-input:focus {
-  outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
-}
-
-#player1-name-input::placeholder, #player2-name-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
 }
