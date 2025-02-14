@@ -1220,8 +1220,7 @@ function whiteKingClick(square) {
   const flatArray = globalState.flat();
 
   let highlightSquareIds = giveKingHighlightIds(current_pos);
-  let temp = [];
-
+  
   const {
     bottomLeft,
     topLeft,
@@ -1277,28 +1276,15 @@ function whiteKingClick(square) {
     element.highlight = true;
   });
 
-  let captureIds = [];
-
-  for (let index = 0; index < temp.length; index++) {
-    const arr = temp[index];
-    for (let j = 0; j < arr.length; j++) {
-      const element = arr[j];
-
-      let checkPieceResult = checkWhetherPieceExistsOrNot(element);
-
-      if (
-        checkPieceResult &&
-        checkPieceResult.piece &&
-        checkPieceResult.piece.piece_name.toLowerCase().includes("white")
-      ) {
-        break;
-      }
-
-      if (checkPieceOfOpponentOnElement(element, "white")) {
-        break;
+  // Check captures for each direction
+  [bottomLeft, topLeft, bottomRight, topRight, top, bottom, left, right].forEach(arr => {
+    if (arr && arr.length > 0) {
+      const element = arr[0]; // King can only move one square
+      if (element) {
+        checkPieceOfOpponentOnElement(element, "white");
       }
     }
-  }
+  });
 
   globalStateRender();
 }
@@ -1705,8 +1691,7 @@ function blackKingClick(square) {
   const flatArray = globalState.flat();
 
   let highlightSquareIds = giveKingHighlightIds(current_pos);
-  let temp = [];
-
+  
   const {
     bottomLeft,
     topLeft,
@@ -1721,8 +1706,8 @@ function blackKingClick(square) {
   let result = [];
 
   if (!piece.hasMoved) {
-    const rook1 = globalPiece.black_rook_1;
-    const rook2 = globalPiece.black_rook_2;
+    const rook1 = globalPiece.white_rook_1;
+    const rook2 = globalPiece.white_rook_2;
 
     if (!rook1.hasMoved) {
       const b8 = keySquareMapper["b8"];
@@ -1762,28 +1747,15 @@ function blackKingClick(square) {
     element.highlight = true;
   });
 
-  let captureIds = [];
-
-  for (let index = 0; index < temp.length; index++) {
-    const arr = temp[index];
-    for (let j = 0; j < arr.length; j++) {
-      const element = arr[j];
-
-      let checkPieceResult = checkWhetherPieceExistsOrNot(element);
-
-      if (
-        checkPieceResult &&
-        checkPieceResult.piece &&
-        checkPieceResult.piece.piece_name.toLowerCase().includes("black")
-      ) {
-        break;
-      }
-
-      if (checkPieceOfOpponentOnElement(element, "black")) {
-        break;
+  // Check captures for each direction
+  [bottomLeft, topLeft, bottomRight, topRight, top, bottom, left, right].forEach(arr => {
+    if (arr && arr.length > 0) {
+      const element = arr[0]; // King can only move one square
+      if (element) {
+        checkPieceOfOpponentOnElement(element, "black");
       }
     }
-  }
+  });
 
   globalStateRender();
 }

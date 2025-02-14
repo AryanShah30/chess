@@ -506,60 +506,47 @@ function giveKingHighlightIds(id) {
     topRight: bishopMoves.topRight,
   };
 
+  // First limit all moves to one square
   for (const direction in returnResult) {
     if (returnResult[direction].length > 0) {
       returnResult[direction] = [returnResult[direction][0]];
     }
   }
 
+  // Then filter valid moves including captures
   for (const direction in returnResult) {
     returnResult[direction] = returnResult[direction].filter((square) => {
       const targetSquare = keySquareMapper[square];
-      if (targetSquare?.piece?.piece_name?.toLowerCase().includes(color)) {
-        return false;
-      }
-
-      return isMoveLegal(piece, square, color);
+      // Allow moves to empty squares OR captures of opponent pieces
+      const isValidMove = !targetSquare.piece || 
+                         !targetSquare.piece.piece_name.toLowerCase().includes(color);
+      
+      return isValidMove && isMoveLegal(piece, square, color);
     });
   }
 
+  // Handle castling logic
   const isInitialPosition =
     (color === "white" && id === "e1") || (color === "black" && id === "e8");
 
   if (isInitialPosition && !piece.hasMoved && !isKingInCheck(color)) {
     const rank = color === "white" ? "1" : "8";
 
+    // Kingside castling
     const kingsideRook = keySquareMapper[`h${rank}`]?.piece;
     if (kingsideRook && !kingsideRook.hasMoved) {
       const kingsidePath = [`f${rank}`, `g${rank}`];
-      if (
-        kingsidePath.every((square) => {
-          return (
-            !keySquareMapper[square].piece && isMoveLegal(piece, square, color)
-          );
-        })
-      ) {
+      if (kingsidePath.every(square => !keySquareMapper[square].piece && isMoveLegal(piece, square, color))) {
         returnResult.right.push(`g${rank}`);
       }
     }
 
+    // Queenside castling
     const queensideRook = keySquareMapper[`a${rank}`]?.piece;
     if (queensideRook && !queensideRook.hasMoved) {
       const queensidePath = [`b${rank}`, `c${rank}`, `d${rank}`];
-      if (
-        queensidePath.every((square) => {
-          return (
-            !keySquareMapper[square].piece && isMoveLegal(piece, square, color)
-          );
-        })
-      ) {
+      if (queensidePath.every(square => !keySquareMapper[square].piece && isMoveLegal(piece, square, color))) {
         returnResult.left.push(`c${rank}`);
-      }
-    }
-  } else {
-    for (const direction in returnResult) {
-      if (returnResult[direction].length > 1) {
-        returnResult[direction] = [returnResult[direction][0]];
       }
     }
   }
@@ -568,18 +555,33 @@ function giveKingHighlightIds(id) {
 }
 
 function giveKingCaptureIds(id, color) {
-  if (!id) {
-    return [];
-  }
+  if (!id) return [];
+
+  const piece = keySquareMapper[id].piece;
+  if (!piece) return [];
 
   let result = giveKingHighlightIds(id);
+  if (!result) return [];
 
+  // Flatten all possible moves
   result = Object.values(result).flat();
 
-  result = result.filter((element) => {
-    if (checkPieceOfOpponentOnElementNoDom(element, color)) {
+  // Filter for only opponent pieces
+  const opponentColor = color === "white" ? "black" : "white";
+  result = result.filter(square => {
+    const targetSquare = keySquareMapper[square];
+    if (!targetSquare || !targetSquare.piece) return false;
+
+    const isOpponentPiece = targetSquare.piece.piece_name.toLowerCase().includes(opponentColor);
+    
+    // Add capture highlight
+    if (isOpponentPiece && isMoveLegal(piece, square, color)) {
+      targetSquare.captureHighlight = true;
+      const el = document.getElementById(square);
+      if (el) el.classList.add("captureColor");
       return true;
     }
+    return false;
   });
 
   return result;
