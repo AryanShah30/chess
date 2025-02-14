@@ -583,12 +583,14 @@ function movePiece(piece, id, castle) {
     const rookEndPos = isKingside ? `f${rank}` : `d${rank}`;
     const rook = keySquareMapper[rookStartPos].piece;
 
-    movePiece(rook, rookEndPos, true);
-
-    piece.hasMoved = true;
-    rook.hasMoved = true;
-
-    castle = true;
+    if (isMoveLegal(piece, id, color)) {
+      movePiece(rook, rookEndPos, true);
+      piece.hasMoved = true;
+      rook.hasMoved = true;
+      castle = true;
+    } else {
+      return;
+    }
   } else if (
     piece.piece_name.includes("KING") ||
     piece.piece_name.includes("ROOK")
