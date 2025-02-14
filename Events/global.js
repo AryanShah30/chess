@@ -1,5 +1,5 @@
 import { ROOT_DIV } from "../Helper/constants.js";
-import { globalState, keySquareMapper } from "../index.js";
+import { globalState, keySquareMapper, chessClock } from "../index.js";
 import {
   clearHighlight,
   selfHighlight,
@@ -727,6 +727,7 @@ function movePiece(piece, id, castle) {
 
   if (!castle || (castle && piece.piece_name.includes("KING"))) {
     changeTurn();
+    chessClock.switchTurn();
   }
 
   if (checkForDraw()) {

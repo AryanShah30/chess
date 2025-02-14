@@ -1,4 +1,9 @@
+import { chessClock } from "../index.js";
+
 function createNotificationModal(message, isGameOver = false) {
+    // Pause the clock when showing notification
+    if (chessClock) chessClock.pause();
+    
     const modalOverlay = document.createElement('div');
     modalOverlay.className = 'notification-overlay';
     
@@ -11,6 +16,8 @@ function createNotificationModal(message, isGameOver = false) {
     modalContent.appendChild(messageText);
     
     if (isGameOver) {
+        if (chessClock) chessClock.endGame(); // Mark the game as over
+        
         const buttonContainer = document.createElement('div');
         buttonContainer.className = 'button-container';
         
@@ -20,7 +27,10 @@ function createNotificationModal(message, isGameOver = false) {
         
         const continueButton = document.createElement('button');
         continueButton.textContent = 'Continue';
-        continueButton.onclick = () => modalOverlay.remove();
+        continueButton.onclick = () => {
+            modalOverlay.remove();
+            // Don't resume the clock if game is over
+        };
         
         buttonContainer.appendChild(resetButton);
         buttonContainer.appendChild(continueButton);
@@ -28,6 +38,7 @@ function createNotificationModal(message, isGameOver = false) {
     } else {
         setTimeout(() => {
             modalOverlay.remove();
+            if (chessClock && !chessClock.isGameOver) chessClock.resume();
         }, 2000);
     }
     

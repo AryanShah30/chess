@@ -1,6 +1,9 @@
 /* General Body and Layout Styles */
 body {
   background-color: #302e2b;
+  margin: 0;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #root {
@@ -9,6 +12,10 @@ body {
   width: fit-content;
   margin: auto;
   overflow: hidden;
+  background-color: #262522;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Board Styles */
@@ -17,31 +24,38 @@ body {
 }
 
 .square {
-  width: 85px;
-  height: 85px;
+  width: 80px;
+  height: 80px;
   position: relative;
+  transition: background-color 0.2s ease;
 }
 
 .white {
-  background-color: #c5d5dc;
+  background-color: #e8edf9;
 }
 
 .black {
-  background-color: #7a9db2;
+  background-color: #b7c0d8;
 }
 
 .highlightYellow {
-  background-color: #72c9dd;
+  background-color: #fff176;
 }
 
 /* Piece Styles */
 .piece {
   width: 100%;
+  height: 100%;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.piece:hover {
+  transform: scale(1.05);
 }
 
 .captureColor {
-  background-color: #e77c66;
+  background-color: #ef5350;
 }
 
 /* Highlight Styles */
@@ -49,9 +63,9 @@ body {
   width: 32px;
   height: 32px;
   margin: auto;
-  margin-top: 25px;
+  margin-top: 24px;
   border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.17);
+  background-color: rgba(0, 0, 0, 0.2);
   display: block;
 }
 
@@ -84,59 +98,227 @@ body {
 }
 
 .notification-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
 }
 
 .notification-modal {
-    background-color: #302e2b;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
+  background-color: #262522;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
 .notification-modal p {
-    margin: 0 0 20px 0;
-    font-size: 18px;
-    color: white;
+  margin: 0 0 25px 0;
+  font-size: 20px;
+  color: white;
+  line-height: 1.4;
 }
 
 .button-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 .button-container button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .button-container button:first-child {
-    background-color: #4CAF50;
-    color: white;
+  background-color: #4CAF50;
+  color: white;
 }
 
 .button-container button:last-child {
-    background-color: #f0f0f0;
-    color: #333;
+  background-color: #3a3937;
+  color: white;
 }
 
 .button-container button:hover {
-    opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button-container button:active {
+  transform: translateY(0);
+}
+
+/* Chess Clock Styles */
+.chess-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.chess-clock {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 25px;
+  background-color: #262522;
+  border-radius: 12px;
+  width: 250px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.player-clock {
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+  transition: all 0.3s ease;
+  background-color: #3a3937;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.player-clock.active {
+  background-color: #4CAF50;
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.player-name {
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.player-time {
+  font-size: 32px;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Setup Modal Styles */
+.clock-setup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.clock-setup-modal {
+  background-color: #262522;
+  padding: 35px;
+  border-radius: 16px;
+  color: white;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.clock-setup-modal h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #4CAF50;
+  font-size: 24px;
+}
+
+.player-setup {
+  margin: 25px 0;
+  padding: 20px;
+  background-color: #302e2b;
+  border-radius: 8px;
+}
+
+.player-setup h3 {
+  margin: 0 0 15px 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.time-setup {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.time-setup input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #3a3937;
+  border-radius: 6px;
+  background-color: #262522;
+  color: white;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.time-setup input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.time-setup input::-webkit-inner-spin-button,
+.time-setup input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#player1-name, #player2-name {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #3a3937;
+  border-radius: 6px;
+  background-color: #262522;
+  color: white;
+  font-size: 16px;
+}
+
+#start-game {
+  width: 100%;
+  padding: 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 25px;
+  transition: all 0.2s ease;
+}
+
+#start-game:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+#start-game:active {
+  transform: translateY(0);
 }
