@@ -26,6 +26,7 @@ import {
   isMoveLegal,
 } from "../Helper/commonHelper.js";
 import { pawnPromotion } from "../Helper/modalCreator.js";
+import { createNotificationModal } from "../Helper/notifications.js";
 
 function getAllLegalMoves(color) {
   let legalMoves = [];
@@ -242,26 +243,22 @@ function checkForCheck() {
   if (attackedSquares.includes(opponentKingPosition)) {
     document.getElementById(opponentKingPosition).classList.add("captureColor");
     whoInCheck = currentPlayerColor === "white" ? "black" : "white";
-    
+
     const blockingSquares = getBlockingSquares(opponentKingPosition);
     checkLegalMovesInCheck(blockingSquares);
-    
+
     const legalMoves = getAllLegalMoves(whoInCheck);
     if (legalMoves.length === 0) {
-      if (confirm(`Checkmate! ${currentPlayerColor} wins! Click OK to reset the game, or Cancel to stay on the board.`)) {
-        location.reload();
-      }
+      createNotificationModal(`Checkmate! ${currentPlayerColor} wins!`, true);
     } else {
-      alert(`Check! ${whoInCheck}'s king is under attack!`);
+      createNotificationModal(`Check! ${whoInCheck}'s king is under attack!`);
     }
   } else {
     const legalMoves = getAllLegalMoves(
       currentPlayerColor === "white" ? "black" : "white"
     );
     if (legalMoves.length === 0) {
-      if (confirm("STALEMATE! No legal moves available and king is not in check! Click OK to reset the game, or Cancel to stay on the board.")) {
-        location.reload();
-      }
+      createNotificationModal("Stalemate! The game is a draw.", true);
     }
   }
 }
@@ -323,10 +320,6 @@ function getBlockingSquares(kingPosition) {
 function checkLegalMovesInCheck(blockingSquares) {
   let legalMoves = [];
   legalMoves = getAllLegalMoves(whoInCheck);
-
-  if (legalMoves.length === 0) {
-    alert("CHECKMATE! No legal moves to get out of check!");
-  }
 }
 
 function checkForPawnPromotion(piece, id) {
@@ -520,18 +513,14 @@ function isDeadPosition() {
 function checkForDraw() {
   if (isDeadPosition()) {
     setTimeout(() => {
-      if (confirm("Draw by insufficient material! Click OK to reset the game, or Cancel to stay on the board.")) {
-        location.reload();
-      }
+      createNotificationModal("Draw by insufficient material!", true);
     }, 100);
     return true;
   }
 
   if (halfMoveCount >= 100) {
     setTimeout(() => {
-      if (confirm("Draw by 50-move rule! Click OK to reset the game, or Cancel to stay on the board.")) {
-        location.reload();
-      }
+      createNotificationModal("Draw by 50-move rule!", true);
     }, 100);
     return true;
   }
@@ -561,11 +550,8 @@ function movePiece(piece, id, castle) {
     halfMoveCount = 0;
   } else {
     halfMoveCount++;
-
     if (halfMoveCount >= 100) {
-      setTimeout(() => {
-        alert("Draw by 50-move rule!");
-      }, 100);
+      createNotificationModal("Draw by 50 move rule!", true);
       return;
     }
   }
