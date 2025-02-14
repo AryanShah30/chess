@@ -1,9 +1,11 @@
 /* General Body and Layout Styles */
-body {
+html, body {
+  overflow-y: hidden;
   background-color: #302e2b;
   margin: 0;
-  padding: 20px;
+  padding: 15px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
 }
 
 #root {
@@ -24,8 +26,8 @@ body {
 }
 
 .square {
-  width: 80px;
-  height: 80px;
+  width: 78px;
+  height: 78px;
   position: relative;
   transition: background-color 0.2s ease;
 }
@@ -60,10 +62,10 @@ body {
 
 /* Highlight Styles */
 .highlight {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   margin: auto;
-  margin-top: 24px;
+  margin-top: 22px;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.2);
   display: block;
@@ -163,29 +165,68 @@ body {
   transform: translateY(0);
 }
 
-/* Chess Clock Styles */
+/* Chess Container Styles */
 .chess-container {
   display: flex;
   align-items: flex-start;
-  gap: 30px;
-  max-width: 1200px;
+  gap: 25px;
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 15px;
 }
 
+/* Scoresheet Styles */
+.scoresheet {
+  background-color: #262522;
+  padding: 20px;
+  border-radius: 12px;
+  width: 280px;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.move-row {
+  display: grid;
+  grid-template-columns: 40px 120px 120px;
+  color: white;
+  padding: 5px 0;
+  font-family: "Roboto Mono", monospace;
+}
+
+.move-row:nth-child(even) {
+  background-color: #302e2b;
+}
+
+.move-number {
+  color: #888;
+  text-align: center;
+}
+
+.move {
+  padding: 0 10px;
+}
+
+.move.last {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* Chess Clock Styles */
 .chess-clock {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 25px;
+  padding: 20px;
   background-color: #262522;
   border-radius: 12px;
-  width: 250px;
+  width: 280px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .player-clock {
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
   text-align: center;
   color: white;
@@ -229,7 +270,7 @@ body {
 }
 
 .player-time {
-  font-size: 32px;
+  font-size: 28px;
   font-family: "Roboto Mono", monospace;
   font-weight: 700;
   letter-spacing: 2px;
@@ -394,41 +435,4 @@ body {
 
 #start-game:active {
   transform: translateY(0);
-}
-
-/* Scoresheet Styles */
-.scoresheet {
-  background-color: #262522;
-  padding: 20px;
-  border-radius: 12px;
-  width: 250px;
-  max-height: 640px;
-  overflow-y: auto;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.move-row {
-  display: grid;
-  grid-template-columns: 40px 105px 105px;
-  color: white;
-  padding: 5px 0;
-  font-family: "Roboto Mono", monospace;
-}
-
-.move-row:nth-child(even) {
-  background-color: #302e2b;
-}
-
-.move-number {
-  color: #888;
-  text-align: center;
-}
-
-.move {
-  padding: 0 10px;
-}
-
-.move.last {
-  color: #4caf50;
-  font-weight: bold;
 }
