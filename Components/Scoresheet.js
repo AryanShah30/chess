@@ -45,11 +45,13 @@ class Scoresheet {
     // Add piece symbol (except for pawns)
     notation += this.getPieceSymbol(piece);
 
+    // Add source file for pawn captures (including en passant)
+    if (piece.piece_name.includes("PAWN") && (isCapture || fromPos[0] !== toPos[0])) {
+      notation += fromPos[0];
+    }
+
     // Add capture symbol
-    if (isCapture) {
-      if (piece.piece_name.includes("PAWN")) {
-        notation += fromPos[0];
-      }
+    if (isCapture || (piece.piece_name.includes("PAWN") && fromPos[0] !== toPos[0])) {
       notation += "x";
     }
 
