@@ -388,37 +388,43 @@ function isSquareUnderAttack(squareId, color) {
   const opponentColor = color === "white" ? "black" : "white";
   let attackingSquares = [];
 
-  globalState.flat().forEach((square) => {
-    if (
-      square.piece &&
-      square.piece.piece_name.toLowerCase().includes(opponentColor)
-    ) {
-      const piece = square.piece;
-      if (piece.piece_name.includes("PAWN")) {
-        attackingSquares.push(
-          ...givePawnCaptureIds(piece.current_position, opponentColor)
-        );
-      } else if (piece.piece_name.includes("KNIGHT")) {
-        attackingSquares.push(
-          ...giveKnightCaptureIds(piece.current_position, opponentColor)
-        );
-      } else if (piece.piece_name.includes("BISHOP")) {
-        attackingSquares.push(
-          ...giveBishopCaptureIds(piece.current_position, opponentColor)
-        );
-      } else if (piece.piece_name.includes("ROOK")) {
-        attackingSquares.push(
-          ...giveRookCaptureIds(piece.current_position, opponentColor)
-        );
-      } else if (piece.piece_name.includes("QUEEN")) {
-        attackingSquares.push(
-          ...giveQueenCaptureIds(piece.current_position, opponentColor)
-        );
-      } else if (piece.piece_name.includes("KING")) {
-        attackingSquares.push(
-          ...giveKingCaptureIds(piece.current_position, opponentColor)
-        );
+  Object.values(globalPiece).forEach((piece) => {
+    if (!piece || !piece.piece_name || !piece.current_position) return;
+    if (!piece.piece_name.toLowerCase().includes(opponentColor)) return;
+
+    const pos = piece.current_position;
+
+    if (piece.piece_name.includes("PAWN")) {
+      attackingSquares.push(...givePawnCaptureIds(pos, opponentColor));
+    } else if (piece.piece_name.includes("KNIGHT")) {
+      attackingSquares.push(...giveKnightHighlightIds(pos));
+    } else if (piece.piece_name.includes("BISHOP")) {
+      const directions = giveBishopHighlightIds(pos);
+      for (const direction of Object.values(directions)) {
+        for (const square of direction) {
+          attackingSquares.push(square);
+          if (keySquareMapper[square].piece) break;
+        }
       }
+    } else if (piece.piece_name.includes("ROOK")) {
+      const directions = giveRookHighlightIds(pos);
+      for (const direction of Object.values(directions)) {
+        for (const square of direction) {
+          attackingSquares.push(square);
+          if (keySquareMapper[square].piece) break;
+        }
+      }
+    } else if (piece.piece_name.includes("QUEEN")) {
+      const directions = giveQueenHighlightIds(pos);
+      for (const direction of Object.values(directions)) {
+        for (const square of direction) {
+          attackingSquares.push(square);
+          if (keySquareMapper[square].piece) break;
+        }
+      }
+    } else if (piece.piece_name.includes("KING")) {
+      const kingMoves = giveKingHighlightIds(pos);
+      attackingSquares.push(...Object.values(kingMoves).flat());
     }
   });
 
@@ -583,14 +589,12 @@ function movePiece(piece, id, castle) {
     const rookEndPos = isKingside ? `f${rank}` : `d${rank}`;
     const rook = keySquareMapper[rookStartPos].piece;
 
-    if (isMoveLegal(piece, id, color)) {
-      movePiece(rook, rookEndPos, true);
-      piece.hasMoved = true;
-      rook.hasMoved = true;
-      castle = true;
-    } else {
-      return;
-    }
+    movePiece(rook, rookEndPos, true);
+
+    piece.hasMoved = true;
+    rook.hasMoved = true;
+
+    castle = true;
   } else if (
     piece.piece_name.includes("KING") ||
     piece.piece_name.includes("ROOK")
