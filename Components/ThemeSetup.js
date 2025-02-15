@@ -719,12 +719,16 @@ function createThemeSetup() {
       document.documentElement.style.setProperty('--control-bg', '#2a2927');
       document.documentElement.style.setProperty('--control-border', '#3a3937');
       document.documentElement.style.setProperty('--control-hover', '#3a3937');
+      document.documentElement.style.setProperty('--modal-bg-color', '#262522');
+      document.documentElement.style.setProperty('--modal-text-color', '#ffffff');
     } else {
       // Light mode styles - enhanced with better contrast
       document.body.style.backgroundColor = '#e9ecef';
       document.documentElement.style.setProperty('--control-bg', '#ffffff');
       document.documentElement.style.setProperty('--control-border', '#d1d9e6');
       document.documentElement.style.setProperty('--control-hover', '#f8f9fa');
+      document.documentElement.style.setProperty('--modal-bg-color', '#ffffff');
+      document.documentElement.style.setProperty('--modal-text-color', '#333333');
     }
     
     // Update control button styles with better contrast for light mode
