@@ -1,7 +1,7 @@
 function blackPawn(current_position) {
   return {
     current_position,
-    img: "Assets/images/pieces/default/black/bP.png",
+    img: `Assets/images/pieces/${localStorage.getItem('chess-theme-piece-style') || 'default'}/black/bP.png`,
     piece_name: "BLACK_PAWN",
   };
 }
@@ -11,7 +11,7 @@ function blackRook(current_position) {
     move: false,
     hasMoved: false,
     current_position,
-    img: "Assets/images/pieces/default/black/bR.png",
+    img: `Assets/images/pieces/${localStorage.getItem('chess-theme-piece-style') || 'default'}/black/bR.png`,
     piece_name: "BLACK_ROOK",
   };
 }
@@ -97,7 +97,7 @@ function whiteKing(current_position) {
     move: false,
     hasMoved: false,
     current_position,
-    img: "Assets/images/pieces/default/white/wK.png",
+    img: `Assets/images/pieces/${localStorage.getItem('chess-theme-piece-style') || 'default'}/white/wK.png`,
     piece_name: "WHITE_KING",
   };
 }

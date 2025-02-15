@@ -201,6 +201,27 @@ function clearHighlight() {
   });
 }
 
+function updatePieceImages() {
+  const pieceStyle = localStorage.getItem('chess-theme-piece-style') || 'default';
+  const pieces = document.querySelectorAll('.piece');
+  
+  console.log('Updating piece images to style:', pieceStyle);
+  console.log('Found pieces:', pieces.length);
+  
+  pieces.forEach(piece => {
+    const currentSrc = piece.src;
+    // Extract piece info from current path
+    const pathParts = currentSrc.split('/');
+    const pieceFileName = pathParts[pathParts.length - 1]; // e.g., "bN.png"
+    const colorFolder = pathParts[pathParts.length - 2]; // e.g., "black" or "white"
+    
+    // Construct new path
+    const newSrc = `Assets/images/pieces/${pieceStyle}/${colorFolder}/${pieceFileName}`;
+    console.log('Updating piece from:', currentSrc, 'to:', newSrc);
+    piece.src = newSrc;
+  });
+}
+
 export {
   initGameRender,
   renderHighlight,
@@ -210,4 +231,5 @@ export {
   globalStateRender,
   globalPiece,
   clearAllHighlightsExceptMove,
+  updatePieceImages,
 };

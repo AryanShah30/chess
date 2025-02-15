@@ -1,3 +1,5 @@
+import { updatePieceImages } from '../Render/main.js';
+
 const pieceThemes = [
   'alpha', 'anarcandy', 'caliente', 'california', 'cardinal', 'cburnett',
   'celtic', 'chess7', 'chessnut', 'companion', 'cooke', 'default',
@@ -389,6 +391,25 @@ function createThemeSetup() {
 
   // Initial color setup
   updateColors();
+
+  // Add click handler to each piece option
+  const pieceOptions = document.querySelectorAll('.piece-option');
+  pieceOptions.forEach(option => {
+    option.addEventListener('click', (e) => {
+      const theme = e.currentTarget.dataset.theme;
+      console.log('Piece theme clicked:', theme);
+      
+      // Update localStorage
+      localStorage.setItem('chess-theme-piece-style', theme);
+      
+      // Update visual selection
+      pieceOptions.forEach(opt => opt.classList.remove('selected'));
+      e.currentTarget.classList.add('selected');
+      
+      // Update piece images
+      updatePieceImages();
+    });
+  });
 }
 
 export { createThemeSetup }; 
