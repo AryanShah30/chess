@@ -528,7 +528,8 @@ body {
   padding: 25px;
   border-radius: 20px;
   width: 90%;
-  max-width: 700px;
+  max-width: 600px;
+  min-width: 400px;
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -883,4 +884,13 @@ body {
 
 .flip-icon:active {
   transform: scale(0.95) rotate(180deg);
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 480px) {
+  .theme-modal-content {
+    min-width: 95%;
+    width: 95%;
+    padding: 20px;
+  }
 }

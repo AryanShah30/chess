@@ -63,7 +63,7 @@ function createThemeSetup() {
               </label>
             </div>
             <div class="setting-description">
-              Automatically rotates the board 180° when a player completes their turn, providing each player's perspective
+              Automatically rotates the board 180° when a player completes their turn, providing each player's perspective.
             </div>
           </div>
         </div>
@@ -432,38 +432,22 @@ function createThemeSetup() {
 
   // Update the reset button click handler
   resetBtn.addEventListener('click', () => {
-    // Reset colors to default
+    // Reset other theme settings...
+    
+    // Reset flip board setting
+    localStorage.setItem('chess-flip-board', 'false');
+    const flipIcon = document.getElementById('flip-board-setting');
+    flipIcon.classList.remove('active');
+    
+    // Reset colors...
     localStorage.setItem('chess-theme-white squares', defaultColors['white squares']);
     localStorage.setItem('chess-theme-black squares', defaultColors['black squares']);
     localStorage.setItem('chess-theme-highlight color', defaultColors['highlight color']);
+    
+    // Reset piece style...
     localStorage.setItem('chess-theme-piece-style', 'default');
-    localStorage.setItem('chess-flip-board', 'false');
-
-    // Reset flip board checkbox
-    const flipBoardContainer = document.getElementById('flip-board-container');
-    const flipBoardIcon = document.getElementById('flip-board-setting');
-    if (flipBoardContainer) {
-      flipBoardContainer.classList.remove('active');
-    }
-
-    // Reset color selections
-    document.querySelectorAll('.color-option').forEach(option => {
-      option.classList.remove('selected');
-      if (option.dataset.color === defaultColors['white squares'] ||
-          option.dataset.color === defaultColors['black squares'] ||
-          option.dataset.color === defaultColors['highlight color']) {
-        option.classList.add('selected');
-      }
-    });
-
-    // Reset piece theme selection
-    document.querySelectorAll('.piece-option').forEach(option => {
-      option.classList.remove('selected');
-      if (option.dataset.theme === 'default') {
-        option.classList.add('selected');
-      }
-    });
-
+    
+    // Update the visual state of other settings...
     updateColors();
     updatePieceImages();
   });
