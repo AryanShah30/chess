@@ -44,9 +44,10 @@ export function pawnPromotion(color, callback) {
   const modalContent = document.createElement("div");
   modalContent.className = "promotion-modal";
 
-  const pieces = color === "white" 
-    ? [whiteQueen, whiteRook, whiteBishop, whiteKnight]
-    : [blackQueen, blackRook, blackBishop, blackKnight];
+  const pieces =
+    color === "white"
+      ? [whiteQueen, whiteRook, whiteBishop, whiteKnight]
+      : [blackQueen, blackRook, blackBishop, blackKnight];
 
   pieces.forEach((Constructor) => {
     const pieceDiv = document.createElement("div");
@@ -59,7 +60,7 @@ export function pawnPromotion(color, callback) {
     pieceDiv.appendChild(img);
     pieceDiv.addEventListener("click", () => {
       modalOverlay.remove();
-      callback(Constructor);  // The callback will receive the Constructor
+      callback(Constructor);
     });
 
     modalContent.appendChild(pieceDiv);
@@ -77,4 +78,3 @@ function callbackPawnPromotion(newPiece, id) {
     console.error("Expected a function to create a piece, but got:", newPiece);
   }
 }
-
