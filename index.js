@@ -4,6 +4,7 @@ import { globalEvent } from "./Events/global.js";
 import { ChessClock } from "./Components/ChessClock.js";
 import { createClockSetup } from "./Components/ClockSetup.js";
 import { Scoresheet } from "./Components/Scoresheet.js";
+import { createThemeSetup } from "./Components/ThemeSetup.js";
 
 let chessClock;
 let globalState;
@@ -62,5 +63,21 @@ function initializeGame(player1Name, player2Name, time1, time2, increment1, incr
 
 // Show setup form when page loads
 createClockSetup(initializeGame);
+
+// Add this after line 64
+createThemeSetup();
+
+// Load saved theme preferences
+const loadThemes = () => {
+  const whiteSquareColor = localStorage.getItem('chess-theme-white squares') || '#c5d5dc';
+  const blackSquareColor = localStorage.getItem('chess-theme-black squares') || '#7a9db2';
+  const highlightColor = localStorage.getItem('chess-theme-highlight color') || '#72c9dd';
+
+  document.documentElement.style.setProperty('--white-square-color', whiteSquareColor);
+  document.documentElement.style.setProperty('--black-square-color', blackSquareColor);
+  document.documentElement.style.setProperty('--highlight-color', highlightColor);
+};
+
+loadThemes();
 
 export { globalState, keySquareMapper, chessClock, scoresheet };
