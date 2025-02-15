@@ -307,7 +307,14 @@ function createThemeSetup() {
 
   // Add click event for apply button
   applyBtn.addEventListener('click', () => {
+    // Hide the modal
     themeModal.style.display = 'none';
+    
+    // Collapse both sections
+    document.querySelectorAll('.theme-section-header').forEach(header => {
+      header.classList.add('collapsed');
+      header.nextElementSibling.classList.add('collapsed');
+    });
   });
 
   // Add reset functionality
@@ -423,6 +430,12 @@ function createThemeSetup() {
   themeModal.addEventListener('click', (e) => {
     if (e.target === themeModal) {
       themeModal.style.display = 'none';
+      
+      // Collapse both sections
+      document.querySelectorAll('.theme-section-header').forEach(header => {
+        header.classList.add('collapsed');
+        header.nextElementSibling.classList.add('collapsed');
+      });
     }
   });
 
