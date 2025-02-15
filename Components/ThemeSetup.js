@@ -818,22 +818,60 @@ function createThemeSetup() {
           existingStyle.remove();
         }
 
-        // Create a new style element
-        const style = document.createElement('style');
-        style.id = 'placeholder-style';
-        style.textContent = `
+        // Create a new style element for placeholders
+        const placeholderStyle = document.createElement('style');
+        placeholderStyle.id = 'placeholder-style';
+        placeholderStyle.textContent = `
           #player1-name-input::placeholder,
           #player2-name-input::placeholder {
             color: black !important;
           }
         `;
-        document.head.appendChild(style);
+        document.head.appendChild(placeholderStyle);
+
+        // Create a new style element for the modal
+        const modalStyle = document.createElement('style');
+        modalStyle.id = 'modal-style';
+        modalStyle.textContent = `
+          .theme-modal-content {
+            background-color: #ffffff !important;
+            color: #333333 !important;
+          }
+          .theme-section-header h4,
+          .theme-header h3 {
+            color: #333333 !important;
+          }
+          .theme-section-header {
+            background-color: #f0f0f0 !important;
+            border-bottom: 1px solid #e0e0e0 !important;
+          }
+          .theme-section-content {
+            background-color: #f8f9fa !important;
+          }
+          .setting-label {
+            color: #333333 !important;
+          }
+          .setting-description {
+            color: #666666 !important;
+          }
+          .color-option:hover::after,
+          .piece-option:hover::after {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+          }
+        `;
+        document.head.appendChild(modalStyle);
 
         inputs.forEach(input => {
           console.log("Current input:", input);
           input.style.setProperty('color', 'black', 'important');
           console.log("Updated input style:", input.style);
         });
+      } else {
+        // Remove modal style when switching back to dark mode
+        const modalStyle = document.getElementById('modal-style');
+        if (modalStyle) {
+          modalStyle.remove();
+        }
       }
     }
     
