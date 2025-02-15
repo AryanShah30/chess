@@ -34,7 +34,13 @@ function createThemeSetup() {
         </div>
         
         <div class="theme-section">
-          <h4>White Squares</h4>
+          <div class="theme-section-header">
+            <h4>White Squares</h4>
+            <div class="custom-color-container">
+              <input type="color" data-type="white" class="color-picker" value="#c5d5dc">
+              <button class="custom-button">CUSTOM</button>
+            </div>
+          </div>
           <div class="color-options">
             <button class="color-option" style="background-color: #c5d5dc;" data-type="white" data-color="#c5d5dc" title="Classic Light Blue"></button>
             <button class="color-option" style="background-color: #FFFFFF;" data-type="white" data-color="#FFFFFF" title="Pure White"></button>
@@ -50,7 +56,13 @@ function createThemeSetup() {
         </div>
 
         <div class="theme-section">
-          <h4>Black Squares</h4>
+          <div class="theme-section-header">
+            <h4>Black Squares</h4>
+            <div class="custom-color-container">
+              <input type="color" data-type="black" class="color-picker" value="#7a9db2">
+              <button class="custom-button">CUSTOM</button>
+            </div>
+          </div>
           <div class="color-options">
             <button class="color-option" style="background-color: #7a9db2;" data-type="black" data-color="#7a9db2" title="Classic Blue"></button>
             <button class="color-option" style="background-color: #4B7399;" data-type="black" data-color="#4B7399" title="Deep Blue"></button>
@@ -66,7 +78,13 @@ function createThemeSetup() {
         </div>
 
         <div class="theme-section">
-          <h4>Highlight Color</h4>
+          <div class="theme-section-header">
+            <h4>Highlight Color</h4>
+            <div class="custom-color-container">
+              <input type="color" data-type="highlight" class="color-picker" value="#72c9dd">
+              <button class="custom-button">CUSTOM</button>
+            </div>
+          </div>
           <div class="color-options">
             <button class="color-option" style="background-color: #72c9dd;" data-type="highlight" data-color="#72c9dd" title="Classic Blue"></button>
             <button class="color-option" style="background-color: #aaa23a;" data-type="highlight" data-color="#aaa23a" title="Olive"></button>
@@ -84,6 +102,50 @@ function createThemeSetup() {
     </div>
   `;
 
+  // Add styles to document
+  const styles = `
+    .theme-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .custom-color-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .color-picker {
+      width: 0;
+      height: 0;
+      padding: 0;
+      border: none;
+      visibility: hidden;
+      position: absolute;
+    }
+
+    .custom-button {
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .custom-button:hover {
+      background-color: #e0e0e0;
+      border-color: #ccc;
+    }
+  `;
+
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = styles;
+  document.head.appendChild(styleSheet);
+
   // Add elements to DOM
   document.querySelector('.chess-container').insertAdjacentHTML("beforeend", settingsButtonHTML);
   document.body.insertAdjacentHTML("beforeend", themeModalHTML);
@@ -94,6 +156,8 @@ function createThemeSetup() {
   const applyBtn = document.querySelector('.apply-button');
   const resetBtn = document.querySelector('.reset-button');
   const colorOptions = document.querySelectorAll('.color-option');
+  const customButtons = document.querySelectorAll('.custom-button');
+  const colorPickers = document.querySelectorAll('.color-picker');
 
   // Initially hide the modal
   themeModal.style.display = 'none';
@@ -144,6 +208,35 @@ function createThemeSetup() {
   colorOptions.forEach(option => {
     option.addEventListener('click', (e) => {
       const color = e.target.dataset.color;
+      const type = e.target.dataset.type;
+
+      switch(type) {
+        case 'white':
+          localStorage.setItem('chess-theme-white squares', color);
+          break;
+        case 'black':
+          localStorage.setItem('chess-theme-black squares', color);
+          break;
+        case 'highlight':
+          localStorage.setItem('chess-theme-highlight color', color);
+          break;
+      }
+      
+      updateColors();
+    });
+  });
+
+  // Add click events for custom buttons
+  customButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      colorPickers[index].click();
+    });
+  });
+
+  // Add input events for color pickers
+  colorPickers.forEach(picker => {
+    picker.addEventListener('input', (e) => {
+      const color = e.target.value;
       const type = e.target.dataset.type;
 
       switch(type) {
