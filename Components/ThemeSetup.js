@@ -1,4 +1,5 @@
 import { updatePieceImages } from '../Render/main.js';
+import { flipBoard } from '../Render/main.js';
 
 const pieceThemes = [
   'alpha', 'anarcandy', 'caliente', 'california', 'cardinal', 'cburnett',
@@ -28,9 +29,12 @@ function createThemeSetup() {
   }
 
   const settingsButtonHTML = `
-    <button class="settings-button">
-      <img src="Assets/images/settings.png" alt="Settings" />
-    </button>
+    <div class="board-controls">
+      <button class="settings-button">
+        <img src="Assets/images/settings.png" alt="Settings" />
+      </button>
+      <button class="flip-button" title="Flip Board">⟳</button> 
+    </div>
   `;
 
   const themeModalHTML = `
@@ -392,6 +396,7 @@ function createThemeSetup() {
   document.body.insertAdjacentHTML("beforeend", themeModalHTML);
 
   // Get DOM elements
+  const flipBtn = document.querySelector('.flip-button');
   const settingsBtn = document.querySelector('.settings-button');
   const themeModal = document.querySelector('.theme-modal');
   const applyBtn = document.querySelector('.apply-button');
@@ -596,6 +601,12 @@ function createThemeSetup() {
     const newState = !currentState;
     localStorage.setItem('chess-flip-board', newState);
     flipBoardIcon.classList.toggle('active');
+  });
+
+  // Add click event for flip button
+  flipBtn.addEventListener('click', () => {
+    flipBtn.classList.toggle('active');  // Toggle active class
+    flipBoard();
   });
 }
 

@@ -480,33 +480,13 @@ body {
 }
 
 .settings-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #262522;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
   z-index: 1000;
-  border: none;
-  padding: 0;
 }
 
-.settings-button:hover {
-  transform: rotate(45deg);
-  background-color: #3a3937;
-}
-
-.settings-button img {
-  width: 24px;
-  height: 24px;
-  filter: invert(1);
+.flip-button {
+  position: relative;
+  z-index: 999;
 }
 
 .theme-modal {
@@ -893,4 +873,75 @@ body {
     width: 95%;
     padding: 20px;
   }
+}
+
+.board-controls {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+}
+
+.flip-button {
+  background: #262522;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.flip-button:hover {
+  background: #3a3937;
+  transform: rotate(180deg);
+}
+
+.flip-button:active {
+  transform: scale(0.95) rotate(180deg);
+}
+
+.flip-button.active {
+  background: #4caf50;
+  color: white;
+}
+
+/* Update existing settings button styles to match */
+.settings-button {
+  background: #262522;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.settings-button:hover {
+  background: #3a3937;
+}
+
+.settings-button:active {
+  transform: scale(0.95);
+}
+
+.settings-button img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
 }
