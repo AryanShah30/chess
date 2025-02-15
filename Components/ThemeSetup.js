@@ -53,14 +53,17 @@ function createThemeSetup() {
           </div>
           
           <div class="theme-section-content game-settings">
-            <div class="setting-option">
+            <div class="setting-option" id="flip-board-container">
               <label class="setting-label">
-                <input type="checkbox" id="flip-board-setting" ${localStorage.getItem('chess-flip-board') === 'true' ? 'checked' : ''}>
-                Auto-Flip Board
+                <span 
+                  class="flip-icon ${localStorage.getItem('chess-flip-board') === 'true' ? 'active' : ''}" 
+                  id="flip-board-setting"
+                >⟳</span>
+                Flip Board After Each Move
               </label>
-              <div class="setting-description">
-                Automatically rotates the board after each move to show the active player's perspective.
-              </div>
+            </div>
+            <div class="setting-description">
+              Automatically rotates the board 180° when a player completes their turn, providing each player's perspective
             </div>
           </div>
         </div>
@@ -355,6 +358,29 @@ function createThemeSetup() {
       height: 18px;
       cursor: pointer;
     }
+
+    .flip-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      opacity: 0.5;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .flip-icon.active {
+      opacity: 1;
+      color: #4caf50;
+      text-shadow: 0 0 2px rgba(76, 175, 80, 0.5);
+    }
+
+    .flip-icon:hover {
+      transform: rotate(180deg);
+    }
   `;
 
   const styleSheet = document.createElement("style");
@@ -404,43 +430,41 @@ function createThemeSetup() {
     });
   });
 
-  // Add reset functionality
+  // Update the reset button click handler
   resetBtn.addEventListener('click', () => {
-    // Reset board colors
-    localStorage.setItem('chess-theme-white squares', '#c5d5dc');
-    localStorage.setItem('chess-theme-black squares', '#7a9db2');
-    localStorage.setItem('chess-theme-highlight color', '#72c9dd');
-    
-    // Reset piece style to default
+    // Reset colors to default
+    localStorage.setItem('chess-theme-white squares', defaultColors['white squares']);
+    localStorage.setItem('chess-theme-black squares', defaultColors['black squares']);
+    localStorage.setItem('chess-theme-highlight color', defaultColors['highlight color']);
     localStorage.setItem('chess-theme-piece-style', 'default');
-    
-    // Reset flip board setting
     localStorage.setItem('chess-flip-board', 'false');
-    
-    // Update visual selections
-    colorOptions.forEach(option => {
+
+    // Reset flip board checkbox
+    const flipBoardContainer = document.getElementById('flip-board-container');
+    const flipBoardIcon = document.getElementById('flip-board-setting');
+    if (flipBoardContainer) {
+      flipBoardContainer.classList.remove('active');
+    }
+
+    // Reset color selections
+    document.querySelectorAll('.color-option').forEach(option => {
       option.classList.remove('selected');
-      if (option.dataset.color === '#c5d5dc' || 
-          option.dataset.color === '#7a9db2' || 
-          option.dataset.color === '#72c9dd') {
+      if (option.dataset.color === defaultColors['white squares'] ||
+          option.dataset.color === defaultColors['black squares'] ||
+          option.dataset.color === defaultColors['highlight color']) {
         option.classList.add('selected');
       }
     });
 
-    // Update piece style selection
-    pieceOptions.forEach(option => {
+    // Reset piece theme selection
+    document.querySelectorAll('.piece-option').forEach(option => {
       option.classList.remove('selected');
       if (option.dataset.theme === 'default') {
         option.classList.add('selected');
       }
     });
-    
-    // Update the board colors
-    document.documentElement.style.setProperty('--white-square-color', '#c5d5dc');
-    document.documentElement.style.setProperty('--black-square-color', '#7a9db2');
-    document.documentElement.style.setProperty('--highlight-color', '#72c9dd');
-    
-    // Update the piece images
+
+    updateColors();
     updatePieceImages();
   });
 
@@ -579,10 +603,15 @@ function createThemeSetup() {
     });
   });
 
-  // Add event listener for flip board setting
-  const flipBoardCheckbox = document.getElementById('flip-board-setting');
-  flipBoardCheckbox.addEventListener('change', (e) => {
-    localStorage.setItem('chess-flip-board', e.target.checked);
+  // Update the click handler to work with the entire container
+  const flipBoardContainer = document.getElementById('flip-board-container');
+  const flipBoardIcon = document.getElementById('flip-board-setting');
+
+  flipBoardContainer.addEventListener('click', () => {
+    const currentState = localStorage.getItem('chess-flip-board') === 'true';
+    const newState = !currentState;
+    localStorage.setItem('chess-flip-board', newState);
+    flipBoardIcon.classList.toggle('active');
   });
 }
 
