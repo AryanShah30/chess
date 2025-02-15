@@ -196,6 +196,7 @@ function checkForCheck() {
     el.classList.remove("captureColor");
   });
   whoInCheck = null;
+  let isCheckmate = false;
 
   const currentPlayerColor = inTurn;
   const opponentKingPosition =
@@ -207,7 +208,6 @@ function checkForCheck() {
 
   Object.values(globalPiece).forEach((piece) => {
     if (!piece || !piece.piece_name) return;
-
     if (!piece.piece_name.toLowerCase().includes(currentPlayerColor)) return;
 
     const pos = piece.current_position;
@@ -227,31 +227,17 @@ function checkForCheck() {
       squares = giveKingCaptureIds(pos, currentPlayerColor);
     }
 
-    const validCaptures = squares.filter((squareId) => {
-      const targetSquare = keySquareMapper[squareId];
-      return (
-        targetSquare &&
-        targetSquare.piece &&
-        targetSquare.piece.piece_name
-          .toLowerCase()
-          .includes(currentPlayerColor === "white" ? "black" : "white")
-      );
-    });
-
-    if (validCaptures.length > 0) {
-      attackedSquares.push(...validCaptures);
-    }
+    attackedSquares.push(...squares);
   });
 
   if (attackedSquares.includes(opponentKingPosition)) {
     document.getElementById(opponentKingPosition).classList.add("captureColor");
     whoInCheck = currentPlayerColor === "white" ? "black" : "white";
 
-    const blockingSquares = getBlockingSquares(opponentKingPosition);
-    checkLegalMovesInCheck(blockingSquares);
-
     const legalMoves = getAllLegalMoves(whoInCheck);
     if (legalMoves.length === 0) {
+      isCheckmate = true;
+      console.log("Checkmate detected!");
       createNotificationModal(
         `Checkmate! ${
           currentPlayerColor === "white" ? "White" : "Black"
@@ -273,6 +259,8 @@ function checkForCheck() {
       createNotificationModal("Stalemate! The game is a draw.", true);
     }
   }
+
+  return { isCheck: whoInCheck !== null, isCheckmate };
 }
 
 function getBlockingSquares(kingPosition) {
@@ -624,6 +612,8 @@ function movePiece(piece, id, castle) {
     ? "white"
     : "black";
 
+  if (color !== inTurn) return;
+
   const originalPosition = piece.current_position;
   let isCapture = false;
   let whoInCheck = null;
@@ -800,7 +790,8 @@ function movePiece(piece, id, castle) {
   if (previousPiece) previousPiece.innerHTML = "";
   piece.current_position = id;
 
-  checkForCheck();
+  const checkStatus = checkForCheck();
+  console.log("Check status:", checkStatus);
 
   if (!castle || (castle && piece.piece_name.includes("KING"))) {
     scoresheet.addMove(
@@ -808,9 +799,11 @@ function movePiece(piece, id, castle) {
       originalPosition,
       id,
       isCapture,
-      whoInCheck !== null,
-      whoInCheck !== null && getAllLegalMoves(whoInCheck).length === 0,
-      castle
+      checkStatus.isCheck,
+      checkStatus.isCheckmate,
+      castle,
+      promotedPieces.length > 0 ? promotedPieces[0] : null,
+      lastMove?.enPassantTarget === id
     );
 
     changeTurn();

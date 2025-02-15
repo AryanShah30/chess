@@ -31,18 +31,7 @@ class Scoresheet {
     isCastle,
     isEnPassant
   ) {
-    console.log("Converting to notation:", {
-      piece_name: piece.piece_name,
-      fromPos,
-      toPos,
-      isCapture,
-      isCheck,
-      isCheckmate,
-      isCastle,
-      promotedTo: this.promotedTo,
-      isEnPassant,
-    });
-
+    console.log("Converting to notation with checkmate status:", isCheckmate);
     let notation = "";
 
     if (isCastle) {
@@ -75,11 +64,11 @@ class Scoresheet {
     }
 
     if (isCheckmate) {
+      console.log("Adding checkmate symbol to notation");
       notation += "#";
-      console.log("Added checkmate:", notation);
     } else if (isCheck) {
+      console.log("Adding check symbol to notation");
       notation += "+";
-      console.log("Added check:", notation);
     }
 
     if (isEnPassant) {
@@ -87,7 +76,7 @@ class Scoresheet {
       console.log("Added en passant:", notation);
     }
 
-    console.log("Final notation:", notation);
+    console.log("Final notation with symbols:", notation);
     return notation;
   }
 
@@ -102,6 +91,8 @@ class Scoresheet {
     promotedTo = null,
     isEnPassant = false
   ) {
+    console.log("Adding move with checkmate status:", isCheckmate);
+
     this.promotedTo = promotedTo;
     const notation = this.convertPositionToNotation(
       piece,
