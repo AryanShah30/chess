@@ -695,10 +695,17 @@ function createThemeSetup() {
     themeIcon.src = isDarkMode ? 'Assets/images/light-mode.png' : 'Assets/images/dark-mode.png';
     themeToggleBtn.title = isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode';
     
-    // Toggle theme colors
-    document.documentElement.style.setProperty('--white-square-color', isDarkMode ? '#c5d5dc' : '#ffffff');
-    document.documentElement.style.setProperty('--black-square-color', isDarkMode ? '#7a9db2' : '#4b4b4b');
-    document.documentElement.style.setProperty('--highlight-color', isDarkMode ? '#72c9dd' : '#fff47f');
+    // Get stored board colors
+    const whiteSquareColor = localStorage.getItem('chess-theme-white squares') || '#c5d5dc';
+    const blackSquareColor = localStorage.getItem('chess-theme-black squares') || '#7a9db2';
+    const highlightColor = localStorage.getItem('chess-theme-highlight color') || '#72c9dd';
+    
+    // Apply stored colors
+    document.documentElement.style.setProperty('--white-square-color', whiteSquareColor);
+    document.documentElement.style.setProperty('--black-square-color', blackSquareColor);
+    document.documentElement.style.setProperty('--highlight-color', highlightColor);
+    
+    // Only change background color
     document.body.style.backgroundColor = isDarkMode ? '#302e2b' : '#f0f0f0';
     
     // Store theme preference
