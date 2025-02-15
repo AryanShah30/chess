@@ -516,6 +516,14 @@ function createThemeSetup() {
     // Reset piece style...
     localStorage.setItem('chess-theme-piece-style', 'default');
     
+    // Reset theme mode to dark
+    localStorage.setItem('chess-theme-mode', 'dark');
+    const themeToggleBtn = document.querySelector('.theme-toggle-button');
+    if (themeToggleBtn.classList.contains('active')) {
+      themeToggleBtn.click(); // Switch back to dark mode if currently in light mode
+    }
+    document.body.style.backgroundColor = '#302e2b';
+    
     // Update the visual state of other settings...
     updateColors();
     updatePieceImages();
