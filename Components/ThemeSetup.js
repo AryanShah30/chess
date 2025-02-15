@@ -449,6 +449,22 @@ function createThemeSetup() {
       background: #4caf50;
       border-color: #45a049;
     }
+
+    .clock-setup-modal h2,
+    .clock-setup-modal h3,
+    .clock-setup-modal label {
+      color: var(--modal-text-color) !important;
+    }
+
+    .clock-setup-modal input[type="text"],
+    .clock-setup-modal input[type="number"] {
+      color: var(--modal-text-color) !important;
+    }
+
+    .clock-setup-modal input::placeholder {
+      color: var(--modal-text-color) !important;
+      opacity: 0.7;
+    }
   `;
 
   const styleSheet = document.createElement("style");
@@ -698,21 +714,14 @@ function createThemeSetup() {
     themeToggleBtn.classList.toggle('active');
     const isDarkMode = !themeToggleBtn.classList.contains('active');
     
+    console.log('Theme toggled. Dark mode:', isDarkMode); // Debug log
+    
     // Update button icon and title
     const themeIcon = themeToggleBtn.querySelector('img');
     themeIcon.src = isDarkMode ? 'Assets/images/light-mode.png' : 'Assets/images/dark-mode.png';
     themeToggleBtn.title = isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode';
     
-    // Get stored board colors
-    const whiteSquareColor = localStorage.getItem('chess-theme-white squares') || '#c5d5dc';
-    const blackSquareColor = localStorage.getItem('chess-theme-black squares') || '#7a9db2';
-    const highlightColor = localStorage.getItem('chess-theme-highlight color') || '#72c9dd';
-    
-    // Apply stored colors
-    document.documentElement.style.setProperty('--white-square-color', whiteSquareColor);
-    document.documentElement.style.setProperty('--black-square-color', blackSquareColor);
-    document.documentElement.style.setProperty('--highlight-color', highlightColor);
-    
+    // Set theme variables
     if (isDarkMode) {
       // Dark mode styles
       document.body.style.backgroundColor = '#302e2b';
@@ -720,17 +729,29 @@ function createThemeSetup() {
       document.documentElement.style.setProperty('--control-border', '#3a3937');
       document.documentElement.style.setProperty('--control-hover', '#3a3937');
       document.documentElement.style.setProperty('--modal-bg-color', '#262522');
-      document.documentElement.style.setProperty('--modal-text-color', '#ffffff');
+      document.documentElement.style.removeProperty('--modal-text-color');
       document.documentElement.style.setProperty('--piece-bg-color', '#4a4947');
+      
+      // Set Game Setup heading to white with !important
+      const gameSetupHeading = document.querySelector('.clock-setup-modal h2');
+      if (gameSetupHeading) {
+        gameSetupHeading.style.setProperty('color', '#ffffff', 'important');
+      }
     } else {
-      // Light mode styles - enhanced with better contrast
+      // Light mode styles
       document.body.style.backgroundColor = '#e9ecef';
       document.documentElement.style.setProperty('--control-bg', '#ffffff');
       document.documentElement.style.setProperty('--control-border', '#d1d9e6');
       document.documentElement.style.setProperty('--control-hover', '#f8f9fa');
       document.documentElement.style.setProperty('--modal-bg-color', '#ffffff');
-      document.documentElement.style.setProperty('--modal-text-color', '#333333');
+      document.documentElement.style.removeProperty('--modal-text-color');
       document.documentElement.style.setProperty('--piece-bg-color', '#e6e6e6');
+      
+      // Set Game Setup heading to black with !important
+      const gameSetupHeading = document.querySelector('.clock-setup-modal h2');
+      if (gameSetupHeading) {
+        gameSetupHeading.style.setProperty('color', '#000000', 'important');
+      }
     }
     
     // Update control button styles with better contrast for light mode
