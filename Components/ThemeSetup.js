@@ -752,6 +752,19 @@ function createThemeSetup() {
       document.querySelectorAll('.clock-setup-modal label').forEach(label => {
         label.style.color = '#ffffff';
       });
+
+      // Change the button background color
+      const settingOption = document.querySelector('#flip-board-container');
+      if (settingOption) {
+        settingOption.style.setProperty('background', '#2a2927', 'important');
+      }
+
+      // Reset flip icon color
+      const flipIcon = document.getElementById('flip-board-setting');
+      if (flipIcon) {
+        flipIcon.style.setProperty('color', '', 'important');
+        flipIcon.style.setProperty('opacity', '', 'important');
+      }
     } else {
       // Light mode styles
       document.body.style.backgroundColor = '#e9ecef';
@@ -875,19 +888,51 @@ function createThemeSetup() {
             grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
             gap: 10px;
           }
+          .custom-button {
+            background: #e0e0e0 !important; /* Lighter background for custom button */
+            color: #333333 !important;
+            border: 1px solid #d0d0d0 !important;
+          }
+          .custom-button:hover {
+            background: #d0d0d0 !important; /* Slightly darker on hover */
+          }
         `;
         document.head.appendChild(modalStyle);
+
+        const flipLabel = document.querySelector('#flip-board-container .setting-label');
+        if (flipLabel) {
+          flipLabel.style.color = '#666666'; // Lighter color for the label
+        }
 
         inputs.forEach(input => {
           console.log("Current input:", input);
           input.style.setProperty('color', 'black', 'important');
           console.log("Updated input style:", input.style);
         });
+
+        // Change the button background color
+        const settingOption = document.querySelector('#flip-board-container');
+        if (settingOption) {
+          settingOption.style.setProperty('background', '#f0f0f0', 'important');
+        }
       } else {
         // Remove modal style when switching back to dark mode
         const modalStyle = document.getElementById('modal-style');
         if (modalStyle) {
           modalStyle.remove();
+        }
+
+        // Reset to dark mode
+        const settingOption = document.querySelector('#flip-board-container');
+        if (settingOption) {
+          settingOption.style.setProperty('background', '#2a2927', 'important');
+        }
+
+        // Reset flip icon color
+        const flipIcon = document.getElementById('flip-board-setting');
+        if (flipIcon) {
+          flipIcon.style.setProperty('color', '', 'important');
+          flipIcon.style.setProperty('opacity', '', 'important');
         }
       }
     }
