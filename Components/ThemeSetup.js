@@ -35,83 +35,106 @@ function createThemeSetup() {
     <div class="theme-modal">
       <div class="theme-modal-content">
         <div class="theme-header">
-          <h3>Board Themes</h3>
+          <h3>Themes</h3>
           <div class="theme-header-buttons">
-            <button class="reset-button" title="Reset to default colors">Reset</button>
+            <button class="reset-button" title="Reset to default">Reset</button>
             <button class="apply-button" title="Apply changes">Apply</button>
           </div>
         </div>
         
         <div class="theme-section">
-          <div class="theme-section-header">
-            <h4>White Squares</h4>
-            <div class="custom-color-container">
-              <input type="color" data-type="white" class="color-picker" value="#c5d5dc">
-              <button class="custom-button">CUSTOM</button>
-            </div>
+          <div class="theme-section-header" data-section="board">
+            <h4>Board Theme</h4>
+            <button class="dropdown-toggle">
+              <span class="arrow">▼</span>
+            </button>
           </div>
-          <div class="color-options">
-            <button class="color-option" style="background-color: #c5d5dc;" data-type="white" data-color="#c5d5dc" title="Classic Light Blue"></button>
-            <button class="color-option" style="background-color: #FFFFFF;" data-type="white" data-color="#FFFFFF" title="Pure White"></button>
-            <button class="color-option" style="background-color: #E8D0B0;" data-type="white" data-color="#E8D0B0" title="Light Wood"></button>
-            <button class="color-option" style="background-color: #EED7C5;" data-type="white" data-color="#EED7C5" title="Peach"></button>
-            <button class="color-option" style="background-color: #F0E4D4;" data-type="white" data-color="#F0E4D4" title="Cream"></button>
-            <button class="color-option" style="background-color: #F5F6E8;" data-type="white" data-color="#F5F6E8" title="Eggshell"></button>
-            <button class="color-option" style="background-color: #E8E3D5;" data-type="white" data-color="#E8E3D5" title="Pearl"></button>
-            <button class="color-option" style="background-color: #DFE5DC;" data-type="white" data-color="#DFE5DC" title="Sage White"></button>
-            <button class="color-option" style="background-color: #E8DFE6;" data-type="white" data-color="#E8DFE6" title="Lavender White"></button>
-            <button class="color-option" style="background-color: #F3E5D5;" data-type="white" data-color="#F3E5D5" title="Antique"></button>
+          
+          <div class="theme-section-content board-themes">
+            <div class="color-section">
+              <div class="color-section-header">
+                <h5>White Squares</h5>
+                <div class="custom-color-container">
+                  <input type="color" data-type="white" class="color-picker" value="#c5d5dc">
+                  <button class="custom-button">CUSTOM</button>
+                </div>
+              </div>
+              <div class="color-options">
+                <button class="color-option" style="background-color: #c5d5dc;" data-type="white" data-color="#c5d5dc" title="Classic Light Blue"></button>
+                <button class="color-option" style="background-color: #FFFFFF;" data-type="white" data-color="#FFFFFF" title="Pure White"></button>
+                <button class="color-option" style="background-color: #E8D0B0;" data-type="white" data-color="#E8D0B0" title="Light Wood"></button>
+                <button class="color-option" style="background-color: #EED7C5;" data-type="white" data-color="#EED7C5" title="Peach"></button>
+                <button class="color-option" style="background-color: #F0E4D4;" data-type="white" data-color="#F0E4D4" title="Cream"></button>
+                <button class="color-option" style="background-color: #F5F6E8;" data-type="white" data-color="#F5F6E8" title="Eggshell"></button>
+                <button class="color-option" style="background-color: #E8E3D5;" data-type="white" data-color="#E8E3D5" title="Pearl"></button>
+                <button class="color-option" style="background-color: #DFE5DC;" data-type="white" data-color="#DFE5DC" title="Sage White"></button>
+                <button class="color-option" style="background-color: #E8DFE6;" data-type="white" data-color="#E8DFE6" title="Lavender White"></button>
+                <button class="color-option" style="background-color: #F3E5D5;" data-type="white" data-color="#F3E5D5" title="Antique"></button>
+              </div>
+            </div>
+
+            <div class="color-section">
+              <div class="color-section-header">
+                <h5>Black Squares</h5>
+                <div class="custom-color-container">
+                  <input type="color" data-type="black" class="color-picker" value="#7a9db2">
+                  <button class="custom-button">CUSTOM</button>
+                </div>
+              </div>
+              <div class="color-options">
+                <button class="color-option" style="background-color: #7a9db2;" data-type="black" data-color="#7a9db2" title="Classic Blue"></button>
+                <button class="color-option" style="background-color: #4B7399;" data-type="black" data-color="#4B7399" title="Deep Blue"></button>
+                <button class="color-option" style="background-color: #B58863;" data-type="black" data-color="#B58863" title="Classic Wood"></button>
+                <button class="color-option" style="background-color: #8B4513;" data-type="black" data-color="#8B4513" title="Dark Wood"></button>
+                <button class="color-option" style="background-color: #6F4E37;" data-type="black" data-color="#6F4E37" title="Coffee"></button>
+                <button class="color-option" style="background-color: #5C4033;" data-type="black" data-color="#5C4033" title="Deep Brown"></button>
+                <button class="color-option" style="background-color: #4A5859;" data-type="black" data-color="#4A5859" title="Slate"></button>
+                <button class="color-option" style="background-color: #4B6455;" data-type="black" data-color="#4B6455" title="Forest"></button>
+                <button class="color-option" style="background-color: #4A4E4D;" data-type="black" data-color="#4A4E4D" title="Charcoal"></button>
+                <button class="color-option" style="background-color: #534B4F;" data-type="black" data-color="#534B4F" title="Dark Gray"></button>
+              </div>
+            </div>
+
+            <div class="color-section">
+              <div class="color-section-header">
+                <h5>Highlight Color</h5>
+                <div class="custom-color-container">
+                  <input type="color" data-type="highlight" class="color-picker" value="#72c9dd">
+                  <button class="custom-button">CUSTOM</button>
+                </div>
+              </div>
+              <div class="color-options">
+                <button class="color-option" style="background-color: #72c9dd;" data-type="highlight" data-color="#72c9dd" title="Classic Blue"></button>
+                <button class="color-option" style="background-color: #aaa23a;" data-type="highlight" data-color="#aaa23a" title="Olive"></button>
+                <button class="color-option" style="background-color: #f7ec59;" data-type="highlight" data-color="#f7ec59" title="Yellow"></button>
+                <button class="color-option" style="background-color: #ff9f40;" data-type="highlight" data-color="#ff9f40" title="Orange"></button>
+                <button class="color-option" style="background-color: #90EE90;" data-type="highlight" data-color="#90EE90" title="Light Green"></button>
+                <button class="color-option" style="background-color: #FFB6C1;" data-type="highlight" data-color="#FFB6C1" title="Light Pink"></button>
+                <button class="color-option" style="background-color: #E6E6FA;" data-type="highlight" data-color="#E6E6FA" title="Lavender"></button>
+                <button class="color-option" style="background-color: #98FB98;" data-type="highlight" data-color="#98FB98" title="Mint"></button>
+                <button class="color-option" style="background-color: #DDA0DD;" data-type="highlight" data-color="#DDA0DD" title="Plum"></button>
+                <button class="color-option" style="background-color: #87CEEB;" data-type="highlight" data-color="#87CEEB" title="Sky Blue"></button>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="theme-section">
-          <div class="theme-section-header">
-            <h4>Black Squares</h4>
-            <div class="custom-color-container">
-              <input type="color" data-type="black" class="color-picker" value="#7a9db2">
-              <button class="custom-button">CUSTOM</button>
-            </div>
-          </div>
-          <div class="color-options">
-            <button class="color-option" style="background-color: #7a9db2;" data-type="black" data-color="#7a9db2" title="Classic Blue"></button>
-            <button class="color-option" style="background-color: #4B7399;" data-type="black" data-color="#4B7399" title="Deep Blue"></button>
-            <button class="color-option" style="background-color: #B58863;" data-type="black" data-color="#B58863" title="Classic Wood"></button>
-            <button class="color-option" style="background-color: #8B4513;" data-type="black" data-color="#8B4513" title="Dark Wood"></button>
-            <button class="color-option" style="background-color: #6F4E37;" data-type="black" data-color="#6F4E37" title="Coffee"></button>
-            <button class="color-option" style="background-color: #5C4033;" data-type="black" data-color="#5C4033" title="Deep Brown"></button>
-            <button class="color-option" style="background-color: #4A5859;" data-type="black" data-color="#4A5859" title="Slate"></button>
-            <button class="color-option" style="background-color: #4B6455;" data-type="black" data-color="#4B6455" title="Forest"></button>
-            <button class="color-option" style="background-color: #4A4E4D;" data-type="black" data-color="#4A4E4D" title="Charcoal"></button>
-            <button class="color-option" style="background-color: #534B4F;" data-type="black" data-color="#534B4F" title="Dark Gray"></button>
-          </div>
-        </div>
-
-        <div class="theme-section">
-          <div class="theme-section-header">
-            <h4>Highlight Color</h4>
-            <div class="custom-color-container">
-              <input type="color" data-type="highlight" class="color-picker" value="#72c9dd">
-              <button class="custom-button">CUSTOM</button>
-            </div>
-          </div>
-          <div class="color-options">
-            <button class="color-option" style="background-color: #72c9dd;" data-type="highlight" data-color="#72c9dd" title="Classic Blue"></button>
-            <button class="color-option" style="background-color: #aaa23a;" data-type="highlight" data-color="#aaa23a" title="Olive"></button>
-            <button class="color-option" style="background-color: #f7ec59;" data-type="highlight" data-color="#f7ec59" title="Yellow"></button>
-            <button class="color-option" style="background-color: #ff9f40;" data-type="highlight" data-color="#ff9f40" title="Orange"></button>
-            <button class="color-option" style="background-color: #90EE90;" data-type="highlight" data-color="#90EE90" title="Light Green"></button>
-            <button class="color-option" style="background-color: #FFB6C1;" data-type="highlight" data-color="#FFB6C1" title="Light Pink"></button>
-            <button class="color-option" style="background-color: #E6E6FA;" data-type="highlight" data-color="#E6E6FA" title="Lavender"></button>
-            <button class="color-option" style="background-color: #98FB98;" data-type="highlight" data-color="#98FB98" title="Mint"></button>
-            <button class="color-option" style="background-color: #DDA0DD;" data-type="highlight" data-color="#DDA0DD" title="Plum"></button>
-            <button class="color-option" style="background-color: #87CEEB;" data-type="highlight" data-color="#87CEEB" title="Sky Blue"></button>
-          </div>
-        </div>
-
-        <div class="theme-section">
-          <div class="theme-section-header">
+          <div class="theme-section-header" data-section="pieces">
             <h4>Piece Theme</h4>
-            <button class="custom-button" id="piece-theme-btn">Change</button>
+            <button class="dropdown-toggle">
+              <span class="arrow">▼</span>
+            </button>
+          </div>
+          
+          <div class="theme-section-content piece-themes">
+            <div class="piece-options">
+              ${pieceThemes.map(theme => `
+                <div class="piece-option" data-theme="${theme}" title="${theme}">
+                  <img src="Assets/images/pieces/${theme}/black/bN.png" alt="${theme}">
+                </div>
+              `).join('')}
+            </div>
           </div>
         </div>
       </div>
@@ -120,53 +143,99 @@ function createThemeSetup() {
 
   // Add styles to document
   const styles = `
+    .theme-section {
+      border: 1px solid #3a3937;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
     .theme-section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .custom-color-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .color-picker {
-      width: 0;
-      height: 0;
-      padding: 0;
-      border: none;
-      visibility: hidden;
-      position: absolute;
-    }
-
-    .custom-button {
-      background-color: #2a2927;
-      border: 1px solid #3a3937;
-      border-radius: 4px;
-      padding: 6px 12px;
-      font-size: 11px;
-      font-weight: 600;
+      padding: 12px 16px;
+      background: #2a2927;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: background-color 0.2s ease;
+    }
+
+    .theme-section-header:hover {
+      background: #3a3937;
+    }
+
+    .theme-section-header h4 {
+      margin: 0;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .dropdown-toggle {
+      background: none;
+      border: none;
       color: #b4b4b4;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      padding: 4px;
     }
 
-    .custom-button:hover {
-      background-color: #3a3937;
-      color: white;
-      transform: translateY(-1px);
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    .dropdown-toggle .arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
     }
 
-    .custom-button:active {
-      transform: translateY(0);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    .theme-section-header.collapsed .arrow {
+      transform: rotate(-90deg);
+    }
+
+    .theme-section-content {
+      padding: 16px;
+      background: #262522;
+      transition: all 0.3s ease;
+    }
+
+    .theme-section-content.collapsed {
+      padding: 0 16px;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .color-section {
+      margin-bottom: 24px;
+    }
+
+    .color-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .color-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .color-section-header h5 {
+      margin: 0;
+      color: #b4b4b4;
+      font-size: 14px;
+    }
+
+    .theme-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .theme-header h3 {
+      margin: 0;
+      color: #fff;
+      font-size: 20px;
+    }
+
+    .theme-header-buttons {
+      display: flex;
+      gap: 8px;
     }
   `;
 
@@ -290,78 +359,33 @@ function createThemeSetup() {
     }
   });
 
-  // Create piece theme modal
-  const pieceThemeModal = document.createElement('div');
-  pieceThemeModal.className = 'theme-modal';
-  pieceThemeModal.innerHTML = `
-    <div class="theme-modal-content">
-      <h3>Select Piece Theme</h3>
-      <div class="piece-options">
-        ${pieceThemes.map(theme => `
-          <div class="piece-option" data-theme="${theme}" title="${theme}">
-            <img src="Assets/images/pieces/${theme}/black/bN.png" alt="${theme}">
-          </div>
-        `).join('')}
-      </div>
-      <div class="modal-buttons">
-        <button class="apply-button">Apply</button>
-        <button class="reset-button"></button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(pieceThemeModal);
-  pieceThemeModal.style.display = 'none';
+  // Add click handlers for dropdowns
+  document.querySelectorAll('.theme-section-header').forEach(header => {
+    // Initially collapse all sections
+    header.classList.add('collapsed');
+    const content = header.nextElementSibling;
+    content.classList.add('collapsed');
 
-  // Add click event for piece theme button
-  document.getElementById('piece-theme-btn').addEventListener('click', () => {
-    pieceThemeModal.style.display = 'flex';
-    themeModal.style.display = 'none';
-  });
+    header.addEventListener('click', () => {
+      // Close all other sections first
+      document.querySelectorAll('.theme-section-header').forEach(otherHeader => {
+        if (otherHeader !== header) {
+          otherHeader.classList.add('collapsed');
+          otherHeader.nextElementSibling.classList.add('collapsed');
+        }
+      });
 
-  // Add click events for piece options
-  const pieceOptions = pieceThemeModal.querySelectorAll('.piece-option');
-  pieceOptions.forEach(option => {
-    option.addEventListener('click', () => {
-      pieceOptions.forEach(opt => opt.classList.remove('selected'));
-      option.classList.add('selected');
-      const theme = option.dataset.theme;
-      localStorage.setItem('chess-piece-theme', theme);
-      updatePieceTheme();
+      // Toggle current section
+      header.classList.toggle('collapsed');
+      content.classList.toggle('collapsed');
     });
   });
 
-  // Add click event for piece theme apply button
-  pieceThemeModal.querySelector('.apply-button').addEventListener('click', () => {
-    pieceThemeModal.style.display = 'none';
-    themeModal.style.display = 'flex';
-  });
-
-  // Add click event for piece theme reset button
-  pieceThemeModal.querySelector('.reset-button').addEventListener('click', () => {
-    localStorage.setItem('chess-piece-theme', 'default');
-    updatePieceTheme();
-  });
-
-  // Close modal when clicking outside
-  pieceThemeModal.addEventListener('click', (e) => {
-    if (e.target === pieceThemeModal) {
-      pieceThemeModal.style.display = 'none';
-      themeModal.style.display = 'flex';
-    }
-  });
-
-  // Function to update piece theme
-  const updatePieceTheme = () => {
-    const theme = localStorage.getItem('chess-piece-theme') || 'default';
-    document.querySelectorAll('.piece').forEach(piece => {
-      const currentSrc = piece.src;
-      const fileName = currentSrc.split('/').pop(); // Get the file name (e.g., bN.png)
-      piece.src = `Assets/images/pieces/${theme}/${fileName.startsWith('w') ? 'white' : 'black'}/${fileName}`;
-    });
-  };
-
-  // Initial piece theme setup
-  updatePieceTheme();
+  // Initialize with board theme expanded and piece theme collapsed
+  const pieceHeader = document.querySelector('[data-section="pieces"]');
+  const pieceContent = pieceHeader.nextElementSibling;
+  pieceHeader.classList.add('collapsed');
+  pieceContent.classList.add('collapsed');
 
   // Initial color setup
   updateColors();
