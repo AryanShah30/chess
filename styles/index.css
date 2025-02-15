@@ -479,12 +479,13 @@ body {
 }
 
 .promotion-modal {
-  background-color: #262522;
+  background-color: var(--modal-bg-color, #262522);
   padding: 30px;
   border-radius: 12px;
   display: flex;
   gap: 15px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .promotion-piece {
@@ -494,20 +495,37 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: #3a3937;
+  background-color: var(--piece-bg-color, #4a4947);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific styling for black pieces */
+.promotion-piece img[src*="/black/"] {
+  border-radius: 6px;
+  padding: 8px;
   transition: all 0.2s ease;
 }
 
+/* Hover effect for the container */
 .promotion-piece:hover {
   transform: scale(1.1);
   background-color: #4caf50;
-  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Hover effect for black pieces */
+.promotion-piece:hover img[src*="/black/"] {
+  background-color: #4caf50;
 }
 
 .promotion-piece img {
-  width: 80%;
-  height: 80%;
+  width: 75%;
+  height: 75%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .settings-button {

@@ -721,6 +721,7 @@ function createThemeSetup() {
       document.documentElement.style.setProperty('--control-hover', '#3a3937');
       document.documentElement.style.setProperty('--modal-bg-color', '#262522');
       document.documentElement.style.setProperty('--modal-text-color', '#ffffff');
+      document.documentElement.style.setProperty('--piece-bg-color', '#4a4947');
     } else {
       // Light mode styles - enhanced with better contrast
       document.body.style.backgroundColor = '#e9ecef';
@@ -729,6 +730,7 @@ function createThemeSetup() {
       document.documentElement.style.setProperty('--control-hover', '#f8f9fa');
       document.documentElement.style.setProperty('--modal-bg-color', '#ffffff');
       document.documentElement.style.setProperty('--modal-text-color', '#333333');
+      document.documentElement.style.setProperty('--piece-bg-color', '#e6e6e6');
     }
     
     // Update control button styles with better contrast for light mode
