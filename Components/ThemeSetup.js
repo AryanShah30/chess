@@ -765,6 +765,11 @@ function createThemeSetup() {
         flipIcon.style.setProperty('color', '', 'important');
         flipIcon.style.setProperty('opacity', '', 'important');
       }
+
+      // Reset color-section-header color
+      document.querySelectorAll('.color-section-header h5').forEach(header => {
+        header.style.color = '#b4b4b4'; // Original color
+      });
     } else {
       // Light mode styles
       document.body.style.backgroundColor = '#e9ecef';
@@ -915,6 +920,11 @@ function createThemeSetup() {
         if (settingOption) {
           settingOption.style.setProperty('background', '#f0f0f0', 'important');
         }
+
+        // Make color-section-header a bit grayer
+        document.querySelectorAll('.color-section-header h5').forEach(header => {
+          header.style.color = '#666666'; // Grayer color for light mode
+        });
       } else {
         // Remove modal style when switching back to dark mode
         const modalStyle = document.getElementById('modal-style');
