@@ -1,13 +1,19 @@
 function createThemeSetup() {
+  const defaultColors = {
+    'white squares': '#c5d5dc',
+    'black squares': '#7a9db2',
+    'highlight color': '#72c9dd'
+  };
+
   // Set default colors if not already in localStorage
   if (!localStorage.getItem('chess-theme-white squares')) {
-    localStorage.setItem('chess-theme-white squares', '#c5d5dc');
+    localStorage.setItem('chess-theme-white squares', defaultColors['white squares']);
   }
   if (!localStorage.getItem('chess-theme-black squares')) {
-    localStorage.setItem('chess-theme-black squares', '#7a9db2');
+    localStorage.setItem('chess-theme-black squares', defaultColors['black squares']);
   }
   if (!localStorage.getItem('chess-theme-highlight color')) {
-    localStorage.setItem('chess-theme-highlight color', '#72c9dd');
+    localStorage.setItem('chess-theme-highlight color', defaultColors['highlight color']);
   }
 
   const settingsButtonHTML = `
@@ -21,7 +27,10 @@ function createThemeSetup() {
       <div class="theme-modal-content">
         <div class="theme-header">
           <h3>Board Themes</h3>
-          <button class="close-button" title="Close">×</button>
+          <div class="theme-header-buttons">
+            <button class="reset-button" title="Reset to default colors">Reset</button>
+            <button class="apply-button" title="Apply changes">Apply</button>
+          </div>
         </div>
         
         <div class="theme-section">
@@ -82,7 +91,8 @@ function createThemeSetup() {
   // Get DOM elements
   const settingsBtn = document.querySelector('.settings-button');
   const themeModal = document.querySelector('.theme-modal');
-  const closeBtn = document.querySelector('.close-button');
+  const applyBtn = document.querySelector('.apply-button');
+  const resetBtn = document.querySelector('.reset-button');
   const colorOptions = document.querySelectorAll('.color-option');
 
   // Initially hide the modal
@@ -93,9 +103,20 @@ function createThemeSetup() {
     themeModal.style.display = 'flex';
   });
 
-  // Add click event for close button
-  closeBtn.addEventListener('click', () => {
+  // Add click event for apply button
+  applyBtn.addEventListener('click', () => {
     themeModal.style.display = 'none';
+  });
+
+  // Add reset functionality
+  resetBtn.addEventListener('click', () => {
+    // Reset localStorage to default values
+    localStorage.setItem('chess-theme-white squares', defaultColors['white squares']);
+    localStorage.setItem('chess-theme-black squares', defaultColors['black squares']);
+    localStorage.setItem('chess-theme-highlight color', defaultColors['highlight color']);
+    
+    // Update colors
+    updateColors();
   });
 
   // Function to update colors
