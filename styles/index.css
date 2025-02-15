@@ -730,3 +730,57 @@ body {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
+/* Add these new styles */
+.piece-options {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.piece-option {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #3a3937;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.piece-option img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.piece-option:hover {
+  border-color: #4caf50;
+  transform: translateY(-2px);
+}
+
+.piece-option.selected {
+  border-color: #4caf50;
+  background: #2a2927;
+}
+
+/* Add tooltip on hover */
+.piece-option:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+}

@@ -1,3 +1,12 @@
+const pieceThemes = [
+  'alpha', 'anarcandy', 'caliente', 'california', 'cardinal', 'cburnett',
+  'celtic', 'chess7', 'chessnut', 'companion', 'cooke', 'default',
+  'dubrovny', 'fantasy', 'fresca', 'gioco', 'governor', 'horsey',
+  'icpieces', 'kiwen-suwi', 'kosal', 'leipzig', 'letter', 'maestro',
+  'merida', 'monarchy', 'mono', 'mpchess', 'pirouetti', 'pixel',
+  'riohacha', 'shapes', 'spatial', 'staunty', 'tatiana'
+];
+
 function createThemeSetup() {
   const defaultColors = {
     'white squares': '#c5d5dc',
@@ -96,6 +105,13 @@ function createThemeSetup() {
             <button class="color-option" style="background-color: #98FB98;" data-type="highlight" data-color="#98FB98" title="Mint"></button>
             <button class="color-option" style="background-color: #DDA0DD;" data-type="highlight" data-color="#DDA0DD" title="Plum"></button>
             <button class="color-option" style="background-color: #87CEEB;" data-type="highlight" data-color="#87CEEB" title="Sky Blue"></button>
+          </div>
+        </div>
+
+        <div class="theme-section">
+          <div class="theme-section-header">
+            <h4>Piece Theme</h4>
+            <button class="custom-button" id="piece-theme-btn">Change</button>
           </div>
         </div>
       </div>
@@ -273,6 +289,79 @@ function createThemeSetup() {
       themeModal.style.display = 'none';
     }
   });
+
+  // Create piece theme modal
+  const pieceThemeModal = document.createElement('div');
+  pieceThemeModal.className = 'theme-modal';
+  pieceThemeModal.innerHTML = `
+    <div class="theme-modal-content">
+      <h3>Select Piece Theme</h3>
+      <div class="piece-options">
+        ${pieceThemes.map(theme => `
+          <div class="piece-option" data-theme="${theme}" title="${theme}">
+            <img src="Assets/images/pieces/${theme}/black/bN.png" alt="${theme}">
+          </div>
+        `).join('')}
+      </div>
+      <div class="modal-buttons">
+        <button class="apply-button">Apply</button>
+        <button class="reset-button"></button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(pieceThemeModal);
+  pieceThemeModal.style.display = 'none';
+
+  // Add click event for piece theme button
+  document.getElementById('piece-theme-btn').addEventListener('click', () => {
+    pieceThemeModal.style.display = 'flex';
+    themeModal.style.display = 'none';
+  });
+
+  // Add click events for piece options
+  const pieceOptions = pieceThemeModal.querySelectorAll('.piece-option');
+  pieceOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      pieceOptions.forEach(opt => opt.classList.remove('selected'));
+      option.classList.add('selected');
+      const theme = option.dataset.theme;
+      localStorage.setItem('chess-piece-theme', theme);
+      updatePieceTheme();
+    });
+  });
+
+  // Add click event for piece theme apply button
+  pieceThemeModal.querySelector('.apply-button').addEventListener('click', () => {
+    pieceThemeModal.style.display = 'none';
+    themeModal.style.display = 'flex';
+  });
+
+  // Add click event for piece theme reset button
+  pieceThemeModal.querySelector('.reset-button').addEventListener('click', () => {
+    localStorage.setItem('chess-piece-theme', 'default');
+    updatePieceTheme();
+  });
+
+  // Close modal when clicking outside
+  pieceThemeModal.addEventListener('click', (e) => {
+    if (e.target === pieceThemeModal) {
+      pieceThemeModal.style.display = 'none';
+      themeModal.style.display = 'flex';
+    }
+  });
+
+  // Function to update piece theme
+  const updatePieceTheme = () => {
+    const theme = localStorage.getItem('chess-piece-theme') || 'default';
+    document.querySelectorAll('.piece').forEach(piece => {
+      const currentSrc = piece.src;
+      const fileName = currentSrc.split('/').pop(); // Get the file name (e.g., bN.png)
+      piece.src = `Assets/images/pieces/${theme}/${fileName.startsWith('w') ? 'white' : 'black'}/${fileName}`;
+    });
+  };
+
+  // Initial piece theme setup
+  updatePieceTheme();
 
   // Initial color setup
   updateColors();
