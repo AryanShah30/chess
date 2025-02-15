@@ -1,9 +1,9 @@
 import { updatePieceImages } from '../Render/main.js';
 import { flipBoard } from '../Render/main.js';
+import { chessClock } from '../index.js';
 
 const pieceThemes = [
-  'alpha', 'anarcandy', 'caliente', 'california', 'cardinal', 'cburnett',
-  'celtic', 'chess7', 'chessnut', 'companion', 'cooke', 'default',
+  'alpha', 'anarcandy', 'cburnett', 'celtic', 'chess7', 'chessnut', 'companion', 'cooke', 'default',
   'dubrovny', 'fantasy', 'fresca', 'gioco', 'governor', 'horsey',
   'icpieces', 'kiwen-suwi', 'kosal', 'leipzig', 'letter', 'maestro',
   'merida', 'monarchy', 'mono', 'mpchess', 'pirouetti', 'pixel',
@@ -33,7 +33,10 @@ function createThemeSetup() {
       <button class="settings-button" title="Settings">
         <img src="Assets/images/settings.png" alt="Settings" />
       </button>
-      <button class="flip-button" title="Flip Board">⟳</button> 
+      <button class="flip-button" title="Flip Board">⟳</button>
+      <button class="timer-button" title="Stop Clock">
+        <img src="Assets/images/timer.png" alt="Timer" />
+      </button>
     </div>
   `;
 
@@ -385,6 +388,36 @@ function createThemeSetup() {
     .flip-icon:hover {
       transform: rotate(180deg);
     }
+
+    .timer-button {
+      background: #2a2927;
+      border: 1px solid #3a3937;
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      width: 37px;
+      height: 37px;
+    }
+
+    .timer-button img {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
+    }
+
+    .timer-button:hover {
+      background: #3a3937;
+    }
+
+    .timer-button.active {
+      background: #4caf50;
+      border-color: #45a049;
+    }
   `;
 
   const styleSheet = document.createElement("style");
@@ -607,6 +640,19 @@ function createThemeSetup() {
   flipBtn.addEventListener('click', () => {
     flipBtn.classList.toggle('active');  // Toggle active class
     flipBoard();
+  });
+
+  // Add timer button click handler
+  const timerBtn = document.querySelector('.timer-button');
+  timerBtn.addEventListener('click', () => {
+    timerBtn.classList.toggle('active');
+    if (timerBtn.classList.contains('active')) {
+      chessClock.pause();  // Pause when active (green)
+      timerBtn.title = "Resume Clock";
+    } else {
+      chessClock.resume(); // Resume when inactive (black)
+      timerBtn.title = "Stop Clock";
+    }
   });
 }
 
