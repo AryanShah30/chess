@@ -714,8 +714,6 @@ function createThemeSetup() {
     themeToggleBtn.classList.toggle('active');
     const isDarkMode = !themeToggleBtn.classList.contains('active');
     
-    console.log('Theme toggled. Dark mode:', isDarkMode); // Debug log
-    
     // Update button icon and title
     const themeIcon = themeToggleBtn.querySelector('img');
     themeIcon.src = isDarkMode ? 'Assets/images/light-mode.png' : 'Assets/images/dark-mode.png';
@@ -737,6 +735,23 @@ function createThemeSetup() {
       if (gameSetupHeading) {
         gameSetupHeading.style.setProperty('color', '#ffffff', 'important');
       }
+
+      // Dark mode for player setup sections
+      document.querySelectorAll('.player-setup').forEach(section => {
+        section.style.backgroundColor = '#333333';
+      });
+
+      // Dark mode input styles
+      document.querySelectorAll('.clock-setup-modal input').forEach(input => {
+        input.style.backgroundColor = '#262522';
+        input.style.color = '#ffffff';
+        input.style.border = '1px solid #3a3937';
+      });
+
+      // Dark mode labels
+      document.querySelectorAll('.clock-setup-modal label').forEach(label => {
+        label.style.color = '#ffffff';
+      });
     } else {
       // Light mode styles
       document.body.style.backgroundColor = '#e9ecef';
@@ -752,6 +767,45 @@ function createThemeSetup() {
       if (gameSetupHeading) {
         gameSetupHeading.style.setProperty('color', '#000000', 'important');
       }
+
+      // Light mode for player setup sections
+      document.querySelectorAll('.player-setup').forEach(section => {
+        section.style.backgroundColor = '#f4f6f8';  // Slightly darker than white, but still light
+      });
+
+      // Light mode input styles
+      document.querySelectorAll('.clock-setup-modal input').forEach(input => {
+        input.style.backgroundColor = '#ffffff';
+        input.style.color = '#2c3e50';  // Darker text for better readability
+        input.style.border = '1px solid #dee2e6';
+      });
+
+      // Light mode labels
+      document.querySelectorAll('.clock-setup-modal label').forEach(label => {
+        label.style.color = '#495057';  // Dark gray for better contrast
+      });
+
+      // Update placeholder color for light mode
+      document.querySelectorAll('.clock-setup-modal input').forEach(input => {
+        input.style.setProperty('::placeholder', '#6c757d', 'important');  // Medium gray for placeholders
+      });
+
+      // Add some shared styles for better input appearance
+      document.querySelectorAll('.clock-setup-modal input').forEach(input => {
+        input.style.padding = '8px 12px';
+        input.style.borderRadius = '4px';
+        input.style.transition = 'all 0.2s ease';
+      });
+
+      // Light mode - force black text with !important for all modal text elements
+      document.querySelectorAll('.clock-setup-modal h2, .clock-setup-modal h3, .clock-setup-modal label, .clock-setup-modal input').forEach(element => {
+        element.style.setProperty('color', '#000000', 'important');
+      });
+
+      // Make placeholder text darker
+      document.querySelectorAll('.clock-setup-modal input').forEach(input => {
+        input.style.setProperty('::placeholder', '#000000', 'important');
+      });
     }
     
     // Update control button styles with better contrast for light mode
