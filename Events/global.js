@@ -7,6 +7,7 @@ import {
   clearPreviousSelfHighlight,
   globalStateRender,
   clearAllHighlightsExceptMove,
+  flipBoard,
 } from "../Render/main.js";
 import {
   checkPieceOfOpponentOnElement,
@@ -169,6 +170,12 @@ function changeTurn() {
   }
 
   inTurn = inTurn === "white" ? "black" : "white";
+  
+  // Check if board flipping is enabled and flip if necessary
+  if (localStorage.getItem('chess-flip-board') === 'true') {
+    flipBoard();
+  }
+  
   getAllLegalMoves(inTurn);
 }
 

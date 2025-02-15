@@ -45,6 +45,24 @@ function createThemeSetup() {
         </div>
         
         <div class="theme-section">
+          <div class="theme-section-header" data-section="game">
+            <h4>Game Settings</h4>
+            <button class="dropdown-toggle">
+              <img src="Assets/images/drop-down.png" alt="dropdown" class="arrow">
+            </button>
+          </div>
+          
+          <div class="theme-section-content game-settings">
+            <div class="setting-option">
+              <label class="setting-label">
+                <input type="checkbox" id="flip-board-setting" ${localStorage.getItem('chess-flip-board') === 'true' ? 'checked' : ''}>
+                Flip board after each move
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="theme-section">
           <div class="theme-section-header" data-section="board">
             <h4>Board Theme</h4>
             <button class="dropdown-toggle">
@@ -311,6 +329,29 @@ function createThemeSetup() {
     .theme-modal-content:has(.theme-section-content:not(.collapsed)) {
       overflow-y: auto;
     }
+
+    .setting-option {
+      padding: 12px 16px;
+      border-bottom: 1px solid #3a3937;
+    }
+
+    .setting-option:last-child {
+      border-bottom: none;
+    }
+
+    .setting-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .setting-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
   `;
 
   const styleSheet = document.createElement("style");
@@ -369,6 +410,9 @@ function createThemeSetup() {
     
     // Reset piece style to default
     localStorage.setItem('chess-theme-piece-style', 'default');
+    
+    // Reset flip board setting
+    localStorage.setItem('chess-flip-board', 'false');
     
     // Update visual selections
     colorOptions.forEach(option => {
@@ -530,6 +574,12 @@ function createThemeSetup() {
       // Update piece images
       updatePieceImages();
     });
+  });
+
+  // Add event listener for flip board setting
+  const flipBoardCheckbox = document.getElementById('flip-board-setting');
+  flipBoardCheckbox.addEventListener('change', (e) => {
+    localStorage.setItem('chess-flip-board', e.target.checked);
   });
 }
 

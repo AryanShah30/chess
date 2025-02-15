@@ -228,6 +228,27 @@ function updatePieceImages() {
   });
 }
 
+function flipBoard() {
+  const board = ROOT_DIV;
+  const rows = Array.from(board.children);
+  
+  // Remove all rows
+  while (board.firstChild) {
+    board.removeChild(board.firstChild);
+  }
+  
+  // Add rows back in reverse order
+  rows.reverse().forEach(row => {
+    // Reverse squares within each row
+    const squares = Array.from(row.children);
+    while (row.firstChild) {
+      row.removeChild(row.firstChild);
+    }
+    squares.reverse().forEach(square => row.appendChild(square));
+    board.appendChild(row);
+  });
+}
+
 export {
   initGameRender,
   renderHighlight,
@@ -238,4 +259,5 @@ export {
   globalPiece,
   clearAllHighlightsExceptMove,
   updatePieceImages,
+  flipBoard
 };
