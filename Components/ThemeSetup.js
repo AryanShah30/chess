@@ -273,13 +273,39 @@ function createThemeSetup() {
 
   // Add reset functionality
   resetBtn.addEventListener('click', () => {
-    // Reset localStorage to default values
-    localStorage.setItem('chess-theme-white squares', defaultColors['white squares']);
-    localStorage.setItem('chess-theme-black squares', defaultColors['black squares']);
-    localStorage.setItem('chess-theme-highlight color', defaultColors['highlight color']);
+    // Reset board colors
+    localStorage.setItem('chess-theme-white squares', '#c5d5dc');
+    localStorage.setItem('chess-theme-black squares', '#7a9db2');
+    localStorage.setItem('chess-theme-highlight color', '#72c9dd');
     
-    // Update colors
-    updateColors();
+    // Reset piece style to default
+    localStorage.setItem('chess-theme-piece-style', 'default');
+    
+    // Update visual selections
+    colorOptions.forEach(option => {
+      option.classList.remove('selected');
+      if (option.dataset.color === '#c5d5dc' || 
+          option.dataset.color === '#7a9db2' || 
+          option.dataset.color === '#72c9dd') {
+        option.classList.add('selected');
+      }
+    });
+
+    // Update piece style selection
+    pieceOptions.forEach(option => {
+      option.classList.remove('selected');
+      if (option.dataset.theme === 'default') {
+        option.classList.add('selected');
+      }
+    });
+    
+    // Update the board colors
+    document.documentElement.style.setProperty('--white-square-color', '#c5d5dc');
+    document.documentElement.style.setProperty('--black-square-color', '#7a9db2');
+    document.documentElement.style.setProperty('--highlight-color', '#72c9dd');
+    
+    // Update the piece images
+    updatePieceImages();
   });
 
   // Function to update colors
