@@ -127,18 +127,30 @@ function createThemeSetup() {
     }
 
     .custom-button {
-      background-color: #f0f0f0;
-      border: 1px solid #ddd;
+      background-color: #2a2927;
+      border: 1px solid #3a3937;
       border-radius: 4px;
-      padding: 4px 8px;
-      font-size: 12px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
+      color: #b4b4b4;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
     .custom-button:hover {
-      background-color: #e0e0e0;
-      border-color: #ccc;
+      background-color: #3a3937;
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .custom-button:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
   `;
 
