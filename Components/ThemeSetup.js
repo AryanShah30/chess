@@ -56,8 +56,11 @@ function createThemeSetup() {
             <div class="setting-option">
               <label class="setting-label">
                 <input type="checkbox" id="flip-board-setting" ${localStorage.getItem('chess-flip-board') === 'true' ? 'checked' : ''}>
-                Flip board after each move
+                Auto-Flip Board
               </label>
+              <div class="setting-description">
+                Automatically rotates the board after each move to show the active player's perspective.
+              </div>
             </div>
           </div>
         </div>

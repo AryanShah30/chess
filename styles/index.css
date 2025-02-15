@@ -784,3 +784,75 @@ body {
   white-space: nowrap;
   z-index: 1000;
 }
+
+.setting-option {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  margin: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.setting-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.setting-description {
+  color: #b4b4b4;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-left: 56px;
+}
+
+.setting-label input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 40px;
+  height: 40px;
+  background: #3a3937;
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.setting-label input[type="checkbox"]::before {
+  content: '↻';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: #b4b4b4;
+  transition: all 0.3s ease;
+}
+
+.setting-label input[type="checkbox"]:checked {
+  background: #72c9dd;
+  transform: rotate(180deg);
+  border-color: transparent;
+}
+
+.setting-label input[type="checkbox"]:checked::before {
+  color: #262522;
+}
+
+.setting-label input[type="checkbox"]:hover {
+  background: #4a4947;
+  transform: scale(1.05);
+}
+
+.setting-label input[type="checkbox"]:checked:hover {
+  background: #86d3e3;
+  transform: scale(1.05) rotate(180deg);
+}
