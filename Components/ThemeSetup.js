@@ -30,7 +30,7 @@ function createThemeSetup() {
 
   const settingsButtonHTML = `
     <div class="board-controls">
-      <button class="settings-button">
+      <button class="settings-button" title="Settings">
         <img src="Assets/images/settings.png" alt="Settings" />
       </button>
       <button class="flip-button" title="Flip Board">⟳</button> 
