@@ -858,6 +858,23 @@ function createThemeSetup() {
           .piece-option:hover::after {
             background-color: rgba(0, 0, 0, 0.8) !important;
           }
+          #flip-board-container .setting-label {
+            color: #666666 !important; /* Lighter color for flip board setting */
+          }
+          .piece-option {
+            background: #f0f0f0 !important; /* Lighter background for piece options */
+            border: 2px solid #e0e0e0 !important; /* Light border */
+            border-radius: 4px; /* Optional: rounded corners */
+          }
+          .piece-option img[src*="bN.png"] {
+            background-color: #f0f0f0 !important; /* Lighter background for knight images */
+            border-radius: 4px; /* Optional: rounded corners */
+          }
+          .piece-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+          }
         `;
         document.head.appendChild(modalStyle);
 
