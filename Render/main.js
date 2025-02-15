@@ -218,7 +218,13 @@ function updatePieceImages() {
     // Construct new path
     const newSrc = `Assets/images/pieces/${pieceStyle}/${colorFolder}/${pieceFileName}`;
     console.log('Updating piece from:', currentSrc, 'to:', newSrc);
-    piece.src = newSrc;
+    
+    // Create a new image to preload
+    const img = new Image();
+    img.onload = function() {
+      piece.src = newSrc;
+    };
+    img.src = newSrc;
   });
 }
 
