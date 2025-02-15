@@ -336,6 +336,16 @@ function createThemeSetup() {
   // Add click event for settings button
   settingsBtn.addEventListener('click', () => {
     themeModal.style.display = 'flex';
+    
+    // Reset modal scroll position
+    document.querySelector('.theme-modal-content').scrollTop = 0;
+    
+    // Reset section states - keep all sections collapsed
+    document.querySelectorAll('.theme-section-header').forEach(header => {
+      header.classList.add('collapsed');
+      header.nextElementSibling.classList.add('collapsed');
+      header.nextElementSibling.scrollTop = 0;
+    });
   });
 
   // Add click event for apply button
