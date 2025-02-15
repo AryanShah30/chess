@@ -37,6 +37,9 @@ function createThemeSetup() {
       <button class="timer-button" title="Stop Clock">
         <img src="Assets/images/timer.png" alt="Timer" />
       </button>
+      <button class="theme-toggle-button" title="Switch to Light Mode">
+        <img src="Assets/images/light-mode.png" alt="Theme Toggle" />
+      </button>
     </div>
   `;
 
@@ -395,7 +398,6 @@ function createThemeSetup() {
       border-radius: 8px;
       cursor: pointer;
       padding: 8px;
-      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -415,6 +417,35 @@ function createThemeSetup() {
     }
 
     .timer-button.active {
+      background: #4caf50;
+      border-color: #45a049;
+    }
+
+    .theme-toggle-button {
+      background: #2a2927;
+      border: 1px solid #3a3937;
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      width: 38px;
+      height: 38px;
+    }
+
+    .theme-toggle-button img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) invert(1);
+    }
+
+    .theme-toggle-button:hover {
+      background: #3a3937;
+    }
+
+    .theme-toggle-button.active {
       background: #4caf50;
       border-color: #45a049;
     }
@@ -648,12 +679,37 @@ function createThemeSetup() {
     timerBtn.classList.toggle('active');
     if (timerBtn.classList.contains('active')) {
       chessClock.pause();  // Pause when active (green)
-      timerBtn.title = "Resume Clock";
     } else {
       chessClock.resume(); // Resume when inactive (black)
-      timerBtn.title = "Stop Clock";
     }
   });
+
+  // Add the theme toggle click handler
+  const themeToggleBtn = document.querySelector('.theme-toggle-button');
+  themeToggleBtn.addEventListener('click', () => {
+    themeToggleBtn.classList.toggle('active');
+    const isDarkMode = !themeToggleBtn.classList.contains('active');
+    
+    // Update button icon and title
+    const themeIcon = themeToggleBtn.querySelector('img');
+    themeIcon.src = isDarkMode ? 'Assets/images/light-mode.png' : 'Assets/images/dark-mode.png';
+    themeToggleBtn.title = isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+    
+    // Toggle theme colors
+    document.documentElement.style.setProperty('--white-square-color', isDarkMode ? '#c5d5dc' : '#ffffff');
+    document.documentElement.style.setProperty('--black-square-color', isDarkMode ? '#7a9db2' : '#4b4b4b');
+    document.documentElement.style.setProperty('--highlight-color', isDarkMode ? '#72c9dd' : '#fff47f');
+    document.body.style.backgroundColor = isDarkMode ? '#302e2b' : '#f0f0f0';
+    
+    // Store theme preference
+    localStorage.setItem('chess-theme-mode', isDarkMode ? 'dark' : 'light');
+  });
+
+  // Initialize theme based on stored preference
+  const storedTheme = localStorage.getItem('chess-theme-mode') || 'dark';
+  if (storedTheme === 'light') {
+    themeToggleBtn.click(); // Trigger the click event to switch to light mode
+  }
 }
 
 export { createThemeSetup }; 
