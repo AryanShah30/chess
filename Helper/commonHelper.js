@@ -724,22 +724,30 @@ function isMoveLegal(piece, targetSquare, color) {
   if (!piece || !targetSquare) return false;
 
   const originalPosition = piece.current_position;
-  const targetPiece = keySquareMapper[targetSquare]?.piece;
-
   const originalSquare = keySquareMapper[originalPosition];
   const targetSquareObj = keySquareMapper[targetSquare];
+  const originalTargetPiece = targetSquareObj.piece;
 
+  // Temporarily make the move
   originalSquare.piece = null;
   targetSquareObj.piece = piece;
+  const originalPiecePosition = piece.current_position;
   piece.current_position = targetSquare;
 
-  const stillInCheck = isKingInCheck(color);
+  // Check if the king is in check after the move
+  const kingPos = color === "white" 
+    ? globalPiece.white_king.current_position 
+    : globalPiece.black_king.current_position;
+  
+  const inCheck = isSquareUnderAttack(kingPos, color);
 
+  // Restore original position
   originalSquare.piece = piece;
-  targetSquareObj.piece = targetPiece;
-  piece.current_position = originalPosition;
+  targetSquareObj.piece = originalTargetPiece;
+  piece.current_position = originalPiecePosition;
 
-  return !stillInCheck;
+  console.log(`Move ${piece.piece_name} from ${originalPosition} to ${targetSquare} legal:`, !inCheck);
+  return !inCheck;
 }
 
 function canCastle(kingPos, rookPos, color) {

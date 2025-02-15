@@ -37,90 +37,36 @@ class ModalCreator {
   }
 }
 
-function pawnPromotion(color, callback, id) {
-  const rook = document.createElement("img");
-  rook.onclick = (e) => {
-    e.stopPropagation();
-    rookCallback();
-  };
-  rook.src = `../Assets/images/pieces/${color}/rook.png`;
+export function pawnPromotion(color, callback) {
+  const modalOverlay = document.createElement("div");
+  modalOverlay.className = "promotion-overlay";
 
-  const knight = document.createElement("img");
-  knight.onclick = (e) => {
-    e.stopPropagation();
-    knightCallback();
-  };
-  knight.src = `../Assets/images/pieces/${color}/knight.png`;
+  const modalContent = document.createElement("div");
+  modalContent.className = "promotion-modal";
 
-  const bishop = document.createElement("img");
-  bishop.onclick = (e) => {
-    e.stopPropagation();
-    bishopCallback();
-  };
-  bishop.src = `../Assets/images/pieces/${color}/bishop.png`;
+  const pieces = color === "white" 
+    ? [whiteQueen, whiteRook, whiteBishop, whiteKnight]
+    : [blackQueen, blackRook, blackBishop, blackKnight];
 
-  const queen = document.createElement("img");
-  queen.onclick = (e) => {
-    e.stopPropagation();
-    queenCallback();
-  };
-  queen.src = `../Assets/images/pieces/${color}/queen.png`;
+  pieces.forEach((Constructor) => {
+    const pieceDiv = document.createElement("div");
+    pieceDiv.className = "promotion-piece";
 
-  const imageContainer = document.createElement("div");
-  imageContainer.appendChild(rook);
-  imageContainer.appendChild(knight);
-  imageContainer.appendChild(bishop);
-  imageContainer.appendChild(queen);
-  imageContainer.onclick = (e) => e.stopPropagation();
+    const img = document.createElement("img");
+    const tempPiece = Constructor("temp");
+    img.src = tempPiece.img;
 
-  const finalContainer = document.createElement("div");
-  finalContainer.appendChild(imageContainer);
-  finalContainer.classList.add("modal");
+    pieceDiv.appendChild(img);
+    pieceDiv.addEventListener("click", () => {
+      modalOverlay.remove();
+      callback(Constructor);  // The callback will receive the Constructor
+    });
 
-  finalContainer.onclick = () => {
-    modal.hide();
+    modalContent.appendChild(pieceDiv);
+  });
 
-    callback(null, id);
-  };
-
-  const modal = new ModalCreator(finalContainer);
-  modal.show();
-
-  function rookCallback() {
-    if (color == "white") {
-      callback(whiteRook, id);
-    } else {
-      callback(blackRook, id);
-    }
-    modal.hide();
-  }
-
-  function knightCallback() {
-    if (color == "white") {
-      callback(whiteKnight, id);
-    } else {
-      callback(blackKnight, id);
-    }
-    modal.hide();
-  }
-
-  function bishopCallback() {
-    if (color == "white") {
-      callback(whiteBishop, id);
-    } else {
-      callback(blackBishop, id);
-    }
-    modal.hide();
-  }
-
-  function queenCallback() {
-    if (color == "white") {
-      callback(whiteQueen, id);
-    } else {
-      callback(blackQueen, id);
-    }
-    modal.hide();
-  }
+  modalOverlay.appendChild(modalContent);
+  document.body.appendChild(modalOverlay);
 }
 
 function callbackPawnPromotion(newPiece, id) {
@@ -132,4 +78,3 @@ function callbackPawnPromotion(newPiece, id) {
   }
 }
 
-export { pawnPromotion };
