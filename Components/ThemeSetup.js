@@ -278,6 +278,35 @@ function createThemeSetup() {
       display: flex;
       gap: 8px;
     }
+
+    .theme-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .theme-modal-content {
+      background: #262522;
+      padding: 24px;
+      border-radius: 8px;
+      width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .theme-modal-content::-webkit-scrollbar {
+      display: none;
+    }
   `;
 
   const styleSheet = document.createElement("style");
