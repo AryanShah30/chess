@@ -299,13 +299,17 @@ function createThemeSetup() {
       border-radius: 8px;
       width: 600px;
       max-height: 80vh;
-      overflow-y: auto;
+      overflow-y: hidden;
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
 
     .theme-modal-content::-webkit-scrollbar {
       display: none;
+    }
+
+    .theme-modal-content:has(.theme-section-content:not(.collapsed)) {
+      overflow-y: auto;
     }
   `;
 
