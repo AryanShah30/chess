@@ -713,8 +713,110 @@ function createThemeSetup() {
     document.documentElement.style.setProperty('--black-square-color', blackSquareColor);
     document.documentElement.style.setProperty('--highlight-color', highlightColor);
     
-    // Only change background color
-    document.body.style.backgroundColor = isDarkMode ? '#302e2b' : '#f0f0f0';
+    if (isDarkMode) {
+      // Dark mode styles
+      document.body.style.backgroundColor = '#302e2b';
+      document.documentElement.style.setProperty('--control-bg', '#2a2927');
+      document.documentElement.style.setProperty('--control-border', '#3a3937');
+      document.documentElement.style.setProperty('--control-hover', '#3a3937');
+    } else {
+      // Light mode styles - enhanced with better contrast
+      document.body.style.backgroundColor = '#e9ecef';
+      document.documentElement.style.setProperty('--control-bg', '#ffffff');
+      document.documentElement.style.setProperty('--control-border', '#d1d9e6');
+      document.documentElement.style.setProperty('--control-hover', '#f8f9fa');
+    }
+    
+    // Update control button styles with better contrast for light mode
+    const styles = document.createElement('style');
+    styles.textContent = `
+      .settings-button, .flip-button, .timer-button, .theme-toggle-button {
+        background: var(--control-bg);
+        border: 1px solid var(--control-border);
+        box-shadow: ${isDarkMode ? 'none' : '0 2px 4px rgba(0,0,0,0.05)'};
+      }
+      
+      .settings-button img, .timer-button img, .theme-toggle-button img {
+        filter: ${isDarkMode ? 'brightness(0) invert(1)' : 'none'};
+      }
+      
+      .timer-button.active img {
+        filter: brightness(0) invert(1);  /* Always white when active (green) */
+      }
+      
+      .flip-button {
+        color: ${isDarkMode ? '#ffffff' : '#000000'};
+      }
+      
+      .settings-button:hover, .flip-button:hover, .timer-button:hover, .theme-toggle-button:hover {
+        background: ${isDarkMode ? '#3a3937' : '#ffffff'};
+        border-color: ${isDarkMode ? '#3a3937' : '#b8c2cc'};
+      }
+      
+      .chess-clock, .status-box, .scoresheet {
+        background: ${isDarkMode ? '#262522' : '#ffffff'};
+        border: 1px solid ${isDarkMode ? '#3a3937' : '#d1d9e6'};
+        box-shadow: ${isDarkMode ? 'none' : '0 4px 6px rgba(0,0,0,0.05)'};
+        color: ${isDarkMode ? '#ffffff' : '#2c3e50'};
+      }
+      
+      .player-clock {
+        background: ${isDarkMode ? '#2a2927' : '#f8f9fa'};
+        border: 1px solid ${isDarkMode ? '#3a3937' : '#e9ecef'};
+      }
+      
+      .player-time {
+        color: ${isDarkMode ? '#ffffff' : '#2c3e50'};  /* Darker text for better visibility */
+        font-weight: ${isDarkMode ? 'normal' : '500'};  /* Slightly bolder in light mode */
+      }
+      
+      .player-name {
+        color: ${isDarkMode ? '#b4b4b4' : '#495057'};  /* Darker gray for better contrast */
+        font-weight: ${isDarkMode ? 'normal' : '500'};
+      }
+
+      .status-box {
+        color: ${isDarkMode ? '#ffffff' : '#2c3e50'} !important;  /* Force color override */
+        font-weight: ${isDarkMode ? 'normal' : '500'};
+      }
+
+      .scoresheet {
+        color: ${isDarkMode ? '#ffffff' : '#2c3e50'};
+      }
+
+      .move-row {
+        color: ${isDarkMode ? '#ffffff' : '#2c3e50'};
+        background-color: ${isDarkMode ? '#262522' : '#ffffff'} !important;  /* Force all rows white */
+      }
+
+      .move-row:nth-child(odd) {
+        background-color: ${isDarkMode ? '#262522' : '#ffffff'} !important;  /* Force odd rows white */
+      }
+
+      .move-row:nth-child(even) {
+        background-color: ${isDarkMode ? '#262522' : '#ffffff'} !important;  /* Force even rows white */
+      }
+
+      .move-number {
+        color: ${isDarkMode ? '#b4b4b4' : '#6c757d'};
+      }
+
+      .move {
+        color: ${isDarkMode ? '#ffffff' : '#2c3e50'};
+      }
+
+      .move.last {
+        background-color: ${isDarkMode ? '#3a3937' : '#e9ecef'};
+      }
+    `;
+    
+    // Remove any previous dynamic styles
+    const oldStyles = document.getElementById('theme-dynamic-styles');
+    if (oldStyles) oldStyles.remove();
+    
+    // Add new styles
+    styles.id = 'theme-dynamic-styles';
+    document.head.appendChild(styles);
     
     // Store theme preference
     localStorage.setItem('chess-theme-mode', isDarkMode ? 'dark' : 'light');
