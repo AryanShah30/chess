@@ -806,6 +806,35 @@ function createThemeSetup() {
       document.querySelectorAll('.clock-setup-modal input').forEach(input => {
         input.style.setProperty('::placeholder', '#000000', 'important');
       });
+
+      if (!isDarkMode) { // Light mode
+        console.log("Theme switching...");
+        const inputs = document.querySelectorAll('#player1-name-input, #player2-name-input');
+        console.log("Found inputs:", inputs);
+
+        // Remove any existing placeholder style
+        const existingStyle = document.getElementById('placeholder-style');
+        if (existingStyle) {
+          existingStyle.remove();
+        }
+
+        // Create a new style element
+        const style = document.createElement('style');
+        style.id = 'placeholder-style';
+        style.textContent = `
+          #player1-name-input::placeholder,
+          #player2-name-input::placeholder {
+            color: black !important;
+          }
+        `;
+        document.head.appendChild(style);
+
+        inputs.forEach(input => {
+          console.log("Current input:", input);
+          input.style.setProperty('color', 'black', 'important');
+          console.log("Updated input style:", input.style);
+        });
+      }
     }
     
     // Update control button styles with better contrast for light mode
