@@ -520,27 +520,30 @@ body {
 
 .theme-modal-content {
   background-color: #262522;
-  padding: 35px;
-  border-radius: 16px;
-  min-width: 320px;
+  padding: 25px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 700px;
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .theme-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-  padding-bottom: 15px;
+  margin-bottom: 35px;
+  padding-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .theme-header h3 {
   color: white;
   margin: 0;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 500;
 }
 
@@ -570,7 +573,7 @@ body {
 }
 
 .theme-section {
-  margin: 25px 0;
+  margin: 15px 0;
 }
 
 .theme-section:first-of-type {
@@ -579,37 +582,68 @@ body {
 
 .theme-section h4 {
   color: #999;
-  margin: 0 0 12px 0;
-  font-size: 14px;
+  margin: 0 0 15px 0;
+  font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .color-options {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .color-option {
-  width: 45px;
-  height: 45px;
-  border-radius: 12px;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
   border: 2px solid transparent;
   padding: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  max-width: 50px;
+  margin: 0 auto;
 }
 
 .color-option:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   border-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .color-option:active {
   transform: scale(0.95);
+}
+
+/* Add tooltip on hover */
+.color-option:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .theme-modal-content {
+    min-width: 95%;
+    padding: 20px;
+  }
+
+  .color-options {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }

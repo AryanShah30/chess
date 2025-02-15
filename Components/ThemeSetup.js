@@ -27,30 +27,48 @@ function createThemeSetup() {
         <div class="theme-section">
           <h4>White Squares</h4>
           <div class="color-options">
-            <button class="color-option" style="background-color: #c5d5dc;" data-type="white" data-color="#c5d5dc"></button>
-            <button class="color-option" style="background-color: #FFFFFF;" data-type="white" data-color="#FFFFFF"></button>
-            <button class="color-option" style="background-color: #E8D0B0;" data-type="white" data-color="#E8D0B0"></button>
-            <button class="color-option" style="background-color: #EED7C5;" data-type="white" data-color="#EED7C5"></button>
+            <button class="color-option" style="background-color: #c5d5dc;" data-type="white" data-color="#c5d5dc" title="Classic Light Blue"></button>
+            <button class="color-option" style="background-color: #FFFFFF;" data-type="white" data-color="#FFFFFF" title="Pure White"></button>
+            <button class="color-option" style="background-color: #E8D0B0;" data-type="white" data-color="#E8D0B0" title="Light Wood"></button>
+            <button class="color-option" style="background-color: #EED7C5;" data-type="white" data-color="#EED7C5" title="Peach"></button>
+            <button class="color-option" style="background-color: #F0E4D4;" data-type="white" data-color="#F0E4D4" title="Cream"></button>
+            <button class="color-option" style="background-color: #F5F6E8;" data-type="white" data-color="#F5F6E8" title="Eggshell"></button>
+            <button class="color-option" style="background-color: #E8E3D5;" data-type="white" data-color="#E8E3D5" title="Pearl"></button>
+            <button class="color-option" style="background-color: #DFE5DC;" data-type="white" data-color="#DFE5DC" title="Sage White"></button>
+            <button class="color-option" style="background-color: #E8DFE6;" data-type="white" data-color="#E8DFE6" title="Lavender White"></button>
+            <button class="color-option" style="background-color: #F3E5D5;" data-type="white" data-color="#F3E5D5" title="Antique"></button>
           </div>
         </div>
 
         <div class="theme-section">
           <h4>Black Squares</h4>
           <div class="color-options">
-            <button class="color-option" style="background-color: #7a9db2;" data-type="black" data-color="#7a9db2"></button>
-            <button class="color-option" style="background-color: #4B7399;" data-type="black" data-color="#4B7399"></button>
-            <button class="color-option" style="background-color: #B58863;" data-type="black" data-color="#B58863"></button>
-            <button class="color-option" style="background-color: #C3A48C;" data-type="black" data-color="#C3A48C"></button>
+            <button class="color-option" style="background-color: #7a9db2;" data-type="black" data-color="#7a9db2" title="Classic Blue"></button>
+            <button class="color-option" style="background-color: #4B7399;" data-type="black" data-color="#4B7399" title="Deep Blue"></button>
+            <button class="color-option" style="background-color: #B58863;" data-type="black" data-color="#B58863" title="Classic Wood"></button>
+            <button class="color-option" style="background-color: #8B4513;" data-type="black" data-color="#8B4513" title="Dark Wood"></button>
+            <button class="color-option" style="background-color: #6F4E37;" data-type="black" data-color="#6F4E37" title="Coffee"></button>
+            <button class="color-option" style="background-color: #5C4033;" data-type="black" data-color="#5C4033" title="Deep Brown"></button>
+            <button class="color-option" style="background-color: #4A5859;" data-type="black" data-color="#4A5859" title="Slate"></button>
+            <button class="color-option" style="background-color: #4B6455;" data-type="black" data-color="#4B6455" title="Forest"></button>
+            <button class="color-option" style="background-color: #4A4E4D;" data-type="black" data-color="#4A4E4D" title="Charcoal"></button>
+            <button class="color-option" style="background-color: #534B4F;" data-type="black" data-color="#534B4F" title="Dark Gray"></button>
           </div>
         </div>
 
         <div class="theme-section">
           <h4>Highlight Color</h4>
           <div class="color-options">
-            <button class="color-option" style="background-color: #72c9dd;" data-type="highlight" data-color="#72c9dd"></button>
-            <button class="color-option" style="background-color: #aaa23a;" data-type="highlight" data-color="#aaa23a"></button>
-            <button class="color-option" style="background-color: #f7ec59;" data-type="highlight" data-color="#f7ec59"></button>
-            <button class="color-option" style="background-color: #ff9f40;" data-type="highlight" data-color="#ff9f40"></button>
+            <button class="color-option" style="background-color: #72c9dd;" data-type="highlight" data-color="#72c9dd" title="Classic Blue"></button>
+            <button class="color-option" style="background-color: #aaa23a;" data-type="highlight" data-color="#aaa23a" title="Olive"></button>
+            <button class="color-option" style="background-color: #f7ec59;" data-type="highlight" data-color="#f7ec59" title="Yellow"></button>
+            <button class="color-option" style="background-color: #ff9f40;" data-type="highlight" data-color="#ff9f40" title="Orange"></button>
+            <button class="color-option" style="background-color: #90EE90;" data-type="highlight" data-color="#90EE90" title="Light Green"></button>
+            <button class="color-option" style="background-color: #FFB6C1;" data-type="highlight" data-color="#FFB6C1" title="Light Pink"></button>
+            <button class="color-option" style="background-color: #E6E6FA;" data-type="highlight" data-color="#E6E6FA" title="Lavender"></button>
+            <button class="color-option" style="background-color: #98FB98;" data-type="highlight" data-color="#98FB98" title="Mint"></button>
+            <button class="color-option" style="background-color: #DDA0DD;" data-type="highlight" data-color="#DDA0DD" title="Plum"></button>
+            <button class="color-option" style="background-color: #87CEEB;" data-type="highlight" data-color="#87CEEB" title="Sky Blue"></button>
           </div>
         </div>
       </div>
