@@ -48,7 +48,7 @@ function createThemeSetup() {
           <div class="theme-section-header" data-section="board">
             <h4>Board Theme</h4>
             <button class="dropdown-toggle">
-              <span class="arrow">▼</span>
+              <img src="Assets/images/drop-down.png" alt="dropdown" class="arrow">
             </button>
           </div>
           
@@ -125,7 +125,7 @@ function createThemeSetup() {
           <div class="theme-section-header" data-section="pieces">
             <h4>Piece Theme</h4>
             <button class="dropdown-toggle">
-              <span class="arrow">▼</span>
+              <img src="Assets/images/drop-down.png" alt="dropdown" class="arrow">
             </button>
           </div>
           
@@ -175,14 +175,20 @@ function createThemeSetup() {
     .dropdown-toggle {
       background: none;
       border: none;
-      color: #b4b4b4;
       cursor: pointer;
       padding: 4px;
+      margin-right: 16px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      right: 8px;
     }
 
     .dropdown-toggle .arrow {
-      display: inline-block;
+      width: 16px;
+      height: 16px;
       transition: transform 0.2s ease;
+      filter: brightness(0) invert(1);
     }
 
     .theme-section-header.collapsed .arrow {
@@ -220,6 +226,39 @@ function createThemeSetup() {
       margin: 0;
       color: #b4b4b4;
       font-size: 14px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .custom-color-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .color-picker {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      padding: 0;
+      margin: 0;
+      pointer-events: none;
+    }
+
+    .custom-button {
+      background: #3a3937;
+      border: none;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background-color 0.2s ease;
+    }
+
+    .custom-button:hover {
+      background: #4a4947;
     }
 
     .theme-header {
