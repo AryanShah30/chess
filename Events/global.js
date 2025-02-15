@@ -171,6 +171,8 @@ function changeTurn() {
 
   inTurn = inTurn === "white" ? "black" : "white";
   
+  updateStatusMessage();
+  
   // Check if board flipping is enabled and flip if necessary
   if (localStorage.getItem('chess-flip-board') === 'true') {
     flipBoard();
@@ -857,6 +859,26 @@ function movePiece(piece, targetSquare, castle) {
   if (checkForDraw()) {
     return;
   }
+
+  updateStatusMessage();
+}
+
+function updateStatusMessage() {
+  const statusBox = document.getElementById('status-box');
+  if (!statusBox) return;
+
+  let message = `It's ${inTurn.charAt(0).toUpperCase() + inTurn.slice(1)}'s turn`;
+  
+  if (lastMove) {
+    message += ` • ${lastMove.piece.piece_name.split('_')[0].charAt(0) + lastMove.piece.piece_name.split('_')[0].slice(1).toLowerCase()} last played ${lastMove.id}`;
+  }
+
+  if (whoInCheck) {
+    message += ` • ${whoInCheck.charAt(0).toUpperCase() + whoInCheck.slice(1)} is in check!`;
+  }
+
+  statusBox.textContent = message;
+  statusBox.className = `status-box ${inTurn}-turn`;
 }
 
 function whitePawnClick(square) {

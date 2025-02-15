@@ -167,11 +167,52 @@ body {
 
 .chess-container {
   display: flex;
+  gap: 40px;
+  padding: 20px;
   align-items: flex-start;
-  gap: 25px;
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 15px;
+}
+
+/* Left side container for clock and status */
+.left-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chess-clock {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #262522;
+  border-radius: 12px;
+  width: 280px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.status-box {
+  background-color: #262522;
+  border-radius: 12px;
+  padding: 15px 20px;
+  color: white;
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  min-height: 50px;
+  width: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-box.white-turn {
+  border-left: 4px solid #fff;
+}
+
+.status-box.black-turn {
+  border-left: 4px solid #000;
 }
 
 .scoresheet {
@@ -209,17 +250,6 @@ body {
 .move.last {
   color: #4caf50;
   font-weight: bold;
-}
-
-.chess-clock {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-  background-color: #262522;
-  border-radius: 12px;
-  width: 280px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .player-clock {
