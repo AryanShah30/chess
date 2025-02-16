@@ -72,8 +72,8 @@ function createThemeSetup() {
       <button class="timer-button" title="Stop Clock">
         <img src="Assets/images/timer.png" alt="Timer" />
       </button>
-      <button class="theme-toggle-button" title="Switch to Light Mode">
-        <img src="Assets/images/light-mode.png" alt="Theme Toggle" />
+      <button class="theme-toggle-button" title="Switch Theme">
+        <img src="Assets/images/${localStorage.getItem("chess-theme-mode") === "light" ? "light-mode.png" : "dark-mode.png"}" alt="Theme Toggle" />
       </button>
     </div>
   `;
@@ -843,6 +843,10 @@ function createThemeSetup() {
 
     // Store theme preference
     localStorage.setItem("chess-theme-mode", isDarkMode ? "dark" : "light");
+
+    // Update the theme toggle button icon
+    const themeIcon = themeToggleBtn.querySelector("img");
+    themeIcon.src = `Assets/images/${isDarkMode ? "light-mode.png" : "dark-mode.png"}`;
 
     // Create and apply theme styles immediately
     const modalStyle = document.createElement("style");
