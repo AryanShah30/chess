@@ -257,6 +257,20 @@ function createDocumentation() {
   closeBtn.addEventListener("click", animateClose);
 
   docIcon.addEventListener("click", () => {
+    // Reset all sections to collapsed state
+    document.querySelectorAll('.doc-section-header').forEach(header => {
+      header.classList.add('collapsed');
+      const content = header.nextElementSibling;
+      if (content) {
+        content.style.display = 'none';
+      }
+      const svg = header.querySelector('svg');
+      if (svg) {
+        svg.style.transform = 'rotate(0deg)';
+      }
+    });
+
+    // Show the modal
     docModal.style.transform = "";
     docModal.style.opacity = "1";
     docOverlay.style.opacity = "1";
