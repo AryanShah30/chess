@@ -173,7 +173,6 @@ body {
   padding: 20px;
 }
 
-/* Left side container for clock and status */
 .left-container {
   display: flex;
   flex-direction: column;
@@ -290,7 +289,7 @@ body {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #4caf50;
-  filter: none;  /* Keep original black color in light mode */
+  filter: none;
 }
 
 .player-clock.active .player-avatar {
@@ -316,16 +315,22 @@ body {
 }
 
 .player-time.low-time {
-  color: #FFB100 !important;  /* Brighter red */
-  font-weight: 900;  /* Extra bold */
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);  /* Subtle shadow for better contrast */
+  color: #ffb100 !important;
+  font-weight: 900;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   animation: pulse 1s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.8; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .clock-setup-overlay {
@@ -358,23 +363,19 @@ body {
   margin: 0 0 15px 0;
 }
 
-/* Dark theme (default) */
 .clock-setup-modal h2 {
   color: #ffffff;
 }
 
-/* Light theme override */
 [data-theme="light"] .clock-setup-modal h2 {
   color: #000000;
 }
 
-/* Theme-specific styles with higher specificity */
 :root .clock-setup-modal h2,
 :root .clock-setup-modal h3 {
   color: var(--text-color);
 }
 
-/* Light mode styles */
 [data-theme="light"] .clock-setup-modal {
   background: #ffffff;
   color: #333333;
@@ -578,14 +579,12 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Specific styling for black pieces */
 .promotion-piece img[src*="/black/"] {
   border-radius: 6px;
   padding: 8px;
   transition: all 0.2s ease;
 }
 
-/* Hover effect for the container */
 .promotion-piece:hover {
   transform: scale(1.1);
   background-color: #4caf50;
@@ -593,7 +592,6 @@ body {
   box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
 }
 
-/* Hover effect for black pieces */
 .promotion-piece:hover img[src*="/black/"] {
   background-color: #4caf50;
 }
@@ -669,7 +667,6 @@ body {
   height: 28px;
 }
 
-/* Dark theme icon */
 [data-theme="dark"] .theme-header .header-icon {
   filter: brightness(0) invert(1);
 }
@@ -807,7 +804,6 @@ body {
   transform: scale(0.95);
 }
 
-/* Add tooltip on hover */
 .color-option:hover::after {
   content: attr(title);
   position: absolute;
@@ -823,7 +819,6 @@ body {
   z-index: 1000;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .theme-modal-content {
     min-width: 95%;
@@ -835,7 +830,6 @@ body {
   }
 }
 
-/* Add these new styles */
 .piece-options {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -873,7 +867,6 @@ body {
   background: #2a2927;
 }
 
-/* Add tooltip on hover */
 .piece-option:hover::after {
   content: attr(title);
   position: absolute;
@@ -949,7 +942,6 @@ body {
   line-height: 1.4;
 }
 
-/* Optional: Add a subtle shadow during flip */
 #root.flipping {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
@@ -984,7 +976,6 @@ body {
   transform: scale(0.95) rotate(180deg);
 }
 
-/* Responsive adjustment for smaller screens */
 @media (max-width: 480px) {
   .theme-modal-content {
     min-width: 95%;
@@ -1034,7 +1025,6 @@ body {
   color: white;
 }
 
-/* Update existing settings button styles to match */
 .settings-button {
   background: var(--button-bg);
   border: 1px solid var(--border-color);
@@ -1063,7 +1053,6 @@ body {
   filter: none;
 }
 
-/* Add theme variables for modal */
 :root {
   --body-bg-color: #f0f0f0;
   --container-bg-color: #ffffff;
@@ -1074,7 +1063,6 @@ body {
   --piece-bg-color: #ffffff;
 }
 
-/* Add light theme variables */
 [data-theme="light"] {
   --body-bg-color: #f0f0f0;
   --container-bg-color: #ffffff;
@@ -1085,7 +1073,6 @@ body {
   --piece-bg-color: #ffffff;
 }
 
-/* Update clock setup modal styles */
 .clock-setup-modal {
   background-color: var(--container-bg-color);
   color: var(--text-color);
@@ -1119,7 +1106,6 @@ body {
   opacity: 0.7;
 }
 
-/* Update start button */
 .start-game-button {
   background-color: #4caf50;
   color: white;
@@ -1161,7 +1147,6 @@ body {
   border-color: #45a049;
 }
 
-/* Update notification modal */
 .notification-modal {
   background-color: var(--container-bg-color);
   color: var(--text-color);
@@ -1171,18 +1156,15 @@ body {
   color: var(--text-color);
 }
 
-/* Update theme modal */
 .theme-modal-content {
   background-color: var(--container-bg-color);
   color: var(--text-color);
 }
 
-/* Update move number color */
 .move-number {
   color: #666;
 }
 
-/* Update settings and theme options */
 .setting-option {
   background: var(--button-bg);
 }
@@ -1199,12 +1181,10 @@ body {
   color: #666;
 }
 
-/* Update flip icon */
 .flip-icon {
   color: var(--text-color);
 }
 
-/* Default light theme colors */
 :root {
   --body-bg-color: #f0f0f0;
   --container-bg-color: #ffffff;
@@ -1215,7 +1195,6 @@ body {
   --piece-bg-color: #ffffff;
 }
 
-/* Dark theme overrides */
 [data-theme="dark"] {
   --body-bg-color: #302e2b;
   --container-bg-color: #262522;
@@ -1226,7 +1205,6 @@ body {
   --piece-bg-color: #4a4947;
 }
 
-/* Apply variables to elements */
 .chess-clock {
   background-color: var(--container-bg-color);
   color: var(--text-color);
@@ -1280,7 +1258,6 @@ body {
   background: var(--button-hover);
 }
 
-/* Update move rows */
 .move-row {
   color: var(--text-color);
 }
@@ -1289,7 +1266,6 @@ body {
   background-color: var(--button-bg);
 }
 
-/* Player clock specific styles */
 .player-clock {
   background-color: var(--button-bg);
   color: var(--text-color);
@@ -1300,45 +1276,39 @@ body {
   color: white;
 }
 
-/* Default icon styles for settings and timer */
 .settings-button img,
 .timer-button img {
   width: 24px;
   height: 24px;
-  filter: none;  /* Reset any filters for light mode */
+  filter: none;
 }
 
-/* Dark mode icon styles for settings and timer */
 [data-theme="dark"] .settings-button img,
 [data-theme="dark"] .timer-button img {
-  filter: invert(1) brightness(100%);  /* Makes icons white in dark mode */
+  filter: invert(1) brightness(100%);
 }
 
-/* Light mode icon styles for settings and timer */
 [data-theme="light"] .settings-button img,
 [data-theme="light"] .timer-button img {
-  filter: none;  /* Ensures icons stay in original color in light mode */
+  filter: none;
 }
 
-/* Theme toggle button specific styles */
 [data-theme="light"] .theme-toggle-button img {
-  filter: none;  /* Keep dark mode icon dark in light theme */
+  filter: none;
 }
 
 [data-theme="dark"] .theme-toggle-button img {
-  filter: invert(1) brightness(100%);  /* Keep light mode icon white in dark theme */
+  filter: invert(1) brightness(100%);
 }
 
-/* Ensure player names are visible in both themes */
 [data-theme="light"] .player-name {
-  color: #333333;  /* Dark text for light theme */
+  color: #333333;
 }
 
 [data-theme="dark"] .player-name {
-  color: #ffffff;  /* White text for dark theme */
+  color: #ffffff;
 }
 
-/* Light mode piece theme styles */
 [data-theme="light"] .piece-option {
   background: #f0f0f0 !important;
   border: 2px solid #e0e0e0 !important;
@@ -1356,7 +1326,6 @@ body {
   gap: 10px;
 }
 
-/* Dark mode piece theme styles (existing) */
 [data-theme="dark"] .piece-option {
   background: #3a3937 !important;
   border: 2px solid #4a4947 !important;
@@ -1374,16 +1343,14 @@ body {
   gap: 10px;
 }
 
-/* Light mode color section header */
 [data-theme="light"] .color-section-header h5 {
   margin: 0;
-  color: #4a4a4a;  /* Darker grayish color */
+  color: #4a4a4a;
   font-size: 14px;
   text-transform: uppercase;
   font-weight: 600;
 }
 
-/* Dark mode color section header (existing style) */
 [data-theme="dark"] .color-section-header h5 {
   margin: 0;
   color: #b4b4b4;
@@ -1392,9 +1359,8 @@ body {
   font-weight: 600;
 }
 
-/* Dark mode player icon */
 [data-theme="dark"] .player-avatar {
-  filter: invert(1) brightness(100%);  /* Makes icon white in dark mode */
+  filter: invert(1) brightness(100%);
 }
 
 .documentation-overlay {
@@ -1518,7 +1484,6 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Documentation Icon */
 .doc-icon {
   position: fixed;
   bottom: 30px;
@@ -1553,7 +1518,6 @@ body {
   transform: scale(1.1);
 }
 
-/* Dark theme adjustments */
 [data-theme="dark"] .doc-section {
   background: var(--button-bg);
 }
@@ -1566,7 +1530,6 @@ body {
   filter: invert(1) brightness(100%);
 }
 
-/* Scrollbar styling */
 .documentation-modal::-webkit-scrollbar {
   width: 8px;
 }
@@ -1585,7 +1548,6 @@ body {
   background: #4caf50;
 }
 
-/* Emoji styling */
 .doc-section-content li::before {
   margin-right: 10px;
   font-size: 20px;
@@ -1595,7 +1557,7 @@ body {
   display: block;
   margin: 20px auto;
   padding: 12px 24px;
-  background-color: var(--highlight-color, #4CAF50);
+  background-color: var(--highlight-color, #4caf50);
   color: white;
   border: none;
   border-radius: 4px;
@@ -1615,7 +1577,7 @@ body {
   gap: 8px;
   margin-top: 15px;
   padding: 12px 24px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 8px;
@@ -1641,12 +1603,11 @@ body {
 .button-icon {
   width: 30px;
   height: 30px;
-  filter: brightness(0) invert(1); /* Makes the icon white */
+  filter: brightness(0) invert(1);
 }
 
-/* Dark theme support */
 [data-theme="dark"] .game-setup-btn {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 
@@ -1687,8 +1648,8 @@ body {
   border: 1px solid rgba(255, 0, 0, 0.2);
 }
 
-/* Close button styles for both documentation and setup modals */
-.doc-close-btn, .close-setup-btn {
+.doc-close-btn,
+.close-setup-btn {
   background: var(--button-bg);
   border: 1px solid var(--border-color);
   font-size: 14px;
@@ -1700,12 +1661,12 @@ body {
   transition: all 0.2s ease;
 }
 
-.doc-close-btn:hover, .close-setup-btn:hover {
+.doc-close-btn:hover,
+.close-setup-btn:hover {
   background: var(--button-hover);
   transform: translateY(-2px);
 }
 
-/* Documentation dropdown styles */
 .doc-section-content {
   max-height: 1000px;
   opacity: 1;
@@ -1749,14 +1710,11 @@ body {
   filter: var(--icon-filter);
 }
 
-/* Light theme icon */
 .theme-header .header-icon {
   width: 24px;
   height: 24px;
 }
 
-/* Dark theme icon */
 [data-theme="dark"] .theme-header .header-icon {
-  filter: brightness(0) invert(1);  /* Makes icon white in dark mode */
+  filter: brightness(0) invert(1);
 }
-

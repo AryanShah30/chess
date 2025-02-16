@@ -1,8 +1,8 @@
 function createDocumentation() {
-  // Create documentation icon first
-  const docIcon = document.createElement('button');
-  docIcon.className = 'doc-icon';
-  docIcon.innerHTML = '<img src="Assets/images/documentation.png" alt="Documentation" />';
+  const docIcon = document.createElement("button");
+  docIcon.className = "doc-icon";
+  docIcon.innerHTML =
+    '<img src="Assets/images/documentation.png" alt="Documentation" />';
   document.body.appendChild(docIcon);
 
   const docHTML = `
@@ -15,7 +15,7 @@ function createDocumentation() {
           </h2>
           <button class="doc-close-btn">CLOSE</button>
         </div>
-        
+
         <div class="doc-section">
           <div class="doc-section-header" data-section="whats-new">
             <h3>What's New on the Board</h3>
@@ -76,10 +76,9 @@ function createDocumentation() {
     </div>
   `;
 
-  document.body.insertAdjacentHTML('beforeend', docHTML);
+  document.body.insertAdjacentHTML("beforeend", docHTML);
 
-  // Add styles for the documentation icon
-  const docStyle = document.createElement('style');
+  const docStyle = document.createElement("style");
   docStyle.textContent = `
     .doc-header h2 {
       display: flex;
@@ -92,12 +91,10 @@ function createDocumentation() {
       height: 24px;
     }
 
-    /* Light theme (default) */
     .doc-header-icon {
       filter: none;
     }
 
-    /* Dark theme */
     [data-theme="dark"] .doc-header-icon {
       filter: brightness(0) invert(1);
     }
@@ -113,67 +110,63 @@ function createDocumentation() {
   `;
   document.head.appendChild(docStyle);
 
-  const docOverlay = document.querySelector('.documentation-overlay');
-  const docModal = docOverlay.querySelector('.documentation-modal');
-  const closeBtn = docOverlay.querySelector('.doc-close-btn');
+  const docOverlay = document.querySelector(".documentation-overlay");
+  const docModal = docOverlay.querySelector(".documentation-modal");
+  const closeBtn = docOverlay.querySelector(".doc-close-btn");
 
-  // Function to animate closing
   const animateClose = () => {
-    const docIcon = document.querySelector('.doc-icon');
+    const docIcon = document.querySelector(".doc-icon");
     const iconRect = docIcon.getBoundingClientRect();
-    
-    docModal.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-    docModal.style.transform = `translate(${iconRect.left - docModal.offsetWidth/2 + iconRect.width/2}px, ${iconRect.top - docModal.offsetHeight/2 + iconRect.height/2}px) scale(0.1)`;
-    docModal.style.opacity = '0';
-    docOverlay.style.opacity = '0';
-    
+
+    docModal.style.transition = "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)";
+    docModal.style.transform = `translate(${
+      iconRect.left - docModal.offsetWidth / 2 + iconRect.width / 2
+    }px, ${
+      iconRect.top - docModal.offsetHeight / 2 + iconRect.height / 2
+    }px) scale(0.1)`;
+    docModal.style.opacity = "0";
+    docOverlay.style.opacity = "0";
+
     setTimeout(() => {
-      docOverlay.style.display = 'none';
-      docModal.style.transform = '';
-      docModal.style.opacity = '1';
+      docOverlay.style.display = "none";
+      docModal.style.transform = "";
+      docModal.style.opacity = "1";
     }, 600);
   };
 
-  // Show documentation on load with fade in
-  docOverlay.style.opacity = '0';
+  docOverlay.style.opacity = "0";
   setTimeout(() => {
-    docOverlay.style.opacity = '1';
+    docOverlay.style.opacity = "1";
   }, 100);
 
-  // Close after 5 seconds
   setTimeout(animateClose, 5000);
 
-  // Handle manual close
-  closeBtn.addEventListener('click', animateClose);
+  closeBtn.addEventListener("click", animateClose);
 
-  // Handle icon click to show documentation
-  docIcon.addEventListener('click', () => {
-    docModal.style.transform = '';
-    docModal.style.opacity = '1';
-    docOverlay.style.opacity = '1';
-    docOverlay.style.display = 'flex';
+  docIcon.addEventListener("click", () => {
+    docModal.style.transform = "";
+    docModal.style.opacity = "1";
+    docOverlay.style.opacity = "1";
+    docOverlay.style.display = "flex";
   });
 
-  // Handle section toggles
-  document.querySelectorAll('.doc-section-header').forEach((header) => {
-    const toggleBtn = header.querySelector('.dropdown-toggle');
+  document.querySelectorAll(".doc-section-header").forEach((header) => {
+    const toggleBtn = header.querySelector(".dropdown-toggle");
     const content = header.nextElementSibling;
-    
-    // Add click handler to the toggle button
-    toggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation(); // Prevent event bubbling
-      header.classList.toggle('collapsed');
-      content.classList.toggle('collapsed');
-      
-      // Animate the dropdown icon
-      const svg = toggleBtn.querySelector('svg');
-      if (header.classList.contains('collapsed')) {
-        svg.style.transform = 'rotate(-180deg)';
+
+    toggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      header.classList.toggle("collapsed");
+      content.classList.toggle("collapsed");
+
+      const svg = toggleBtn.querySelector("svg");
+      if (header.classList.contains("collapsed")) {
+        svg.style.transform = "rotate(-180deg)";
       } else {
-        svg.style.transform = 'rotate(0deg)';
+        svg.style.transform = "rotate(0deg)";
       }
     });
   });
 }
 
-export { createDocumentation }; 
+export { createDocumentation };

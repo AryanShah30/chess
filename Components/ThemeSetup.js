@@ -460,7 +460,11 @@ function createThemeSetup() {
     .timer-button img {
       width: 24px;
       height: 24px;
-      filter: ${localStorage.getItem("chess-theme-mode") === "light" ? "brightness(0) invert(1)" : "none"};
+      filter: ${
+        localStorage.getItem("chess-theme-mode") === "light"
+          ? "brightness(0) invert(1)"
+          : "none"
+      };
     }
 
     .timer-button:hover {
@@ -493,7 +497,11 @@ function createThemeSetup() {
     .theme-toggle-button img {
       width: 20px;
       height: 20px;
-      filter: ${localStorage.getItem("chess-theme-mode") === "light" ? "brightness(0) invert(1)" : "none"};
+      filter: ${
+        localStorage.getItem("chess-theme-mode") === "light"
+          ? "brightness(0) invert(1)"
+          : "none"
+      };
     }
 
     .theme-toggle-button:hover {
@@ -527,7 +535,7 @@ function createThemeSetup() {
       margin-right: 8px;
       vertical-align: middle;
     }
-    
+
     .theme-section-header h4 {
       display: flex;
       align-items: center;
@@ -556,7 +564,7 @@ function createThemeSetup() {
 
   settingsBtn.addEventListener("click", () => {
     const isDarkMode = localStorage.getItem("chess-theme-mode") === "dark";
-    
+
     if (!isDarkMode) {
       const modalStyle = document.createElement("style");
       modalStyle.id = "modal-style";
@@ -591,7 +599,7 @@ function createThemeSetup() {
           background: #d0d0d0 !important; 
         }
         .section-icon {
-          filter: none !important; /* Remove the white filter for light mode */
+          filter: none !important; 
         }
       `;
       const oldStyle = document.getElementById("modal-style");
@@ -623,7 +631,7 @@ function createThemeSetup() {
           color: #b4b4b4 !important;
         }
         .section-icon {
-          filter: brightness(0) invert(1) !important; /* Make icons white in dark mode */
+          filter: brightness(0) invert(1) !important; 
         }
         .color-option:hover::after,
         .piece-option:hover::after {
@@ -847,7 +855,7 @@ function createThemeSetup() {
   });
 
   const timerBtn = document.querySelector(".timer-button");
-  timerBtn.addEventListener("click", function() {
+  timerBtn.addEventListener("click", function () {
     const isActive = this.classList.toggle("active");
     if (isActive) {
       this.setAttribute("title", this.dataset.startTitle);
@@ -860,50 +868,43 @@ function createThemeSetup() {
 
   const themeToggleBtn = document.querySelector(".theme-toggle-button");
   themeToggleBtn.addEventListener("click", async () => {
-    // Show loading state or transition effect if desired
     document.body.style.opacity = "0.5";
     document.body.style.transition = "opacity 0.2s ease";
 
-    // Small delay to ensure transitions are smooth
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     themeToggleBtn.classList.toggle("active");
     const isDarkMode = themeToggleBtn.classList.contains("active");
     const newTheme = isDarkMode ? "dark" : "light";
 
-    // Store theme preference
     localStorage.setItem("chess-theme-mode", newTheme);
-    
-    // Update data-theme attribute
+
     document.documentElement.setAttribute("data-theme", newTheme);
 
-    // Update theme icon
     const themeIcon = themeToggleBtn.querySelector("img");
-    themeIcon.src = `Assets/images/${isDarkMode ? "light-mode.png" : "dark-mode.png"}`;
+    themeIcon.src = `Assets/images/${
+      isDarkMode ? "light-mode.png" : "dark-mode.png"
+    }`;
 
-    // Remove any existing modal styles
     const existingModalStyle = document.getElementById("modal-style");
     if (existingModalStyle) {
       existingModalStyle.remove();
     }
 
-    // Apply modal styles based on theme
     const modalStyle = document.createElement("style");
     modalStyle.id = "modal-style";
     modalStyle.textContent = isDarkMode ? darkModeStyles : lightModeStyles;
     document.head.appendChild(modalStyle);
 
-    // Restore opacity after theme change
     document.body.style.opacity = "1";
   });
 
-  // Define theme-specific styles
   const lightModeStyles = `
     .theme-modal-content {
       background-color: #ffffff !important;
       color: #333333 !important;
     }
-    // ... rest of light mode styles ...
+
   `;
 
   const darkModeStyles = `
@@ -911,19 +912,16 @@ function createThemeSetup() {
       background-color: #262522 !important;
       color: #ffffff !important;
     }
-    // ... rest of dark mode styles ...
+
   `;
 
-  // Set default theme if not set
   if (!localStorage.getItem("chess-theme-mode")) {
     localStorage.setItem("chess-theme-mode", "light");
   }
 
-  // Apply initial theme
   const initialTheme = localStorage.getItem("chess-theme-mode");
   document.documentElement.setAttribute("data-theme", initialTheme);
-  
-  // Update toggle button state based on stored theme
+
   if (initialTheme === "dark") {
     themeToggleBtn.classList.add("active");
     const themeIcon = themeToggleBtn.querySelector("img");

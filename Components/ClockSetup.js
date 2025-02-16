@@ -69,8 +69,7 @@ function createClockSetup(onGameStart) {
 
   document.body.insertAdjacentHTML("beforeend", setupHTML);
 
-  // Add styles for the header icon and disclaimer
-  const setupStyle = document.createElement('style');
+  const setupStyle = document.createElement("style");
   setupStyle.textContent = `
     .setup-header h2 {
       display: flex;
@@ -83,7 +82,6 @@ function createClockSetup(onGameStart) {
       height: 24px;
     }
 
-    /* Light theme (default) */
     .header-icon {
       filter: none;
     }
@@ -98,7 +96,6 @@ function createClockSetup(onGameStart) {
       text-align: center;
     }
 
-    /* Dark theme */
     [data-theme="dark"] .header-icon {
       filter: brightness(0) invert(1);
     }
@@ -110,25 +107,22 @@ function createClockSetup(onGameStart) {
   `;
   document.head.appendChild(setupStyle);
 
-  // Get the game setup button
-  const gameSetupBtn = document.querySelector('.game-setup-btn');
+  const gameSetupBtn = document.querySelector(".game-setup-btn");
   if (gameSetupBtn) {
-    gameSetupBtn.addEventListener('click', () => {
-      document.querySelector('.clock-setup-overlay').style.display = 'flex';
+    gameSetupBtn.addEventListener("click", () => {
+      document.querySelector(".clock-setup-overlay").style.display = "flex";
     });
   }
 
-  // Add event listener for close button
-  const closeBtn = document.querySelector('.close-setup-btn');
-  const setupOverlay = document.querySelector('.clock-setup-overlay');
-  
+  const closeBtn = document.querySelector(".close-setup-btn");
+  const setupOverlay = document.querySelector(".clock-setup-overlay");
+
   if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      setupOverlay.style.display = 'none';
+    closeBtn.addEventListener("click", () => {
+      setupOverlay.style.display = "none";
     });
   }
 
-  // Handle the actual game start button
   const gameStartBtn = document.getElementById("start-game");
   if (gameStartBtn) {
     gameStartBtn.addEventListener("click", () => {
@@ -140,13 +134,15 @@ function createClockSetup(onGameStart) {
 
       const p1Time =
         (parseInt(document.getElementById("player1-hours").value || 0) * 3600 +
-          parseInt(document.getElementById("player1-minutes").value || 10) * 60 +
+          parseInt(document.getElementById("player1-minutes").value || 10) *
+            60 +
           parseInt(document.getElementById("player1-seconds").value || 0)) *
         1000;
 
       const p2Time =
         (parseInt(document.getElementById("player2-hours").value || 0) * 3600 +
-          parseInt(document.getElementById("player2-minutes").value || 10) * 60 +
+          parseInt(document.getElementById("player2-minutes").value || 10) *
+            60 +
           parseInt(document.getElementById("player2-seconds").value || 0)) *
         1000;
 
@@ -157,18 +153,15 @@ function createClockSetup(onGameStart) {
         document.getElementById("player2-increment").value || 0
       );
 
-      // Clear and re-render the board
       const rootDiv = document.getElementById("root");
       while (rootDiv.firstChild) {
         rootDiv.removeChild(rootDiv.firstChild);
       }
 
-      // Re-initialize and render the board
       const globalState = initGame();
       initGameRender(globalState);
       globalEvent();
 
-      // Start the game with the new settings
       onGameStart(p1Name, p2Name, p1Time, p2Time, p1Inc, p2Inc);
       document.querySelector(".clock-setup-overlay").style.display = "none";
     });
