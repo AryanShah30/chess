@@ -230,17 +230,17 @@ body {
 .move-row {
   display: grid;
   grid-template-columns: 40px 120px 120px;
-  color: white;
+  color: #333;
   padding: 5px 0;
   font-family: "Roboto Mono", monospace;
 }
 
 .move-row:nth-child(even) {
-  background-color: #302e2b;
+  background-color: #f5f5f5;
 }
 
 .move-number {
-  color: #888;
+  color: #666;
   text-align: center;
 }
 
@@ -257,14 +257,15 @@ body {
   padding: 15px;
   border-radius: 8px;
   text-align: center;
-  color: white;
+  color: #333;
   transition: all 0.3s ease;
-  background-color: #3a3937;
+  background-color: #f5f5f5;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .player-clock.active {
   background-color: #4caf50;
+  color: white;
   transform: scale(1.02);
   box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
 }
@@ -583,6 +584,8 @@ body {
 .settings-button {
   position: relative;
   z-index: 1000;
+  background: #f5f5f5;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .flip-button {
@@ -605,7 +608,7 @@ body {
 }
 
 .theme-modal-content {
-  background-color: #262522;
+  background-color: var(--modal-bg-color);
   padding: 25px;
   border-radius: 20px;
   width: 90%;
@@ -616,6 +619,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   max-height: 90vh;
   overflow-y: auto;
+  color: var(--modal-text-color);
 }
 
 .theme-header {
@@ -876,21 +880,21 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 16px;
-  background: #2a2927;
+  background: #f5f5f5;
   border-radius: 6px;
   transition: background-color 0.2s ease;
   cursor: pointer;
 }
 
 .setting-option:hover {
-  background: #3a3937;
+  background: #e0e0e0;
 }
 
 .setting-label {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #fff;
+  color: #333;
   font-size: 15px;
   width: 100%;
   cursor: pointer;
@@ -925,7 +929,7 @@ body {
 }
 
 .setting-description {
-  color: #888;
+  color: #666;
   font-size: 13px;
   margin-left: 36px;
   margin-top: 8px;
@@ -948,7 +952,7 @@ body {
   opacity: 0.7;
   cursor: pointer;
   user-select: none;
-  color: #888;
+  color: #666;
 }
 
 .flip-icon.active {
@@ -1019,8 +1023,8 @@ body {
 
 /* Update existing settings button styles to match */
 .settings-button {
-  background: #262522;
-  border: none;
+  background: #f5f5f5;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   width: 36px;
   height: 36px;
   border-radius: 8px;
@@ -1030,11 +1034,10 @@ body {
   justify-content: center;
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .settings-button:hover {
-  background: #3a3937;
+  background: #e0e0e0;
 }
 
 .settings-button:active {
@@ -1044,15 +1047,17 @@ body {
 .settings-button img {
   width: 20px;
   height: 20px;
-  filter: brightness(0) invert(1);
+  filter: none;
 }
 
 /* Add theme variables for modal */
 :root {
-  --modal-bg-color: #262522;
-  --modal-input-bg: #302e2b;
-  --modal-text-color: #ffffff;
-  --modal-border-color: rgba(255, 255, 255, 0.2);
+  --modal-bg-color: #f0f0f0;
+  --modal-input-bg: #ffffff;
+  --modal-text-color: #333333;
+  --modal-border-color: rgba(0, 0, 0, 0.1);
+  --body-bg-color: #f0f0f0;
+  --piece-bg-color: #f5f5f5;
 }
 
 /* Add light theme variables */
@@ -1061,6 +1066,8 @@ body {
   --modal-input-bg: #ffffff;
   --modal-text-color: #333333;
   --modal-border-color: rgba(0, 0, 0, 0.1);
+  --body-bg-color: #f0f0f0;
+  --piece-bg-color: #f5f5f5;
 }
 
 /* Update clock setup modal styles */
@@ -1137,4 +1144,47 @@ body {
 .timer-button.active:hover {
   background: #4caf50;
   border-color: #45a049;
+}
+
+/* Update notification modal */
+.notification-modal {
+  background-color: var(--modal-bg-color);
+  color: var(--modal-text-color);
+}
+
+.notification-modal p {
+  color: var(--modal-text-color);
+}
+
+/* Update theme modal */
+.theme-modal-content {
+  background-color: var(--modal-bg-color);
+  color: var(--modal-text-color);
+}
+
+/* Update move number color */
+.move-number {
+  color: #666;
+}
+
+/* Update settings and theme options */
+.setting-option {
+  background: #f5f5f5;
+}
+
+.setting-option:hover {
+  background: #e0e0e0;
+}
+
+.setting-label {
+  color: #333;
+}
+
+.setting-description {
+  color: #666;
+}
+
+/* Update flip icon */
+.flip-icon {
+  color: #666;
 }
