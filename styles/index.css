@@ -310,6 +310,20 @@ body {
   font-family: "Roboto Mono", monospace;
   font-weight: 700;
   letter-spacing: 2px;
+  transition: color 0.3s ease;
+}
+
+.player-time.low-time {
+  color: #FFB100 !important;  /* Brighter red */
+  font-weight: 900;  /* Extra bold */
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);  /* Subtle shadow for better contrast */
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
 }
 
 .clock-setup-overlay {

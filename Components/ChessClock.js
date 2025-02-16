@@ -36,12 +36,15 @@ class ChessClock {
   }
 
   updateDisplay() {
-    document.getElementById("player1-time").textContent = this.formatTime(
-      this.player1.timeLeft
-    );
-    document.getElementById("player2-time").textContent = this.formatTime(
-      this.player2.timeLeft
-    );
+    const player1Time = document.getElementById("player1-time");
+    const player2Time = document.getElementById("player2-time");
+    
+    player1Time.textContent = this.formatTime(this.player1.timeLeft);
+    player2Time.textContent = this.formatTime(this.player2.timeLeft);
+    
+    // Add or remove low-time class based on remaining time
+    player1Time.classList.toggle('low-time', this.player1.timeLeft <= 30000); // 30 seconds
+    player2Time.classList.toggle('low-time', this.player2.timeLeft <= 30000);
   }
 
   start() {
