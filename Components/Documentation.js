@@ -1,3 +1,5 @@
+import { createTechnicalDoc, showTechnicalDoc } from './TechnicalDoc.js';
+
 function createDocumentation() {
   const docIcon = document.createElement("button");
   docIcon.className = "doc-icon";
@@ -302,6 +304,18 @@ function createDocumentation() {
         svg.style.transform = isCollapsed ? 'rotate(-180deg)' : 'rotate(0deg)';
       }
     });
+  });
+
+  // Add click handler for code icon
+  const codeIcon = document.createElement("button");
+  codeIcon.className = "code-icon";
+  codeIcon.innerHTML =
+    '<img src="Assets/images/code.png" alt="Code Documentation" />';
+  document.body.appendChild(codeIcon);
+
+  codeIcon.addEventListener("click", () => {
+    createTechnicalDoc();
+    showTechnicalDoc();
   });
 }
 

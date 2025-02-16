@@ -1493,9 +1493,9 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
+.code-icon,
 .doc-icon {
   position: fixed;
-  bottom: 30px;
   right: 30px;
   background: var(--container-bg-color);
   border: 1px solid var(--border-color);
@@ -1512,29 +1512,26 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
+.code-icon {
+  bottom: 110px;
+}
+
+.doc-icon {
+  bottom: 30px;
+}
+
+.code-icon:hover,
 .doc-icon:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
 }
 
+.code-icon img,
 .doc-icon img {
-  width: 32px;
-  height: 32px;
-  transition: transform 0.3s ease;
+  width: 30px;
+  height: 30px;
 }
 
-.doc-icon:hover img {
-  transform: scale(1.1);
-}
-
-[data-theme="dark"] .doc-section {
-  background: var(--button-bg);
-}
-
-[data-theme="dark"] .doc-section-content li {
-  background: var(--container-bg-color);
-}
-
+[data-theme="dark"] .code-icon img,
 [data-theme="dark"] .doc-icon img {
   filter: invert(1) brightness(100%);
 }
@@ -1741,11 +1738,6 @@ body {
   transition: all 0.2s ease;
 }
 
-.documentation-modal p:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
 .doc-section[data-section="considerations"] .doc-section-content li {
   display: flex;
   align-items: flex-start;
@@ -1790,7 +1782,7 @@ body {
 }
 
 .feature-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -1860,15 +1852,15 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 12px;
   }
-  
+
   .feature-card {
     padding: 14px;
   }
-  
+
   .feature-card h4 {
     font-size: 14px;
   }
-  
+
   .feature-card p {
     font-size: 12px;
   }
@@ -1880,7 +1872,7 @@ body {
     transform: none;
     box-shadow: none;
   }
-  
+
   .feature-card:active {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
