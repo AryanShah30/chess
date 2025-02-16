@@ -7,6 +7,8 @@ import { Scoresheet } from "./Components/Scoresheet.js";
 import { createThemeSetup } from "./Components/ThemeSetup.js";
 import { createDocumentation } from "./Components/Documentation.js";
 
+console.log("Index.js loaded"); // Debug log
+
 let chessClock;
 let globalState;
 let keySquareMapper = {};
@@ -74,7 +76,7 @@ function initializeGame(
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Create documentation first
+  console.log("DOM loaded"); // Debug log
   createDocumentation();
   
   // Initialize the game board immediately for exploration

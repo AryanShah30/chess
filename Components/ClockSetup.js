@@ -8,7 +8,7 @@ function createClockSetup(onGameStart) {
       <div class="clock-setup-modal">
         <div class="setup-header">
           <h2>Game Setup</h2>
-          <button class="close-setup-btn">&times;</button>
+          <button class="close-setup-btn">CLOSE</button>
         </div>
         <div class="setup-disclaimer">
           ⚠️ Starting a new game will reset the current game

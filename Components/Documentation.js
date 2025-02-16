@@ -1,98 +1,158 @@
 function createDocumentation() {
-  // Create documentation HTML
+  console.log("Documentation function called"); // Debug log
+
+  // First create and show the documentation overlay
   const docHTML = `
-    <div class="documentation-overlay">
+    <div class="documentation-overlay" style="display: flex !important;">
       <div class="documentation-modal">
-        <div class="documentation-header">
-          <h2>About Chess</h2>
-          <button class="doc-close-btn">×</button>
+        <div class="doc-header">
+          <h2>Chess Documentation</h2>
+          <button class="doc-close-btn">CLOSE</button>
         </div>
-        <div class="documentation-content">
-          <h3>Welcome to Chess!</h3>
-          <p>This is a modern implementation of the classic game of chess.</p>
-          <div class="doc-sections">
-            <section>
-              <h4>Features</h4>
-              <ul>
-                <li>Full chess rules implementation</li>
-                <li>Customizable themes</li>
-                <li>Chess clock with increment support</li>
-                <li>Move notation</li>
-                <li>Board flip option</li>
-              </ul>
-            </section>
-            <section>
-              <h4>How to Play</h4>
-              <p>Click the "Start New Game" button below to begin a new game. You can:</p>
-              <ul>
-                <li>Drag and drop pieces to move them</li>
-                <li>Click pieces to see valid moves</li>
-                <li>Use the clock to time your moves</li>
-                <li>Customize the board and piece themes</li>
-              </ul>
-            </section>
+        
+        <div class="doc-section">
+          <div class="doc-section-header" data-section="whats-new">
+            <h3>What's New on the Board</h3>
+            <button class="dropdown-toggle">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="doc-section-content">
+            <ul>
+              <li>🎮 Custom Game Setup: Set player names and time controls</li>
+              <li>🎨 Theme Customization: Choose from various piece styles and board colors</li>
+              <li>⏱️ Chess Clock: Professional timing system with increment support</li>
+              <li>📝 Move Notation: Automatic chess notation recording</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="doc-section">
+          <div class="doc-section-header" data-section="future">
+            <h3>Future Strategies</h3>
+            <button class="dropdown-toggle">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="doc-section-content">
+            <ul>
+              <li>🤖 AI Integration: Play against different difficulty levels</li>
+              <li>🌐 Online Multiplayer: Challenge players worldwide</li>
+              <li>📊 Performance Analytics: Track your progress and improvement</li>
+              <li>📱 Mobile Support: Play on any device</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="doc-section">
+          <div class="doc-section-header" data-section="feedback">
+            <h3>Your Move: Share Your Thoughts</h3>
+            <button class="dropdown-toggle">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="doc-section-content">
+            <ul>
+              <li>💡 Suggest new features</li>
+              <li>🐛 Report bugs or issues</li>
+              <li>🌟 Share your experience</li>
+              <li>🤝 Join our community</li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
   `;
 
-  // Create minimized icon
-  const docIconHTML = `
-    <div class="doc-icon" style="display: none;">
-      <img src="Assets/images/document.png" alt="Documentation" title="Open Documentation">
-    </div>
-  `;
+  // Add documentation to body first
+  document.body.insertAdjacentHTML("beforeend", docHTML);
+  
+  console.log("Documentation HTML added"); // Debug log
+  
+  // Get the overlay reference
+  const docOverlay = document.querySelector('.documentation-overlay');
+  console.log("Overlay element:", docOverlay); // Debug log
+  
+  // Force display
+  if (docOverlay) {
+    docOverlay.style.display = 'flex';
+    docOverlay.style.visibility = 'visible';
+    docOverlay.style.opacity = '1';
+    console.log("Overlay display set to flex"); // Debug log
+  }
 
-  // Add to DOM
-  document.body.insertAdjacentHTML('beforeend', docHTML);
-  document.body.insertAdjacentHTML('beforeend', docIconHTML);
-
-  // Get elements
-  const overlay = document.querySelector('.documentation-overlay');
-  const closeBtn = document.querySelector('.doc-close-btn');
-  const docIcon = document.querySelector('.doc-icon');
-
-  // Function to close documentation
-  const closeDocumentation = () => {
-    overlay.style.opacity = '0';
-    setTimeout(() => {
-      overlay.style.display = 'none';
-      docIcon.style.display = 'block';
-    }, 300);
-  };
-
-  // Handle close button click
-  closeBtn.addEventListener('click', closeDocumentation);
-
-  // Handle icon click
-  docIcon.addEventListener('click', () => {
-    overlay.style.display = 'flex';
-    overlay.style.opacity = '1';
-    docIcon.style.display = 'none';
-  });
-
-  // Show documentation immediately
-  overlay.style.display = 'flex';
-  overlay.style.opacity = '1';
-
-  // Auto-close after 3 seconds
-  setTimeout(closeDocumentation, 3000);
-
-  // Fetch and load documentation content if available
-  fetch('doc.txt')
-    .then(response => response.text())
-    .then(content => {
-      if (content.trim()) {
-        const docContent = document.querySelector('.documentation-content');
-        if (docContent) {
-          docContent.innerHTML = content;
-        }
+  // Hide documentation after 3 seconds
+  setTimeout(() => {
+    if (docOverlay) {
+      docOverlay.style.display = 'none';
+      console.log("Documentation hidden"); // Debug log
+      
+      // Create and add the documentation icon
+      const docIconHTML = `
+        <button class="doc-icon" title="Documentation">
+          <img src="Assets/images/documentation.png" alt="Documentation" class="doc-icon-img" />
+        </button>
+      `;
+      
+      document.body.insertAdjacentHTML('beforeend', docIconHTML);
+      console.log("Doc icon added"); // Debug log
+      
+      // Add click event to show documentation
+      const docIcon = document.querySelector('.doc-icon');
+      if (docIcon) {
+        docIcon.addEventListener('click', () => {
+          docOverlay.style.display = 'flex';
+          console.log("Doc icon clicked"); // Debug log
+        });
       }
-    })
-    .catch(error => console.error('Error loading documentation:', error));
+    }
+  }, 3000);
 
-  return overlay;
+  // Add close button functionality
+  const closeBtn = document.querySelector('.doc-close-btn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      docOverlay.style.display = 'none';
+      console.log("Close button clicked"); // Debug log
+    });
+  }
+
+  // Add click outside to close
+  if (docOverlay) {
+    docOverlay.addEventListener('click', (e) => {
+      if (e.target === docOverlay) {
+        docOverlay.style.display = 'none';
+        console.log("Clicked outside"); // Debug log
+      }
+    });
+  }
+
+  // Handle section toggles
+  document.querySelectorAll('.doc-section-header').forEach((header) => {
+    const toggleBtn = header.querySelector('.dropdown-toggle');
+    const content = header.nextElementSibling;
+    
+    // Add click handler to the toggle button
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent event bubbling
+      header.classList.toggle('collapsed');
+      content.classList.toggle('collapsed');
+      
+      // Animate the dropdown icon
+      const svg = toggleBtn.querySelector('svg');
+      if (header.classList.contains('collapsed')) {
+        svg.style.transform = 'rotate(-180deg)';
+      } else {
+        svg.style.transform = 'rotate(0deg)';
+      }
+    });
+  });
 }
 
 export { createDocumentation }; 
