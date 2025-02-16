@@ -11,14 +11,14 @@ function createDocumentation() {
         <div class="doc-header">
           <h2>
             <img src="Assets/images/documentation.png" alt="Documentation" class="doc-header-icon">
-            Chess Documentation
+            Project Overview
           </h2>
           <button class="doc-close-btn">CLOSE</button>
         </div>
 
         <div class="intro-section">
-          <p>This project presents a lightweight, open-source chess web application developed exclusively with front-end technologies (HTML, CSS, and JavaScript). By eliminating the need for a back-end server, the application offers a seamless and accessible chess experience directly in the user's browser.</p>
-          
+          <p>This project aims to deliver a lightweight, fully accessible chess experience that operates entirely in the browser, without relying on backend servers. Unlike many existing chess platforms that require account creation, track user data, or depend on slow server interactions, this application offers a seamless and privacy-focused alternative.</p>
+          <p> A fully open-source chess platform built from the ground up, allowing anyone to play, modify, and learn from the code. No external chess libraries were used—every aspect of the game, from move validation to special rules like castling and en passant, has been meticulously implemented using pure JavaScript, strictly following chess regulations. </p>
           <div class="key-features">
             <h3>Key Features</h3>
             <ul>
@@ -174,9 +174,9 @@ function createDocumentation() {
             </button>
           </div>
           <div class="doc-section-content" style="display: none;">
-            <p>We want to emphasize that this project is a work in progress and not yet complete. As a complex front-end application without backend support, it may experience occasional glitches or bugs, and we are actively working to minimize these issues. The intricacies of the code can also lead to unexpected behavior in certain edge cases. Your feedback is invaluable in helping us identify and resolve these scenarios.
+            <p>This project is a work in progress and not yet complete. As a complex front-end application without backend support, it may occasionally experience glitches or bugs. Efforts are ongoing to minimize these issues, but due to the intricacies of the code, unexpected behavior may occur in certain edge cases. In many cases, simply refreshing the page can resolve minor glitches.</p>
 
-Feel free to suggest new features, report any bugs or issues, or share your experience with us. You can reach out through the contact button or contribute directly via our GitHub repository: GitHub Repo. Join our community and help us improve!</p>
+<p>Your feedback is invaluable in identifying and addressing these scenarios. Feel free to suggest new features, report any issues, or share your experience. You can reach out through the contact button or contribute directly via the GitHub repository: GitHub Repo. Join the community and help improve the project!</p>
             <div class="github-link-container">
               <a href="https://github.com/AryanShah30/chess" target="_blank" class="github-link">
                 <svg height="32" viewBox="0 0 16 16" width="32" class="github-icon">
@@ -253,8 +253,6 @@ Feel free to suggest new features, report any bugs or issues, or share your expe
   setTimeout(() => {
     docOverlay.style.opacity = "1";
   }, 100);
-
-  setTimeout(animateClose, 10000);
 
   closeBtn.addEventListener("click", animateClose);
 

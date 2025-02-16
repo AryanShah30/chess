@@ -1409,20 +1409,26 @@ body {
 .doc-close-btn {
   background: var(--button-bg);
   border: 1px solid var(--border-color);
-  font-size: 24px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   color: var(--text-color);
   padding: 8px 16px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
 .doc-close-btn:hover {
-  background: var(--button-hover);
+  background: #4caf50;
+  color: var(--text-color);
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+  border-color: #45a049;
+}
+
+.doc-close-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.2);
 }
 
 .doc-section {
@@ -1638,6 +1644,7 @@ body {
 
 .close-setup-btn:hover {
   background-color: rgba(0, 0, 0, 0.1);
+  border-color: #4caf50;
 }
 
 .setup-disclaimer {
