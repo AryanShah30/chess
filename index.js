@@ -92,14 +92,11 @@ const loadThemes = () => {
 
 // Add this function to initialize the theme
 function initializeTheme() {
-  // Remove any existing theme
+  // Always set to light theme by removing any existing theme
   document.body.removeAttribute('data-theme');
   
-  // Load saved theme or default to light
-  const savedTheme = localStorage.getItem('chess-theme') || 'light';
-  if (savedTheme === 'dark') {
-    document.body.setAttribute('data-theme', 'dark');
-  }
+  // Clear any saved theme from localStorage
+  localStorage.removeItem('chess-theme');
 }
 
 // Call this function after the DOM is loaded
