@@ -999,7 +999,7 @@ function createTechnicalDoc() {
         const content = header.nextElementSibling;
         const toggleButton = header.querySelector('.dropdown-toggle');
         
-        // Set initial state
+        // Reset initial state
         header.classList.add('collapsed');
         if (content) {
             content.style.display = 'none';
@@ -1010,52 +1010,26 @@ function createTechnicalDoc() {
             e.stopPropagation();
             
             const isCollapsed = header.classList.contains('collapsed');
-            
-            // Toggle collapsed state
             header.classList.toggle('collapsed');
             
-            // Handle section header
-            if (header.classList.contains('doc-section-header')) {
-                const sectionContent = header.nextElementSibling;
-                // Simply toggle the entire section content
-                sectionContent.style.display = isCollapsed ? 'block' : 'none';
-                
-                // Ensure subsection headers are visible when section is expanded
-                if (isCollapsed) {
-                    const subsectionHeaders = sectionContent.querySelectorAll('.doc-subsection-header');
-                    subsectionHeaders.forEach(subsectionHeader => {
-                        subsectionHeader.style.display = 'flex';
-                        // Show subsection content if it's not collapsed
-                        const subsectionContent = subsectionHeader.nextElementSibling;
-                        if (subsectionContent && !subsectionHeader.classList.contains('collapsed')) {
-                            subsectionContent.style.display = 'block';
-                        }
-                    });
+            if (content) {
+                content.style.display = isCollapsed ? 'block' : 'none';
+                const toggleIcon = header.querySelector('.dropdown-toggle svg');
+                if (toggleIcon) {
+                    toggleIcon.style.transform = isCollapsed ? 'rotate(-180deg)' : 'rotate(0deg)';
                 }
-            } else {
-                // Handle subsection header
-                if (content) {
-                    content.style.display = isCollapsed ? 'block' : 'none';
-                }
-            }
-            
-            // Rotate arrow
-            const svg = header.querySelector('svg');
-            if (svg) {
-                svg.style.transform = isCollapsed ? 'rotate(-180deg)' : 'rotate(0deg)';
             }
         };
 
-        // Add click handlers
         header.addEventListener('click', (e) => {
-            if (e.target === header || e.target === header.querySelector('h3') || e.target === header.querySelector('h4')) {
+            if (e.target === header || 
+                e.target === header.querySelector('h3') || 
+                e.target === header.querySelector('h4') ||
+                e.target === toggleButton ||
+                e.target.closest('.dropdown-toggle')) {
                 toggleSection(e);
             }
         });
-        
-        if (toggleButton) {
-            toggleButton.addEventListener('click', toggleSection);
-        }
     });
 
     const animateClose = () => {
@@ -1079,6 +1053,53 @@ function createTechnicalDoc() {
 
 function showTechnicalDoc() {
     const techDocOverlay = document.getElementById('tech-doc-overlay');
+    
+    // First, remove all existing event listeners by cloning and replacing elements
+    const headers = techDocOverlay.querySelectorAll('.doc-section-header, .doc-subsection-header');
+    headers.forEach(header => {
+        const newHeader = header.cloneNode(true);
+        header.parentNode.replaceChild(newHeader, header);
+    });
+
+    // Then set up fresh event listeners
+    techDocOverlay.querySelectorAll('.doc-section-header, .doc-subsection-header').forEach(header => {
+        const content = header.nextElementSibling;
+        const toggleButton = header.querySelector('.dropdown-toggle');
+        
+        // Reset initial state
+        header.classList.add('collapsed');
+        if (content) {
+            content.style.display = 'none';
+        }
+        
+        const toggleSection = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isCollapsed = header.classList.contains('collapsed');
+            header.classList.toggle('collapsed');
+            
+            if (content) {
+                content.style.display = isCollapsed ? 'block' : 'none';
+                const toggleIcon = header.querySelector('.dropdown-toggle svg');
+                if (toggleIcon) {
+                    toggleIcon.style.transform = isCollapsed ? 'rotate(-180deg)' : 'rotate(0deg)';
+                }
+            }
+        };
+
+        header.addEventListener('click', (e) => {
+            if (e.target === header || 
+                e.target === header.querySelector('h3') || 
+                e.target === header.querySelector('h4') ||
+                e.target === toggleButton ||
+                e.target.closest('.dropdown-toggle')) {
+                toggleSection(e);
+            }
+        });
+    });
+
+    // Show the overlay
     techDocOverlay.style.display = 'flex';
     setTimeout(() => {
         techDocOverlay.style.opacity = '1';
