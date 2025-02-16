@@ -44,7 +44,6 @@ function createThemeSetup() {
     "highlight color": "#72c9dd",
   };
 
-  // Set default colors if not already in localStorage
   if (!localStorage.getItem("chess-theme-white squares")) {
     localStorage.setItem(
       "chess-theme-white squares",
@@ -89,7 +88,7 @@ function createThemeSetup() {
             <button class="apply-button" title="Apply changes">Apply</button>
           </div>
         </div>
-        
+
         <div class="theme-section">
           <div class="theme-section-header" data-section="game">
             <h4>Game Settings</h4>
@@ -97,7 +96,7 @@ function createThemeSetup() {
               <img src="Assets/images/drop-down.png" alt="dropdown" class="arrow">
             </button>
           </div>
-          
+
           <div class="theme-section-content game-settings">
             <div class="setting-option" id="flip-board-container">
               <label class="setting-label">
@@ -125,7 +124,7 @@ function createThemeSetup() {
               <img src="Assets/images/drop-down.png" alt="dropdown" class="arrow">
             </button>
           </div>
-          
+
           <div class="theme-section-content board-themes">
             <div class="color-section">
               <div class="color-section-header">
@@ -202,7 +201,7 @@ function createThemeSetup() {
               <img src="Assets/images/drop-down.png" alt="dropdown" class="arrow">
             </button>
           </div>
-          
+
           <div class="theme-section-content piece-themes">
             <div class="piece-options">
               ${pieceThemes
@@ -221,7 +220,6 @@ function createThemeSetup() {
     </div>
   `;
 
-  // Add styles to document
   const styles = `
     .theme-section {
       border: 1px solid #3a3937;
@@ -515,13 +513,11 @@ function createThemeSetup() {
   styleSheet.textContent = styles;
   document.head.appendChild(styleSheet);
 
-  // Add elements to DOM
   document
     .querySelector(".chess-container")
     .insertAdjacentHTML("beforeend", settingsButtonHTML);
   document.body.insertAdjacentHTML("beforeend", themeModalHTML);
 
-  // Get DOM elements
   const flipBtn = document.querySelector(".flip-button");
   const settingsBtn = document.querySelector(".settings-button");
   const themeModal = document.querySelector(".theme-modal");
@@ -531,17 +527,13 @@ function createThemeSetup() {
   const customButtons = document.querySelectorAll(".custom-button");
   const colorPickers = document.querySelectorAll(".color-picker");
 
-  // Initially hide the modal
   themeModal.style.display = "none";
 
-  // Add click event for settings button
   settingsBtn.addEventListener("click", () => {
     themeModal.style.display = "flex";
 
-    // Reset modal scroll position
     document.querySelector(".theme-modal-content").scrollTop = 0;
 
-    // Reset section states - keep all sections collapsed
     document.querySelectorAll(".theme-section-header").forEach((header) => {
       header.classList.add("collapsed");
       header.nextElementSibling.classList.add("collapsed");
@@ -549,28 +541,20 @@ function createThemeSetup() {
     });
   });
 
-  // Add click event for apply button
   applyBtn.addEventListener("click", () => {
-    // Hide the modal
     themeModal.style.display = "none";
 
-    // Collapse both sections
     document.querySelectorAll(".theme-section-header").forEach((header) => {
       header.classList.add("collapsed");
       header.nextElementSibling.classList.add("collapsed");
     });
   });
 
-  // Update the reset button click handler
   resetBtn.addEventListener("click", () => {
-    // Reset other theme settings...
-
-    // Reset flip board setting
     localStorage.setItem("chess-flip-board", "false");
     const flipIcon = document.getElementById("flip-board-setting");
     flipIcon.classList.remove("active");
 
-    // Reset colors...
     localStorage.setItem(
       "chess-theme-white squares",
       defaultColors["white squares"]
@@ -584,15 +568,12 @@ function createThemeSetup() {
       defaultColors["highlight color"]
     );
 
-    // Reset piece style...
     localStorage.setItem("chess-theme-piece-style", "default");
 
-    // Update the visual state of other settings...
     updateColors();
     updatePieceImages();
   });
 
-  // Function to update colors
   const updateColors = () => {
     const whiteColor = localStorage.getItem("chess-theme-white squares");
     const blackColor = localStorage.getItem("chess-theme-black squares");
@@ -611,18 +592,15 @@ function createThemeSetup() {
       highlightColor
     );
 
-    // Update all white squares
     document.querySelectorAll(".white").forEach((square) => {
       square.style.backgroundColor = whiteColor;
     });
 
-    // Update all black squares
     document.querySelectorAll(".black").forEach((square) => {
       square.style.backgroundColor = blackColor;
     });
   };
 
-  // Add click events for color options
   colorOptions.forEach((option) => {
     option.addEventListener("click", (e) => {
       const color = e.target.dataset.color;
@@ -644,14 +622,12 @@ function createThemeSetup() {
     });
   });
 
-  // Add click events for custom buttons
   customButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
       colorPickers[index].click();
     });
   });
 
-  // Add input events for color pickers
   colorPickers.forEach((picker) => {
     picker.addEventListener("input", (e) => {
       const color = e.target.value;
@@ -673,12 +649,10 @@ function createThemeSetup() {
     });
   });
 
-  // Close modal when clicking outside
   themeModal.addEventListener("click", (e) => {
     if (e.target === themeModal) {
       themeModal.style.display = "none";
 
-      // Collapse both sections
       document.querySelectorAll(".theme-section-header").forEach((header) => {
         header.classList.add("collapsed");
         header.nextElementSibling.classList.add("collapsed");
@@ -686,15 +660,12 @@ function createThemeSetup() {
     }
   });
 
-  // Add click handlers for dropdowns
   document.querySelectorAll(".theme-section-header").forEach((header) => {
-    // Initially collapse all sections
     header.classList.add("collapsed");
     const content = header.nextElementSibling;
     content.classList.add("collapsed");
 
     header.addEventListener("click", () => {
-      // Close all other sections first
       document
         .querySelectorAll(".theme-section-header")
         .forEach((otherHeader) => {
@@ -704,41 +675,33 @@ function createThemeSetup() {
           }
         });
 
-      // Toggle current section
       header.classList.toggle("collapsed");
       content.classList.toggle("collapsed");
     });
   });
 
-  // Initialize with board theme expanded and piece theme collapsed
   const pieceHeader = document.querySelector('[data-section="pieces"]');
   const pieceContent = pieceHeader.nextElementSibling;
   pieceHeader.classList.add("collapsed");
   pieceContent.classList.add("collapsed");
 
-  // Initial color setup
   updateColors();
 
-  // Add click handler to each piece option
   const pieceOptions = document.querySelectorAll(".piece-option");
   pieceOptions.forEach((option) => {
     option.addEventListener("click", (e) => {
       const theme = e.currentTarget.dataset.theme;
       console.log("Piece theme clicked:", theme);
 
-      // Update localStorage
       localStorage.setItem("chess-theme-piece-style", theme);
 
-      // Update visual selection
       pieceOptions.forEach((opt) => opt.classList.remove("selected"));
       e.currentTarget.classList.add("selected");
 
-      // Update piece images
       updatePieceImages();
     });
   });
 
-  // Update the click handler to work with the entire container
   const flipBoardContainer = document.getElementById("flip-board-container");
   const flipBoardIcon = document.getElementById("flip-board-setting");
 
@@ -749,30 +712,26 @@ function createThemeSetup() {
     flipBoardIcon.classList.toggle("active");
   });
 
-  // Add click event for flip button
   flipBtn.addEventListener("click", () => {
-    flipBtn.classList.toggle("active"); // Toggle active class
+    flipBtn.classList.toggle("active");
     flipBoard();
   });
 
-  // Add timer button click handler
   const timerBtn = document.querySelector(".timer-button");
   timerBtn.addEventListener("click", () => {
     timerBtn.classList.toggle("active");
     if (timerBtn.classList.contains("active")) {
-      chessClock.pause(); // Pause when active (green)
+      chessClock.pause();
     } else {
-      chessClock.resume(); // Resume when inactive (black)
+      chessClock.resume();
     }
   });
 
-  // Add the theme toggle click handler
   const themeToggleBtn = document.querySelector(".theme-toggle-button");
   themeToggleBtn.addEventListener("click", () => {
     themeToggleBtn.classList.toggle("active");
     const isDarkMode = !themeToggleBtn.classList.contains("active");
 
-    // Update button icon and title
     const themeIcon = themeToggleBtn.querySelector("img");
     themeIcon.src = isDarkMode
       ? "Assets/images/light-mode.png"
@@ -781,9 +740,7 @@ function createThemeSetup() {
       ? "Switch to Light Mode"
       : "Switch to Dark Mode";
 
-    // Set theme variables
     if (isDarkMode) {
-      // Dark mode styles
       document.body.style.backgroundColor = "#302e2b";
       document.documentElement.style.setProperty("--control-bg", "#2a2927");
       document.documentElement.style.setProperty("--control-border", "#3a3937");
@@ -792,50 +749,42 @@ function createThemeSetup() {
       document.documentElement.style.removeProperty("--modal-text-color");
       document.documentElement.style.setProperty("--piece-bg-color", "#4a4947");
 
-      // Set Game Setup heading to white with !important
       const gameSetupHeading = document.querySelector(".clock-setup-modal h2");
       if (gameSetupHeading) {
         gameSetupHeading.style.setProperty("color", "#ffffff", "important");
       }
 
-      // Dark mode for player setup sections
       document.querySelectorAll(".player-setup").forEach((section) => {
         section.style.backgroundColor = "#333333";
       });
 
-      // Dark mode input styles
       document.querySelectorAll(".clock-setup-modal input").forEach((input) => {
         input.style.backgroundColor = "#262522";
         input.style.color = "#ffffff";
         input.style.border = "1px solid #3a3937";
       });
 
-      // Dark mode labels
       document.querySelectorAll(".clock-setup-modal label").forEach((label) => {
         label.style.color = "#ffffff";
       });
 
-      // Change the button background color
       const settingOption = document.querySelector("#flip-board-container");
       if (settingOption) {
         settingOption.style.setProperty("background", "#2a2927", "important");
       }
 
-      // Reset flip icon color
       const flipIcon = document.getElementById("flip-board-setting");
       if (flipIcon) {
         flipIcon.style.setProperty("color", "", "important");
         flipIcon.style.setProperty("opacity", "", "important");
       }
 
-      // Reset color-section-header color
       document
         .querySelectorAll(".color-section-header h5")
         .forEach((header) => {
-          header.style.color = "#b4b4b4"; // Original color
+          header.style.color = "#b4b4b4";
         });
     } else {
-      // Light mode styles
       document.body.style.backgroundColor = "#e9ecef";
       document.documentElement.style.setProperty("--control-bg", "#ffffff");
       document.documentElement.style.setProperty("--control-border", "#d1d9e6");
@@ -844,42 +793,35 @@ function createThemeSetup() {
       document.documentElement.style.removeProperty("--modal-text-color");
       document.documentElement.style.setProperty("--piece-bg-color", "#e6e6e6");
 
-      // Set Game Setup heading to black with !important
       const gameSetupHeading = document.querySelector(".clock-setup-modal h2");
       if (gameSetupHeading) {
         gameSetupHeading.style.setProperty("color", "#000000", "important");
       }
 
-      // Light mode for player setup sections
       document.querySelectorAll(".player-setup").forEach((section) => {
-        section.style.backgroundColor = "#f4f6f8"; // Slightly darker than white, but still light
+        section.style.backgroundColor = "#f4f6f8";
       });
 
-      // Light mode input styles
       document.querySelectorAll(".clock-setup-modal input").forEach((input) => {
         input.style.backgroundColor = "#ffffff";
-        input.style.color = "#2c3e50"; // Darker text for better readability
+        input.style.color = "#2c3e50";
         input.style.border = "1px solid #dee2e6";
       });
 
-      // Light mode labels
       document.querySelectorAll(".clock-setup-modal label").forEach((label) => {
-        label.style.color = "#495057"; // Dark gray for better contrast
+        label.style.color = "#495057";
       });
 
-      // Update placeholder color for light mode
       document.querySelectorAll(".clock-setup-modal input").forEach((input) => {
-        input.style.setProperty("::placeholder", "#6c757d", "important"); // Medium gray for placeholders
+        input.style.setProperty("::placeholder", "#6c757d", "important");
       });
 
-      // Add some shared styles for better input appearance
       document.querySelectorAll(".clock-setup-modal input").forEach((input) => {
         input.style.padding = "8px 12px";
         input.style.borderRadius = "4px";
         input.style.transition = "all 0.2s ease";
       });
 
-      // Light mode - force black text with !important for all modal text elements
       document
         .querySelectorAll(
           ".clock-setup-modal h2, .clock-setup-modal h3, .clock-setup-modal label, .clock-setup-modal input"
@@ -888,26 +830,22 @@ function createThemeSetup() {
           element.style.setProperty("color", "#000000", "important");
         });
 
-      // Make placeholder text darker
       document.querySelectorAll(".clock-setup-modal input").forEach((input) => {
         input.style.setProperty("::placeholder", "#000000", "important");
       });
 
       if (!isDarkMode) {
-        // Light mode
         console.log("Theme switching...");
         const inputs = document.querySelectorAll(
           "#player1-name-input, #player2-name-input"
         );
         console.log("Found inputs:", inputs);
 
-        // Remove any existing placeholder style
         const existingStyle = document.getElementById("placeholder-style");
         if (existingStyle) {
           existingStyle.remove();
         }
 
-        // Create a new style element for placeholders
         const placeholderStyle = document.createElement("style");
         placeholderStyle.id = "placeholder-style";
         placeholderStyle.textContent = `
@@ -918,7 +856,6 @@ function createThemeSetup() {
         `;
         document.head.appendChild(placeholderStyle);
 
-        // Create a new style element for the modal
         const modalStyle = document.createElement("style");
         modalStyle.id = "modal-style";
         modalStyle.textContent = `
@@ -948,16 +885,16 @@ function createThemeSetup() {
             background-color: rgba(0, 0, 0, 0.8) !important;
           }
           #flip-board-container .setting-label {
-            color: #666666 !important; /* Lighter color for flip board setting */
+            color: #666666 !important; 
           }
           .piece-option {
-            background: #f0f0f0 !important; /* Lighter background for piece options */
-            border: 2px solid #e0e0e0 !important; /* Light border */
-            border-radius: 4px; /* Optional: rounded corners */
+            background: #f0f0f0 !important; 
+            border: 2px solid #e0e0e0 !important; 
+            border-radius: 4px; 
           }
           .piece-option img[src*="bN.png"] {
-            background-color: #f0f0f0 !important; /* Lighter background for knight images */
-            border-radius: 4px; /* Optional: rounded corners */
+            background-color: #f0f0f0 !important; 
+            border-radius: 4px; 
           }
           .piece-options {
             display: grid;
@@ -965,12 +902,12 @@ function createThemeSetup() {
             gap: 10px;
           }
           .custom-button {
-            background: #e0e0e0 !important; /* Lighter background for custom button */
+            background: #e0e0e0 !important; 
             color: #333333 !important;
             border: 1px solid #d0d0d0 !important;
           }
           .custom-button:hover {
-            background: #d0d0d0 !important; /* Slightly darker on hover */
+            background: #d0d0d0 !important; 
           }
         `;
         document.head.appendChild(modalStyle);
@@ -979,7 +916,7 @@ function createThemeSetup() {
           "#flip-board-container .setting-label"
         );
         if (flipLabel) {
-          flipLabel.style.color = "#666666"; // Lighter color for the label
+          flipLabel.style.color = "#666666";
         }
 
         inputs.forEach((input) => {
@@ -988,32 +925,27 @@ function createThemeSetup() {
           console.log("Updated input style:", input.style);
         });
 
-        // Change the button background color
         const settingOption = document.querySelector("#flip-board-container");
         if (settingOption) {
           settingOption.style.setProperty("background", "#f0f0f0", "important");
         }
 
-        // Make color-section-header a bit grayer
         document
           .querySelectorAll(".color-section-header h5")
           .forEach((header) => {
-            header.style.color = "#666666"; // Grayer color for light mode
+            header.style.color = "#666666";
           });
       } else {
-        // Remove modal style when switching back to dark mode
         const modalStyle = document.getElementById("modal-style");
         if (modalStyle) {
           modalStyle.remove();
         }
 
-        // Reset to dark mode
         const settingOption = document.querySelector("#flip-board-container");
         if (settingOption) {
           settingOption.style.setProperty("background", "#2a2927", "important");
         }
 
-        // Reset flip icon color
         const flipIcon = document.getElementById("flip-board-setting");
         if (flipIcon) {
           flipIcon.style.setProperty("color", "", "important");
@@ -1022,7 +954,6 @@ function createThemeSetup() {
       }
     }
 
-    // Update control button styles with better contrast for light mode
     const styles = document.createElement("style");
     styles.textContent = `
       .settings-button, .flip-button, .timer-button, .theme-toggle-button {
@@ -1030,56 +961,48 @@ function createThemeSetup() {
         border: 1px solid var(--control-border);
         box-shadow: ${isDarkMode ? "none" : "0 2px 4px rgba(0,0,0,0.05)"};
       }
-      
+
       .settings-button img, .timer-button img, .theme-toggle-button img {
         filter: ${isDarkMode ? "brightness(0) invert(1)" : "none"};
       }
-      
+
       .timer-button.active img {
-        filter: brightness(0) invert(1);  /* Always white when active (green) */
+        filter: brightness(0) invert(1);  
       }
-      
+
       .flip-button {
         color: ${isDarkMode ? "#ffffff" : "#000000"};
       }
-      
+
       .settings-button:hover, .flip-button:hover, .timer-button:hover, .theme-toggle-button:hover {
         background: ${isDarkMode ? "#3a3937" : "#ffffff"};
         border-color: ${isDarkMode ? "#3a3937" : "#b8c2cc"};
       }
-      
+
       .chess-clock, .status-box, .scoresheet {
         background: ${isDarkMode ? "#262522" : "#ffffff"};
         border: 1px solid ${isDarkMode ? "#3a3937" : "#d1d9e6"};
         box-shadow: ${isDarkMode ? "none" : "0 4px 6px rgba(0,0,0,0.05)"};
         color: ${isDarkMode ? "#ffffff" : "#2c3e50"};
       }
-      
+
       .player-clock {
         background: ${isDarkMode ? "#2a2927" : "#f8f9fa"};
         border: 1px solid ${isDarkMode ? "#3a3937" : "#e9ecef"};
       }
-      
+
       .player-time {
-        color: ${
-          isDarkMode ? "#ffffff" : "#2c3e50"
-        };  /* Darker text for better visibility */
-        font-weight: ${
-          isDarkMode ? "normal" : "500"
-        };  /* Slightly bolder in light mode */
+        color: ${isDarkMode ? "#ffffff" : "#2c3e50"};  
+        font-weight: ${isDarkMode ? "normal" : "500"};  
       }
-      
+
       .player-name {
-        color: ${
-          isDarkMode ? "#b4b4b4" : "#495057"
-        };  /* Darker gray for better contrast */
+        color: ${isDarkMode ? "#b4b4b4" : "#495057"};  
         font-weight: ${isDarkMode ? "normal" : "500"};
       }
 
       .status-box {
-        color: ${
-          isDarkMode ? "#ffffff" : "#2c3e50"
-        } !important;  /* Force color override */
+        color: ${isDarkMode ? "#ffffff" : "#2c3e50"} !important;  
         font-weight: ${isDarkMode ? "normal" : "500"};
       }
 
@@ -1089,21 +1012,15 @@ function createThemeSetup() {
 
       .move-row {
         color: ${isDarkMode ? "#ffffff" : "#2c3e50"};
-        background-color: ${
-          isDarkMode ? "#262522" : "#ffffff"
-        } !important;  /* Force all rows white */
+        background-color: ${isDarkMode ? "#262522" : "#ffffff"} !important;  
       }
 
       .move-row:nth-child(odd) {
-        background-color: ${
-          isDarkMode ? "#262522" : "#ffffff"
-        } !important;  /* Force odd rows white */
+        background-color: ${isDarkMode ? "#262522" : "#ffffff"} !important;  
       }
 
       .move-row:nth-child(even) {
-        background-color: ${
-          isDarkMode ? "#262522" : "#ffffff"
-        } !important;  /* Force even rows white */
+        background-color: ${isDarkMode ? "#262522" : "#ffffff"} !important;  
       }
 
       .move-number {
@@ -1119,22 +1036,18 @@ function createThemeSetup() {
       }
     `;
 
-    // Remove any previous dynamic styles
     const oldStyles = document.getElementById("theme-dynamic-styles");
     if (oldStyles) oldStyles.remove();
 
-    // Add new styles
     styles.id = "theme-dynamic-styles";
     document.head.appendChild(styles);
 
-    // Store theme preference
     localStorage.setItem("chess-theme-mode", isDarkMode ? "dark" : "light");
   });
 
-  // Initialize theme based on stored preference
   const storedTheme = localStorage.getItem("chess-theme-mode") || "dark";
   if (storedTheme === "light") {
-    themeToggleBtn.click(); // Trigger the click event to switch to light mode
+    themeToggleBtn.click();
   }
 }
 

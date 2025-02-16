@@ -1,4 +1,4 @@
-import { createNotificationModal } from '../Helper/notifications.js';
+import { createNotificationModal } from "../Helper/notifications.js";
 
 class ChessClock {
   constructor(
