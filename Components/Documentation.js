@@ -9,7 +9,10 @@ function createDocumentation() {
     <div class="documentation-overlay" style="display: flex;">
       <div class="documentation-modal">
         <div class="doc-header">
-          <h2>Chess Documentation</h2>
+          <h2>
+            <img src="Assets/images/documentation.png" alt="Documentation" class="doc-header-icon">
+            Chess Documentation
+          </h2>
           <button class="doc-close-btn">CLOSE</button>
         </div>
         
@@ -74,6 +77,41 @@ function createDocumentation() {
   `;
 
   document.body.insertAdjacentHTML('beforeend', docHTML);
+
+  // Add styles for the documentation icon
+  const docStyle = document.createElement('style');
+  docStyle.textContent = `
+    .doc-header h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .doc-header-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Light theme (default) */
+    .doc-header-icon {
+      filter: none;
+    }
+
+    /* Dark theme */
+    [data-theme="dark"] .doc-header-icon {
+      filter: brightness(0) invert(1);
+    }
+
+    .documentation-modal {
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center;
+    }
+
+    .documentation-overlay {
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  `;
+  document.head.appendChild(docStyle);
 
   const docOverlay = document.querySelector('.documentation-overlay');
   const docModal = docOverlay.querySelector('.documentation-modal');

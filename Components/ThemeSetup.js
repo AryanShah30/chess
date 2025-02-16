@@ -91,7 +91,10 @@ function createThemeSetup() {
 
         <div class="theme-section">
           <div class="theme-section-header" data-section="game">
-            <h4>Game Settings</h4>
+            <h4>
+              <img src="Assets/images/game-settings.png" alt="Game Settings" class="section-icon">
+              Game Settings
+            </h4>
             <button class="dropdown-toggle">
               <img src="Assets/images/drop-down.png" alt="dropdown" class="arrow">
             </button>
@@ -119,7 +122,10 @@ function createThemeSetup() {
 
         <div class="theme-section">
           <div class="theme-section-header" data-section="board">
-            <h4>Board Theme</h4>
+            <h4>
+              <img src="Assets/images/board-theme.png" alt="Board Theme" class="section-icon">
+              Board Theme
+            </h4>
             <button class="dropdown-toggle">
               <img src="Assets/images/drop-down.png" alt="dropdown" class="arrow">
             </button>
@@ -196,7 +202,10 @@ function createThemeSetup() {
 
         <div class="theme-section">
           <div class="theme-section-header" data-section="pieces">
-            <h4>Piece Theme</h4>
+            <h4>
+              <img src="Assets/images/piece-theme.png" alt="Piece Theme" class="section-icon">
+              Piece Theme
+            </h4>
             <button class="dropdown-toggle">
               <img src="Assets/images/drop-down.png" alt="dropdown" class="arrow">
             </button>
@@ -511,6 +520,18 @@ function createThemeSetup() {
       color: var(--modal-text-color) !important;
       opacity: 0.7;
     }
+
+    .section-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    
+    .theme-section-header h4 {
+      display: flex;
+      align-items: center;
+    }
   `;
 
   const styleSheet = document.createElement("style");
@@ -569,6 +590,9 @@ function createThemeSetup() {
         .custom-button:hover {
           background: #d0d0d0 !important; 
         }
+        .section-icon {
+          filter: none !important; /* Remove the white filter for light mode */
+        }
       `;
       const oldStyle = document.getElementById("modal-style");
       if (oldStyle) oldStyle.remove();
@@ -597,6 +621,9 @@ function createThemeSetup() {
         }
         .setting-description {
           color: #b4b4b4 !important;
+        }
+        .section-icon {
+          filter: brightness(0) invert(1) !important; /* Make icons white in dark mode */
         }
         .color-option:hover::after,
         .piece-option:hover::after {
