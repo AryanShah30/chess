@@ -644,6 +644,12 @@ function movePiece(piece, targetSquare, castle) {
       if (previousElement) previousElement.innerHTML = "";
 
       pawnPromotion(color, (Constructor) => {
+        // Clear all existing highlights first
+        const allSquares = document.querySelectorAll('.square');
+        allSquares.forEach(square => {
+          square.classList.remove('highlightYellow');
+        });
+
         const promotedPiece = new Constructor(targetSquare);
         promotedPiece.current_position = targetSquare;
         promotedPiece.hasMoved = true;
@@ -656,6 +662,10 @@ function movePiece(piece, targetSquare, castle) {
         img.src = promotedPiece.img;
         img.classList.add("piece");
         element.appendChild(img);
+
+        // Add highlight only to the last move squares
+        document.getElementById(originalPosition)?.classList?.add("highlightYellow");
+        document.getElementById(targetSquare)?.classList?.add("highlightYellow");
 
         Object.keys(globalPiece).forEach((key) => {
           if (
