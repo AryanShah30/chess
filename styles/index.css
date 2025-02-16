@@ -2103,3 +2103,202 @@ body {
 .doc-section-content {
   transition: all 0.3s ease;
 }
+
+/* Mobile Responsive Fixes */
+@media screen and (max-width: 768px) {
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .chess-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    min-height: 100vh;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Documentation icon positioning - removed code icon */
+  .doc-icon {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem; /* Updated position since code icon is removed */
+    z-index: 900;
+  }
+
+  /* Hide documentation icon when menu is open */
+  .board-controls.active ~ .doc-icon {
+    display: none;
+  }
+
+  /* Board sizing fixes */
+  #root {
+    display: flex;
+    flex-direction: column; /* Stack rows vertically */
+    width: 96vw;
+    height: 96vw;
+    margin: 0 auto;
+  }
+
+  /* Row styling */
+  #root > div {
+    display: flex; /* Make rows flex containers */
+    flex-direction: row; /* Arrange squares horizontally */
+    width: 100%;
+    height: 12.5%; /* Each row takes 1/8 of the board height */
+  }
+
+  /* Square styling */
+  .square {
+    width: 12.5%;  /* Each square takes 1/8 of the row width */
+    height: 100%;  /* Full height of the row */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* Prevent squares from shrinking */
+  }
+
+  .piece {
+    width: 90%;
+    height: 90%;
+    position: relative;
+    z-index: 2;
+    object-fit: contain;
+  }
+
+  /* Clock positioning */
+  .left-container {
+    width: 100%;
+    order: -1;
+    padding: 0.5rem;
+  }
+
+  .chess-clock {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  /* Scoresheet adjustments */
+  .scoresheet {
+    width: 100%;
+    margin: 1rem 0;
+    height: 200px;
+    order: 3;
+  }
+
+  /* Navigation and controls */
+  .board-controls {
+    position: fixed;
+    top: 0;
+    right: -80vw;
+    height: 100vh;
+    width: 80vw;
+    background: var(--container-bg-color);
+    flex-direction: column;
+    padding: 4rem 1rem;
+    transition: right 0.3s ease;
+    z-index: 999;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .board-controls.active {
+    right: 0;
+  }
+
+  /* Hide all control buttons by default */
+  .flip-button,
+  .settings-button,
+  .timer-button,
+  .theme-toggle-button {
+    display: none;
+  }
+
+  /* Show buttons when navigation is active */
+  .board-controls.active .flip-button,
+  .board-controls.active .settings-button,
+  .board-controls.active .timer-button,
+  .board-controls.active .theme-toggle-button {
+    display: flex;
+  }
+
+  .mobile-nav-toggle {
+    display: block;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    background: var(--button-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Ensure buttons are properly styled when visible */
+  .board-controls.active button {
+    margin: 0.5rem 0;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 1rem;
+    border-radius: 8px;
+    gap: 1rem;
+  }
+
+  /* Add spacing at the bottom */
+  .chess-container::after {
+    content: '';
+    display: block;
+    height: 2rem;
+  }
+}
+
+/* Additional adjustments for smaller screens */
+@media screen and (max-width: 480px) {
+  .chess-container {
+    padding: 0.5rem;
+  }
+
+  #root {
+    width: 98vw;
+    height: 98vw;
+  }
+
+  .piece {
+    width: 85%;
+    height: 85%;
+  }
+
+  .chess-clock {
+    font-size: 0.9rem;
+  }
+
+  .player-time {
+    font-size: 1.2rem;
+  }
+
+  /* Ensure bottom content is visible */
+  .chess-container::after {
+    height: 4rem;
+  }
+
+  .doc-icon {
+    transform: scale(0.9);
+    right: 0.5rem;
+    bottom: 0.5rem;
+  }
+}

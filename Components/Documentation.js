@@ -303,17 +303,6 @@ function createDocumentation() {
       }
     });
   });
-
-  // Add click handler for code icon
-  const codeIcon = document.createElement("button");
-  codeIcon.className = "code-icon";
-  codeIcon.innerHTML =
-    '<img src="Assets/images/code.png" alt="Code Documentation" />';
-  document.body.appendChild(codeIcon);
-
-  codeIcon.addEventListener("click", () => {
-    window.open("https://github.com/AryanShah30/chess", "_blank");
-  });
 }
 
 export { createDocumentation };

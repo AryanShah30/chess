@@ -1134,6 +1134,28 @@ function createThemeSetup() {
       contactModal.style.display = "none";
     }
   });
+
+  // Add mobile navigation functionality
+  const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+  const boardControls = document.querySelector('.board-controls');
+
+  if (mobileNavToggle && boardControls) {
+    mobileNavToggle.addEventListener('click', () => {
+      const isOpen = boardControls.classList.contains('active');
+      mobileNavToggle.textContent = isOpen ? '☰' : '✕';
+      boardControls.classList.toggle('active');
+    });
+
+    // Close navigation when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!boardControls.contains(e.target) && 
+          !mobileNavToggle.contains(e.target) && 
+          boardControls.classList.contains('active')) {
+        boardControls.classList.remove('active');
+        mobileNavToggle.textContent = '☰';
+      }
+    });
+  }
 }
 
 export { createThemeSetup };
