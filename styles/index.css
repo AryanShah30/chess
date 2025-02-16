@@ -1,7 +1,7 @@
 html,
 body {
   overflow-y: hidden;
-  background-color: var(--body-bg-color, #302e2b);
+  background-color: var(--body-bg-color, #f0f0f0);
   margin: 0;
   padding: 15px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -14,7 +14,7 @@ body {
   width: fit-content;
   margin: auto;
   overflow: hidden;
-  background-color: #262522;
+  background-color: var(--container-bg-color, #ffffff);
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -91,7 +91,7 @@ body {
 }
 
 .modal img:hover {
-  border: 5px solid #302e2b;
+  border: 5px solid var(--border-color);
   cursor: pointer;
 }
 
@@ -114,20 +114,20 @@ body {
 }
 
 .notification-modal {
-  background-color: var(--modal-bg-color, #262522);
-  color: var(--modal-text-color, #ffffff);
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
   padding: 20px;
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
   min-width: 300px;
 }
 
 .notification-modal p {
   margin: 0 0 25px 0;
   font-size: 20px;
-  color: var(--modal-text-color, #ffffff);
+  color: var(--text-color);
   line-height: 1.4;
 }
 
@@ -171,6 +171,7 @@ body {
   gap: 40px;
   padding: 20px;
   align-items: flex-start;
+  background-color: var(--body-bg-color);
 }
 
 /* Left side container for clock and status */
@@ -185,17 +186,19 @@ body {
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  background-color: #262522;
+  background-color: var(--container-bg-color);
   border-radius: 12px;
   width: 280px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 
 .status-box {
-  background-color: #262522;
+  background-color: var(--container-bg-color);
   border-radius: 12px;
   padding: 15px 20px;
-  color: white;
+  color: var(--text-color);
   font-size: 16px;
   line-height: 1.4;
   text-align: center;
@@ -205,7 +208,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
 }
 
 .status-box.white-turn {
@@ -217,7 +220,7 @@ body {
 }
 
 .scoresheet {
-  background-color: #262522;
+  background-color: var(--container-bg-color);
   padding: 20px;
   border-radius: 12px;
   width: 280px;
@@ -225,18 +228,20 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 
 .move-row {
   display: grid;
   grid-template-columns: 40px 120px 120px;
-  color: #333;
+  color: var(--text-color);
   padding: 5px 0;
   font-family: "Roboto Mono", monospace;
 }
 
 .move-row:nth-child(even) {
-  background-color: #f5f5f5;
+  background-color: var(--button-bg);
 }
 
 .move-number {
@@ -257,9 +262,9 @@ body {
   padding: 15px;
   border-radius: 8px;
   text-align: center;
-  color: #333;
+  color: var(--text-color);
   transition: all 0.3s ease;
-  background-color: #f5f5f5;
+  background-color: var(--button-bg);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -320,14 +325,14 @@ body {
 }
 
 .clock-setup-modal {
-  background-color: var(--modal-bg-color);
-  color: var(--modal-text-color);
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
   padding: 35px;
   border-radius: 16px;
   width: 90%;
   max-width: 500px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--modal-border-color);
+  border: 1px solid var(--border-color);
 }
 
 .clock-setup-modal h2,
@@ -348,7 +353,7 @@ body {
 /* Theme-specific styles with higher specificity */
 :root .clock-setup-modal h2,
 :root .clock-setup-modal h3 {
-  color: var(--modal-text-color);
+  color: var(--text-color);
 }
 
 /* Light mode styles */
@@ -394,9 +399,9 @@ body {
 .player-setup {
   margin: 25px 0;
   padding: 20px;
-  background-color: var(--modal-input-bg);
+  background-color: var(--container-bg-color);
   border-radius: 8px;
-  border: 1px solid var(--modal-border-color);
+  border: 1px solid var(--border-color);
 }
 
 .time-setup {
@@ -411,10 +416,10 @@ body {
   width: calc(100% - 3px);
   padding: 12px;
   margin-bottom: 5px;
-  border: 1px solid var(--modal-border-color);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background-color: var(--modal-input-bg);
-  color: var(--modal-text-color);
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
   font-size: 16px;
   transition: all 0.2s ease;
   box-sizing: border-box;
@@ -429,17 +434,17 @@ body {
 
 #player1-name-input::placeholder,
 #player2-name-input::placeholder {
-  color: var(--modal-text-color);
+  color: var(--text-color);
   opacity: 0.7;
 }
 
 .time-setup input {
   width: calc(100% - 3px);
   padding: 10px;
-  border: 1px solid var(--modal-border-color);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background-color: var(--modal-input-bg);
-  color: var(--modal-text-color);
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
   text-align: center;
   font-size: 14px;
   transition: all 0.2s ease;
@@ -474,7 +479,7 @@ body {
 
 .time-input-group label {
   font-size: 12px;
-  color: var(--modal-text-color);
+  color: var(--text-color);
   text-align: center;
 }
 
@@ -482,10 +487,10 @@ body {
   width: 90%;
   padding: 10px;
   text-align: center;
-  border: 1px solid var(--modal-border-color);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background-color: var(--modal-input-bg);
-  color: var(--modal-text-color);
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
   font-size: 16px;
   font-weight: 500;
   transition: all 0.2s ease;
@@ -532,13 +537,13 @@ body {
 }
 
 .promotion-modal {
-  background-color: var(--modal-bg-color, #262522);
+  background-color: var(--container-bg-color);
   padding: 30px;
   border-radius: 12px;
   display: flex;
   gap: 15px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
 }
 
 .promotion-piece {
@@ -549,7 +554,7 @@ body {
   align-items: center;
   cursor: pointer;
   background-color: var(--piece-bg-color, #4a4947);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   transition: all 0.2s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -584,8 +589,8 @@ body {
 .settings-button {
   position: relative;
   z-index: 1000;
-  background: #f5f5f5;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--button-bg);
+  border: 1px solid var(--border-color);
 }
 
 .flip-button {
@@ -608,7 +613,7 @@ body {
 }
 
 .theme-modal-content {
-  background-color: var(--modal-bg-color);
+  background-color: var(--container-bg-color);
   padding: 25px;
   border-radius: 20px;
   width: 90%;
@@ -616,10 +621,10 @@ body {
   min-width: 400px;
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   max-height: 90vh;
   overflow-y: auto;
-  color: var(--modal-text-color);
+  color: var(--text-color);
 }
 
 .theme-header {
@@ -628,7 +633,7 @@ body {
   align-items: center;
   margin-bottom: 35px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .theme-header h3 {
@@ -645,7 +650,7 @@ body {
 }
 
 .apply-button {
-  background: #3a3937;
+  background: var(--button-bg);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -661,7 +666,7 @@ body {
 }
 
 .apply-button:hover {
-  background: #4a4947;
+  background: var(--button-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -736,7 +741,7 @@ body {
 
 .custom-button {
   background-color: #2a2927;
-  border: 1px solid #3a3937;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   padding: 6px 12px;
   font-size: 11px;
@@ -752,7 +757,7 @@ body {
 }
 
 .custom-button:hover {
-  background-color: #3a3937;
+  background-color: var(--button-hover);
   color: white;
   transform: translateY(-1px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
@@ -786,7 +791,7 @@ body {
 
 .color-option:hover {
   transform: scale(1.05);
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: var(--border-color);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -837,7 +842,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: #3a3937;
+  background: var(--button-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -880,21 +885,21 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 16px;
-  background: #f5f5f5;
+  background: var(--button-bg);
   border-radius: 6px;
   transition: background-color 0.2s ease;
   cursor: pointer;
 }
 
 .setting-option:hover {
-  background: #e0e0e0;
+  background: var(--button-hover);
 }
 
 .setting-label {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #333;
+  color: var(--text-color);
   font-size: 15px;
   width: 100%;
   cursor: pointer;
@@ -952,7 +957,7 @@ body {
   opacity: 0.7;
   cursor: pointer;
   user-select: none;
-  color: #666;
+  color: var(--text-color);
 }
 
 .flip-icon.active {
@@ -991,24 +996,24 @@ body {
 }
 
 .flip-button {
-  background: #262522;
+  background: var(--button-bg);
   border: none;
   width: 36px;
   height: 36px;
   border-radius: 8px;
   cursor: pointer;
-  color: #fff;
+  color: var(--text-color);
   font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
 }
 
 .flip-button:hover {
-  background: #3a3937;
+  background: var(--button-hover);
   transform: rotate(180deg);
 }
 
@@ -1023,8 +1028,8 @@ body {
 
 /* Update existing settings button styles to match */
 .settings-button {
-  background: #f5f5f5;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--button-bg);
+  border: 1px solid var(--border-color);
   width: 36px;
   height: 36px;
   border-radius: 8px;
@@ -1037,7 +1042,7 @@ body {
 }
 
 .settings-button:hover {
-  background: #e0e0e0;
+  background: var(--button-hover);
 }
 
 .settings-button:active {
@@ -1052,55 +1057,57 @@ body {
 
 /* Add theme variables for modal */
 :root {
-  --modal-bg-color: #f0f0f0;
-  --modal-input-bg: #ffffff;
-  --modal-text-color: #333333;
-  --modal-border-color: rgba(0, 0, 0, 0.1);
+  --container-bg-color: #ffffff;
+  --text-color: #333333;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --button-bg: #f5f5f5;
+  --button-hover: #e0e0e0;
   --body-bg-color: #f0f0f0;
   --piece-bg-color: #f5f5f5;
 }
 
 /* Add light theme variables */
 [data-theme="light"] {
-  --modal-bg-color: #f0f0f0;
-  --modal-input-bg: #ffffff;
-  --modal-text-color: #333333;
-  --modal-border-color: rgba(0, 0, 0, 0.1);
+  --container-bg-color: #ffffff;
+  --text-color: #333333;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --button-bg: #f5f5f5;
+  --button-hover: #e0e0e0;
   --body-bg-color: #f0f0f0;
   --piece-bg-color: #f5f5f5;
 }
 
 /* Update clock setup modal styles */
 .clock-setup-modal {
-  background-color: var(--modal-bg-color);
-  color: var(--modal-text-color);
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
   padding: 35px;
   border-radius: 16px;
   width: 90%;
   max-width: 500px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--modal-border-color);
+  border: 1px solid var(--border-color);
 }
 
 .clock-setup-modal h2,
 .clock-setup-modal h3 {
-  color: var(--modal-text-color);
+  color: var(--text-color);
 }
 
 .clock-setup-modal input[type="text"],
 .clock-setup-modal input[type="number"] {
-  background-color: var(--modal-input-bg);
-  color: var(--modal-text-color);
-  border: 1px solid var(--modal-border-color);
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 
 .clock-setup-modal input::placeholder {
-  color: var(--modal-text-color);
+  color: var(--text-color);
   opacity: 0.5;
 }
 
 .clock-setup-modal .time-input-group label {
-  color: var(--modal-text-color);
+  color: var(--text-color);
   opacity: 0.7;
 }
 
@@ -1123,8 +1130,8 @@ body {
 }
 
 .timer-button {
-  background: #2a2927;
-  border: 1px solid #3a3937;
+  background: var(--button-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   cursor: pointer;
   padding: 8px;
@@ -1137,7 +1144,7 @@ body {
 }
 
 .timer-button:hover {
-  background: #3a3937;
+  background: var(--button-hover);
 }
 
 .timer-button.active,
@@ -1148,18 +1155,18 @@ body {
 
 /* Update notification modal */
 .notification-modal {
-  background-color: var(--modal-bg-color);
-  color: var(--modal-text-color);
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
 }
 
 .notification-modal p {
-  color: var(--modal-text-color);
+  color: var(--text-color);
 }
 
 /* Update theme modal */
 .theme-modal-content {
-  background-color: var(--modal-bg-color);
-  color: var(--modal-text-color);
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
 }
 
 /* Update move number color */
@@ -1169,15 +1176,15 @@ body {
 
 /* Update settings and theme options */
 .setting-option {
-  background: #f5f5f5;
+  background: var(--button-bg);
 }
 
 .setting-option:hover {
-  background: #e0e0e0;
+  background: var(--button-hover);
 }
 
 .setting-label {
-  color: #333;
+  color: var(--text-color);
 }
 
 .setting-description {
@@ -1186,5 +1193,90 @@ body {
 
 /* Update flip icon */
 .flip-icon {
-  color: #666;
+  color: var(--text-color);
+}
+
+/* Default light theme colors */
+:root {
+  --body-bg-color: #f0f0f0;
+  --container-bg-color: #ffffff;
+  --text-color: #333333;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --button-bg: #f5f5f5;
+  --button-hover: #e0e0e0;
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] {
+  --body-bg-color: #302e2b;
+  --container-bg-color: #262522;
+  --text-color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --button-bg: #2a2927;
+  --button-hover: #3a3937;
+}
+
+/* Apply variables to elements */
+.chess-clock {
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.status-box {
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.chess-container {
+  background-color: var(--body-bg-color);
+}
+
+.scoresheet {
+  background-color: var(--container-bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.flip-button,
+.timer-button {
+  background: var(--button-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.flip-button:hover,
+.timer-button:hover {
+  background: var(--button-hover);
+}
+
+.theme-toggle-button {
+  background: var(--button-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.theme-toggle-button:hover {
+  background: var(--button-hover);
+}
+
+/* Update move rows */
+.move-row {
+  color: var(--text-color);
+}
+
+.move-row:nth-child(even) {
+  background-color: var(--button-bg);
+}
+
+/* Player clock specific styles */
+.player-clock {
+  background-color: var(--button-bg);
+  color: var(--text-color);
+}
+
+.player-clock.active {
+  background-color: #4caf50;
+  color: white;
 }
