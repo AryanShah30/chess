@@ -1,7 +1,7 @@
 html,
 body {
   overflow-y: hidden;
-  background-color: #302e2b;
+  background-color: var(--body-bg-color, #302e2b);
   margin: 0;
   padding: 15px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -1113,4 +1113,28 @@ body {
 .start-game-button:hover {
   background-color: #45a049;
   transform: translateY(-2px);
+}
+
+.timer-button {
+  background: #2a2927;
+  border: 1px solid #3a3937;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  width: 37px;
+  height: 37px;
+}
+
+.timer-button:hover {
+  background: #3a3937;
+}
+
+.timer-button.active,
+.timer-button.active:hover {
+  background: #4caf50;
+  border-color: #45a049;
 }

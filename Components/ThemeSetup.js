@@ -741,7 +741,14 @@ function createThemeSetup() {
       : "Switch to Dark Mode";
 
     if (isDarkMode) {
-      document.body.style.backgroundColor = "#302e2b";
+      document.documentElement.style.setProperty('--body-bg-color', '#302e2b');
+      const rootElement = document.getElementById("root");
+      if (rootElement) {
+        rootElement.style.backgroundColor = "#262522";
+        rootElement.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+        rootElement.style.border = "none";
+      }
+
       document.documentElement.style.setProperty("--control-bg", "#2a2927");
       document.documentElement.style.setProperty("--control-border", "#3a3937");
       document.documentElement.style.setProperty("--control-hover", "#3a3937");
@@ -785,7 +792,14 @@ function createThemeSetup() {
           header.style.color = "#b4b4b4";
         });
     } else {
-      document.body.style.backgroundColor = "#e9ecef";
+      document.documentElement.style.setProperty('--body-bg-color', '#ffffff');
+      const rootElement = document.getElementById("root");
+      if (rootElement) {
+        rootElement.style.backgroundColor = "#ffffff";
+        rootElement.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)";
+        rootElement.style.border = "1px solid #e0e0e0";
+      }
+
       document.documentElement.style.setProperty("--control-bg", "#ffffff");
       document.documentElement.style.setProperty("--control-border", "#d1d9e6");
       document.documentElement.style.setProperty("--control-hover", "#f8f9fa");
