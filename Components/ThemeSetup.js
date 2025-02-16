@@ -75,6 +75,9 @@ function createThemeSetup() {
       <button class="theme-toggle-button" title="Switch Theme">
         <img src="Assets/images/dark-mode.png" alt="Theme Toggle" />
       </button>
+      <button class="contact-button" title="Contact">
+        <img src="Assets/images/contact.png" alt="Contact" />
+      </button>
     </div>
   `;
 
@@ -224,6 +227,34 @@ function createThemeSetup() {
                 .join("")}
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const contactModalHTML = `
+    <div class="contact-modal">
+      <div class="contact-modal-content">
+        <div class="contact-header">
+          <h3>
+            <img src="Assets/images/contact.png" alt="Contact" class="header-icon">
+            Reach Out
+          </h3>
+          <button class="close-contact-btn">×</button>
+        </div>
+        <div class="contact-links">
+          <a href="https://www.linkedin.com/in/aryanashah/" target="_blank" class="contact-link">
+            <img src="Assets/images/linkedin.png" alt="LinkedIn" class="contact-icon">
+            <span>LinkedIn Profile</span>
+          </a>
+          <a href="https://github.com/AryanShah30" target="_blank" class="contact-link">
+            <img src="Assets/images/github.png" alt="GitHub" class="contact-icon">
+            <span>GitHub Profile</span>
+          </a>
+          <a href="mailto:aryanshah1957@gmail.com" class="contact-link">
+            <img src="Assets/images/mail.png" alt="Email" class="contact-icon">
+            <span>aryanshah1957@gmail.com</span>
+          </a>
         </div>
       </div>
     </div>
@@ -455,6 +486,7 @@ function createThemeSetup() {
       transition: background-color 0.2s ease;
       width: 37px;
       height: 37px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .timer-button img {
@@ -492,6 +524,7 @@ function createThemeSetup() {
       transition: background-color 0.2s ease;
       width: 38px;
       height: 38px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .theme-toggle-button img {
@@ -540,6 +573,124 @@ function createThemeSetup() {
       display: flex;
       align-items: center;
     }
+
+    .contact-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .contact-modal-content {
+      background: var(--container-bg-color);
+      border-radius: 12px;
+      padding: 24px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+    }
+
+    .contact-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .contact-header h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      color: var(--text-color);
+      font-size: 18px;
+    }
+
+    .close-contact-btn {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      text-decoration: none;
+      color: var(--text-color);
+      background: var(--button-bg);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .contact-link:hover {
+      background: var(--button-hover);
+      transform: translateY(-2px);
+    }
+
+    .contact-icon {
+      width: 24px;
+      height: 24px;
+      filter: var(--icon-filter);
+    }
+
+    [data-theme="dark"] .contact-icon {
+      filter: brightness(0) invert(1);
+    }
+
+    .contact-button {
+      background: var(--button-bg, #ffffff);
+      border: 1px solid var(--border-color, #d1d9e6);
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      width: 38px;
+      height: 38px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-button img {
+      width: 28px;
+      height: 28px;
+      filter: ${
+        localStorage.getItem("chess-theme-mode") === "light" 
+          ? "brightness(0)" 
+          : "none"
+      };
+    }
+
+    [data-theme="dark"] .contact-button img {
+      filter: brightness(0) invert(1);
+    }
+
+    .contact-button:hover {
+      background: var(--button-hover, #f0f0f0);
+    }
   `;
 
   const styleSheet = document.createElement("style");
@@ -550,6 +701,7 @@ function createThemeSetup() {
     .querySelector(".chess-container")
     .insertAdjacentHTML("beforeend", settingsButtonHTML);
   document.body.insertAdjacentHTML("beforeend", themeModalHTML);
+  document.body.insertAdjacentHTML("beforeend", contactModalHTML);
 
   const flipBtn = document.querySelector(".flip-button");
   const settingsBtn = document.querySelector(".settings-button");
@@ -559,6 +711,9 @@ function createThemeSetup() {
   const colorOptions = document.querySelectorAll(".color-option");
   const customButtons = document.querySelectorAll(".custom-button");
   const colorPickers = document.querySelectorAll(".color-picker");
+  const contactBtn = document.querySelector(".contact-button");
+  const contactModal = document.querySelector(".contact-modal");
+  const closeContactBtn = document.querySelector(".close-contact-btn");
 
   themeModal.style.display = "none";
 
@@ -929,6 +1084,20 @@ function createThemeSetup() {
       themeIcon.src = "Assets/images/light-mode.png";
     }
   }
+
+  contactBtn.addEventListener("click", () => {
+    contactModal.style.display = "flex";
+  });
+
+  closeContactBtn.addEventListener("click", () => {
+    contactModal.style.display = "none";
+  });
+
+  contactModal.addEventListener("click", (e) => {
+    if (e.target === contactModal) {
+      contactModal.style.display = "none";
+    }
+  });
 }
 
 export { createThemeSetup };
