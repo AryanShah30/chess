@@ -1,5 +1,3 @@
-import { createTechnicalDoc, showTechnicalDoc } from './TechnicalDoc.js';
-
 function createDocumentation() {
   const docIcon = document.createElement("button");
   docIcon.className = "doc-icon";
@@ -306,7 +304,7 @@ function createDocumentation() {
     });
   });
 
-  // Add click handler for code icon
+  // Add click handler for code icon after docIcon
   const codeIcon = document.createElement("button");
   codeIcon.className = "code-icon";
   codeIcon.innerHTML =
@@ -314,8 +312,7 @@ function createDocumentation() {
   document.body.appendChild(codeIcon);
 
   codeIcon.addEventListener("click", () => {
-    createTechnicalDoc();
-    showTechnicalDoc();
+    window.open("https://github.com/AryanShah30/chess", "_blank");
   });
 }
 

@@ -78,6 +78,9 @@ function createThemeSetup() {
       <button class="contact-button" title="Contact">
         <img src="Assets/images/contact.png" alt="Contact" />
       </button>
+      <button class="code-button" title="GitHub" onclick="window.open('https://github.com/AryanShah30/chess', '_blank')">
+        <img src="Assets/images/code.png" alt="GitHub" />
+      </button>
     </div>
   `;
 
@@ -689,6 +692,39 @@ function createThemeSetup() {
     }
 
     .contact-button:hover {
+      background: var(--button-hover, #f0f0f0);
+    }
+
+    .code-button {
+      background: var(--button-bg, #ffffff);
+      border: 1px solid var(--border-color, #d1d9e6);
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      width: 38px;
+      height: 38px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .code-button img {
+      width: 24px;
+      height: 24px;
+      filter: ${
+        localStorage.getItem("chess-theme-mode") === "light" 
+          ? "brightness(0)" 
+          : "none"
+      };
+    }
+
+    [data-theme="dark"] .code-button img {
+      filter: brightness(0) invert(1);
+    }
+
+    .code-button:hover {
       background: var(--button-hover, #f0f0f0);
     }
   `;

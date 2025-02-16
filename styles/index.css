@@ -1499,7 +1499,6 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-.code-icon,
 .doc-icon {
   position: fixed;
   right: 30px;
@@ -1518,26 +1517,19 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-.code-icon {
-  bottom: 110px;
-}
-
 .doc-icon {
   bottom: 30px;
 }
 
-.code-icon:hover,
 .doc-icon:hover {
   transform: scale(1.05);
 }
 
-.code-icon img,
 .doc-icon img {
   width: 30px;
   height: 30px;
 }
 
-[data-theme="dark"] .code-icon img,
 [data-theme="dark"] .doc-icon img {
   filter: invert(1) brightness(100%);
 }
