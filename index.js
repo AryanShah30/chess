@@ -5,6 +5,7 @@ import { ChessClock } from "./Components/ChessClock.js";
 import { createClockSetup } from "./Components/ClockSetup.js";
 import { Scoresheet } from "./Components/Scoresheet.js";
 import { createThemeSetup } from "./Components/ThemeSetup.js";
+import { createDocumentation } from "./Components/Documentation.js";
 
 let chessClock;
 let globalState;
@@ -28,8 +29,27 @@ function initializeGame(
     increment2,
   });
 
-  globalState = initGame();
+  // Clear the existing board
+  const rootDiv = document.getElementById("root");
+  while (rootDiv.firstChild) {
+    rootDiv.removeChild(rootDiv.firstChild);
+  }
 
+  // Initialize the game board first
+  globalState = initGame();
+  initGameRender(globalState);
+  globalEvent();
+
+  // Reset the key square mapper
+  keySquareMapper = {};
+  globalState.flat().forEach((square) => {
+    keySquareMapper[square.id] = square;
+  });
+
+  // Initialize scoresheet
+  scoresheet = new Scoresheet();
+
+  // Initialize and start chess clock last
   chessClock = new ChessClock(
     player1Name,
     player2Name,
@@ -38,35 +58,45 @@ function initializeGame(
     increment1,
     increment2
   );
-  chessClock.start();
-
+  
+  // Update player names in the UI
   const player1Element = document.getElementById("player1-name");
   const player2Element = document.getElementById("player2-name");
-
   if (player1Element) player1Element.textContent = player1Name;
   if (player2Element) player2Element.textContent = player2Name;
 
-  console.log("Updated DOM with names:", {
-    player1: player1Element?.textContent,
-    player2: player2Element?.textContent,
-  });
-
+  // Set initial clock states
   document.getElementById("player1-clock").classList.add("active");
   document.getElementById("player2-clock").classList.remove("active");
 
+  // Start the clock after everything is set up
+  chessClock.start();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Create documentation first
+  createDocumentation();
+  
+  // Initialize the game board immediately for exploration
+  globalState = initGame();
+  initGameRender(globalState);
+  globalEvent();
+  
+  // Initialize key square mapper
   globalState.flat().forEach((square) => {
     keySquareMapper[square.id] = square;
   });
-
-  initGameRender(globalState);
-  globalEvent();
-
-  scoresheet = new Scoresheet();
-}
-
-createClockSetup(initializeGame);
-
-createThemeSetup();
+  
+  // Create clock setup
+  createClockSetup(initializeGame);
+  
+  // Create theme setup
+  createThemeSetup();
+  
+  // Initialize theme
+  initializeTheme();
+  loadThemes();
+});
 
 const loadThemes = () => {
   const whiteSquareColor =
@@ -101,11 +131,5 @@ function initializeTheme() {
     document.body.setAttribute('data-theme', 'dark');
   }
 }
-
-// Call this function after the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  initializeTheme();
-  loadThemes();
-});
 
 export { globalState, keySquareMapper, chessClock, scoresheet };
