@@ -6,7 +6,13 @@ function createClockSetup(onGameStart) {
   const setupHTML = `
     <div class="clock-setup-overlay" style="display: none;">
       <div class="clock-setup-modal">
-        <h2>Game Setup</h2>
+        <div class="setup-header">
+          <h2>Game Setup</h2>
+          <button class="close-setup-btn">&times;</button>
+        </div>
+        <div class="setup-disclaimer">
+          ⚠️ Starting a new game will reset the current game
+        </div>
         <div class="player-setup">
           <h3>Player 1 (White)</h3>
           <input type="text" id="player1-name-input" placeholder="Enter name">
@@ -68,6 +74,16 @@ function createClockSetup(onGameStart) {
     });
   }
 
+  // Add event listener for close button
+  const closeBtn = document.querySelector('.close-setup-btn');
+  const setupOverlay = document.querySelector('.clock-setup-overlay');
+  
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      setupOverlay.style.display = 'none';
+    });
+  }
+
   // Handle the actual game start button
   const gameStartBtn = document.getElementById("start-game");
   if (gameStartBtn) {
@@ -110,7 +126,7 @@ function createClockSetup(onGameStart) {
 
       // Start the game with the new settings
       onGameStart(p1Name, p2Name, p1Time, p2Time, p1Inc, p2Inc);
-      document.querySelector(".clock-setup-overlay").remove();
+      document.querySelector(".clock-setup-overlay").style.display = "none";
     });
   }
 }
