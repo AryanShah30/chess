@@ -1054,13 +1054,13 @@ body {
 }
 
 :root {
-  --body-bg-color: #f0f0f0;
-  --container-bg-color: #ffffff;
-  --text-color: #333333;
-  --border-color: #e0e0e0;
-  --button-bg: #f0f0f0;
-  --button-hover: #e0e0e0;
-  --piece-bg-color: #ffffff;
+  --body-bg-color: #302e2b;
+  --container-bg-color: #262522;
+  --text-color: #ffffff;
+  --border-color: #3a3937;
+  --button-bg: #2a2927;
+  --button-hover: #3a3937;
+  --piece-bg-color: #4a4947;
 }
 
 [data-theme="light"] {
@@ -1183,26 +1183,6 @@ body {
 
 .flip-icon {
   color: var(--text-color);
-}
-
-:root {
-  --body-bg-color: #f0f0f0;
-  --container-bg-color: #ffffff;
-  --text-color: #333333;
-  --border-color: #e0e0e0;
-  --button-bg: #f0f0f0;
-  --button-hover: #e0e0e0;
-  --piece-bg-color: #ffffff;
-}
-
-[data-theme="dark"] {
-  --body-bg-color: #302e2b;
-  --container-bg-color: #262522;
-  --text-color: #ffffff;
-  --border-color: #3a3937;
-  --button-bg: #2a2927;
-  --button-hover: #3a3937;
-  --piece-bg-color: #4a4947;
 }
 
 .chess-clock {
@@ -1419,11 +1399,10 @@ body {
 }
 
 .doc-close-btn:hover {
-  background: #4caf50;
+  background: var(--button-hover);
   color: var(--text-color);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
-  border-color: #45a049;
 }
 
 .doc-close-btn:active {
