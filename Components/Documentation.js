@@ -1,9 +1,12 @@
 function createDocumentation() {
-  console.log("Documentation function called"); // Debug log
+  // Create documentation icon first
+  const docIcon = document.createElement('button');
+  docIcon.className = 'doc-icon';
+  docIcon.innerHTML = '<img src="Assets/images/documentation.png" alt="Documentation" />';
+  document.body.appendChild(docIcon);
 
-  // First create and show the documentation overlay
   const docHTML = `
-    <div class="documentation-overlay" style="display: flex !important;">
+    <div class="documentation-overlay" style="display: flex;">
       <div class="documentation-modal">
         <div class="doc-header">
           <h2>Chess Documentation</h2>
@@ -70,68 +73,48 @@ function createDocumentation() {
     </div>
   `;
 
-  // Add documentation to body first
-  document.body.insertAdjacentHTML("beforeend", docHTML);
-  
-  console.log("Documentation HTML added"); // Debug log
-  
-  // Get the overlay reference
+  document.body.insertAdjacentHTML('beforeend', docHTML);
+
   const docOverlay = document.querySelector('.documentation-overlay');
-  console.log("Overlay element:", docOverlay); // Debug log
-  
-  // Force display
-  if (docOverlay) {
-    docOverlay.style.display = 'flex';
-    docOverlay.style.visibility = 'visible';
-    docOverlay.style.opacity = '1';
-    console.log("Overlay display set to flex"); // Debug log
-  }
+  const docModal = docOverlay.querySelector('.documentation-modal');
+  const closeBtn = docOverlay.querySelector('.doc-close-btn');
 
-  // Hide documentation after 3 seconds
+  // Function to animate closing
+  const animateClose = () => {
+    const docIcon = document.querySelector('.doc-icon');
+    const iconRect = docIcon.getBoundingClientRect();
+    
+    docModal.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    docModal.style.transform = `translate(${iconRect.left - docModal.offsetWidth/2 + iconRect.width/2}px, ${iconRect.top - docModal.offsetHeight/2 + iconRect.height/2}px) scale(0.1)`;
+    docModal.style.opacity = '0';
+    docOverlay.style.opacity = '0';
+    
+    setTimeout(() => {
+      docOverlay.style.display = 'none';
+      docModal.style.transform = '';
+      docModal.style.opacity = '1';
+    }, 600);
+  };
+
+  // Show documentation on load with fade in
+  docOverlay.style.opacity = '0';
   setTimeout(() => {
-    if (docOverlay) {
-      docOverlay.style.display = 'none';
-      console.log("Documentation hidden"); // Debug log
-      
-      // Create and add the documentation icon
-      const docIconHTML = `
-        <button class="doc-icon" title="Documentation">
-          <img src="Assets/images/documentation.png" alt="Documentation" class="doc-icon-img" />
-        </button>
-      `;
-      
-      document.body.insertAdjacentHTML('beforeend', docIconHTML);
-      console.log("Doc icon added"); // Debug log
-      
-      // Add click event to show documentation
-      const docIcon = document.querySelector('.doc-icon');
-      if (docIcon) {
-        docIcon.addEventListener('click', () => {
-          docOverlay.style.display = 'flex';
-          console.log("Doc icon clicked"); // Debug log
-        });
-      }
-    }
-  }, 3000);
+    docOverlay.style.opacity = '1';
+  }, 100);
 
-  // Add close button functionality
-  const closeBtn = document.querySelector('.doc-close-btn');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      docOverlay.style.display = 'none';
-      console.log("Close button clicked"); // Debug log
-    });
-  }
+  // Close after 5 seconds
+  setTimeout(animateClose, 5000);
 
-  // Add click outside to close
-  if (docOverlay) {
-    docOverlay.addEventListener('click', (e) => {
-      if (e.target === docOverlay) {
-        docOverlay.style.display = 'none';
-        console.log("Clicked outside"); // Debug log
-      }
-    });
-  }
+  // Handle manual close
+  closeBtn.addEventListener('click', animateClose);
+
+  // Handle icon click to show documentation
+  docIcon.addEventListener('click', () => {
+    docModal.style.transform = '';
+    docModal.style.opacity = '1';
+    docOverlay.style.opacity = '1';
+    docOverlay.style.display = 'flex';
+  });
 
   // Handle section toggles
   document.querySelectorAll('.doc-section-header').forEach((header) => {

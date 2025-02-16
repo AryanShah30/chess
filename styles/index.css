@@ -630,7 +630,7 @@ body {
 
 .theme-modal-content {
   background-color: var(--container-bg-color);
-  padding: 25px;
+  padding: 32px;
   border-radius: 20px;
   width: 90%;
   max-width: 600px;
@@ -647,22 +647,34 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 35px;
   padding-bottom: 20px;
+  margin-bottom: 24px;
   border-bottom: 1px solid var(--border-color);
 }
 
 .theme-header h3 {
-  color: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin: 0;
-  font-size: 24px;
+  font-size: 25px;
   font-weight: 500;
+  color: var(--text-color);
+}
+
+.theme-header .header-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* Dark theme icon */
+[data-theme="dark"] .theme-header .header-icon {
+  filter: brightness(0) invert(1);
 }
 
 .theme-header-buttons {
   display: flex;
-  gap: 15px;
-  align-items: center;
+  gap: 12px;
 }
 
 .apply-button,
@@ -1586,6 +1598,10 @@ body {
 }
 
 .game-setup-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   margin-top: 15px;
   padding: 12px 24px;
   background-color: #4CAF50;
@@ -1609,6 +1625,12 @@ body {
 .game-setup-btn:active {
   transform: translateY(0);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-icon {
+  width: 30px;
+  height: 30px;
+  filter: brightness(0) invert(1); /* Makes the icon white */
 }
 
 /* Dark theme support */
@@ -1702,5 +1724,28 @@ body {
 
 .doc-section-header.collapsed .dropdown-toggle svg {
   transform: rotate(-180deg);
+}
+
+.setup-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-icon {
+  width: 24px;
+  height: 24px;
+  filter: var(--icon-filter);
+}
+
+/* Light theme icon */
+.theme-header .header-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Dark theme icon */
+[data-theme="dark"] .theme-header .header-icon {
+  filter: brightness(0) invert(1);  /* Makes icon white in dark mode */
 }
 

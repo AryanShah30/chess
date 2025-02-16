@@ -82,7 +82,7 @@ function createThemeSetup() {
     <div class="theme-modal">
       <div class="theme-modal-content">
         <div class="theme-header">
-          <h3>Settings</h3>
+          <h3><img src="Assets/images/settings.png" alt="Settings" class="header-icon">Settings</h3>
           <div class="theme-header-buttons">
             <button class="reset-button" title="Reset to default">Reset</button>
             <button class="apply-button" title="Apply changes">Apply</button>

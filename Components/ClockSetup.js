@@ -7,7 +7,7 @@ function createClockSetup(onGameStart) {
     <div class="clock-setup-overlay" style="display: none;">
       <div class="clock-setup-modal">
         <div class="setup-header">
-          <h2>Game Setup</h2>
+          <h2><img src="Assets/images/chess-clock.png" alt="Clock" class="header-icon">Game Setup</h2>
           <button class="close-setup-btn">CLOSE</button>
         </div>
         <div class="setup-disclaimer">
