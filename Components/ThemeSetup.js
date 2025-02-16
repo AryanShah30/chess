@@ -1137,39 +1137,119 @@ function createThemeSetup() {
   });
 
   // Add mobile navigation functionality
-  const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-  const boardControls = document.querySelector('.board-controls');
-
-  // Function to handle mobile navigation setup
   function setupMobileNavigation() {
-    if (window.innerWidth <= 768) {
-      // Hide board controls by default on mobile
-      if (boardControls) {
-        boardControls.style.right = '-80vw';
-        boardControls.classList.remove('active');
-        
-        // Hide all control buttons
-        const buttons = boardControls.querySelectorAll('button:not(.mobile-nav-toggle)');
-        buttons.forEach(button => {
-          button.style.display = 'none';
-        });
-      }
-      
-      if (mobileNavToggle) {
-        mobileNavToggle.textContent = '☰';
-      }
-    } else {
-      // Reset styles for desktop view
-      if (boardControls) {
-        boardControls.style.right = '0';
-        
-        // Show all control buttons
-        const buttons = boardControls.querySelectorAll('button:not(.mobile-nav-toggle)');
-        buttons.forEach(button => {
-          button.style.display = 'flex';
-        });
-      }
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const boardControls = document.querySelector('.board-controls');
+
+    if (!mobileNavToggle || !boardControls) return;
+
+    // Create modal HTML
+    const modalHTML = `
+      <div class="mobile-nav-modal" style="display: none;">
+        <div class="mobile-nav-content">
+          <div class="modal-header">
+            <h3>Game Controls</h3>
+            <button class="doc-close-btn">CLOSE</button>
+          </div>
+          <div class="nav-buttons">
+            <div class="nav-button" data-action="flip">
+              <img src="Assets/images/reset.png" alt="Flip Board" />
+              <span>Flip Board</span>
+              <div class="button-description">Rotate the board 180 degrees</div>
+            </div>
+            <div class="nav-button" data-action="timer">
+              <img src="Assets/images/timer.png" alt="Timer" />
+              <span>Timer</span>
+              <div class="button-description">Control game clock</div>
+            </div>
+            <div class="nav-button" data-action="theme">
+              <img src="Assets/images/dark-mode.png" alt="Theme" />
+              <span>Theme</span>
+              <div class="button-description">Switch between light and dark mode</div>
+            </div>
+            <div class="nav-button" data-action="contact">
+              <img src="Assets/images/contact.png" alt="Contact" />
+              <span>Contact</span>
+              <div class="button-description">Get in touch</div>
+            </div>
+            <div class="nav-button" data-action="github">
+              <img src="Assets/images/code.png" alt="GitHub" />
+              <span>GitHub</span>
+              <div class="button-description">View source code</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Add modal to body if it doesn't exist
+    if (!document.querySelector('.mobile-nav-modal')) {
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
     }
+
+    const modal = document.querySelector('.mobile-nav-modal');
+    const modalClose = modal.querySelector('.doc-close-btn');
+
+    // Remove existing event listeners
+    mobileNavToggle.replaceWith(mobileNavToggle.cloneNode(true));
+    
+    // Get the new toggle button after replacement
+    const newToggle = document.querySelector('.mobile-nav-toggle');
+    
+    // Add click event listener for toggle
+    newToggle.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      setTimeout(() => {
+        modal.classList.add('active');
+      }, 10);
+    });
+
+    // Close modal on close button click
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('active');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 300);
+    });
+
+    // Handle button clicks
+    const navButtons = modal.querySelectorAll('.nav-button');
+    navButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const action = button.dataset.action;
+        switch(action) {
+          case 'flip':
+            document.querySelector('.flip-button').click();
+            break;
+          case 'timer':
+            document.querySelector('.timer-button').click();
+            break;
+          case 'theme':
+            document.querySelector('.theme-toggle-button').click();
+            break;
+          case 'contact':
+            document.querySelector('.contact-button').click();
+            break;
+          case 'github':
+            window.open('https://github.com/AryanShah30/chess', '_blank');
+            break;
+        }
+        modal.classList.remove('active');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 300);
+      });
+    });
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 300);
+      }
+    });
   }
 
   // Run setup on initial load
@@ -1177,40 +1257,6 @@ function createThemeSetup() {
 
   // Run setup on window resize
   window.addEventListener('resize', setupMobileNavigation);
-
-  if (mobileNavToggle && boardControls) {
-    mobileNavToggle.addEventListener('click', () => {
-      const isOpen = boardControls.classList.contains('active');
-      mobileNavToggle.textContent = isOpen ? '☰' : '✕';
-      boardControls.classList.toggle('active');
-      
-      // Show/hide buttons based on active state
-      const buttons = boardControls.querySelectorAll('button:not(.mobile-nav-toggle)');
-      buttons.forEach(button => {
-        button.style.display = isOpen ? 'none' : 'flex';
-      });
-      
-      // Update board controls position
-      boardControls.style.right = isOpen ? '-80vw' : '0';
-    });
-
-    // Close navigation when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!boardControls.contains(e.target) && 
-          !mobileNavToggle.contains(e.target) && 
-          boardControls.classList.contains('active')) {
-        boardControls.classList.remove('active');
-        mobileNavToggle.textContent = '☰';
-        boardControls.style.right = '-80vw';
-        
-        // Hide buttons
-        const buttons = boardControls.querySelectorAll('button:not(.mobile-nav-toggle)');
-        buttons.forEach(button => {
-          button.style.display = 'none';
-        });
-      }
-    });
-  }
 }
 
 export { createThemeSetup };
