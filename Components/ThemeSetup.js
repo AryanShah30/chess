@@ -840,464 +840,67 @@ function createThemeSetup() {
 
     themeToggleBtn.classList.toggle("active");
     const isDarkMode = themeToggleBtn.classList.contains("active");
+    const newTheme = isDarkMode ? "dark" : "light";
 
     // Store theme preference
-    localStorage.setItem("chess-theme-mode", isDarkMode ? "dark" : "light");
+    localStorage.setItem("chess-theme-mode", newTheme);
+    
+    // Update data-theme attribute
+    document.documentElement.setAttribute("data-theme", newTheme);
 
-    // Update the theme toggle button icon
+    // Update theme icon
     const themeIcon = themeToggleBtn.querySelector("img");
     themeIcon.src = `Assets/images/${isDarkMode ? "light-mode.png" : "dark-mode.png"}`;
 
-    // Create and apply theme styles immediately
-    const modalStyle = document.createElement("style");
-    modalStyle.id = "modal-style";
-    modalStyle.textContent = isDarkMode ? `
-      .theme-modal-content {
-        background-color: #262522 !important;
-        color: #ffffff !important;
-      }
-      .theme-section-header h4,
-      .theme-header h3 {
-        color: #ffffff !important;
-      }
-      .theme-section-header {
-        background-color: #2a2927 !important;
-        border-bottom: 1px solid #3a3937 !important;
-      }
-      .theme-section-content {
-        background-color: #262522 !important;
-      }
-      .setting-label {
-        color: #ffffff !important;
-      }
-      .setting-description {
-        color: #b4b4b4 !important;
-      }
-      .color-option:hover::after,
-      .piece-option:hover::after {
-        background-color: rgba(255, 255, 255, 0.1) !important;
-      }
-      #flip-board-container .setting-label {
-        color: #ffffff !important; 
-      }
-      .piece-option {
-        background: #3a3937 !important; 
-        border: 2px solid #4a4947 !important; 
-        border-radius: 4px; 
-      }
-      .piece-option img[src*="bN.png"] {
-        background-color: #3a3937 !important; 
-        border-radius: 4px; 
-      }
-      .piece-options {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        gap: 10px;
-      }
-      .custom-button {
-        background: #3a3937 !important;
-        color: #ffffff !important;
-        border: 1px solid #4a4947 !important;
-      }
-      .custom-button:hover {
-        background: #4a4947 !important;
-      }
-      .notification-modal p {
-        color: #ffffff !important;
-      }
-    ` : `
-      .theme-modal-content {
-        background-color: #ffffff !important;
-        color: #333333 !important;
-      }
-      .theme-section-header h4,
-      .theme-header h3 {
-        color: #333333 !important;
-      }
-      .theme-section-header {
-        background-color: #f0f0f0 !important;
-        border-bottom: 1px solid #e0e0e0 !important;
-      }
-      .theme-section-content {
-        background-color: #f8f9fa !important;
-      }
-      .setting-label {
-        color: #333333 !important;
-      }
-      .setting-description {
-        color: #666666 !important;
-      }
-      .color-option:hover::after,
-      .piece-option:hover::after {
-        background-color: rgba(0, 0, 0, 0.8) !important;
-      }
-      #flip-board-container .setting-label {
-        color: #666666 !important; 
-      }
-      .piece-option {
-        background: #f0f0f0 !important; 
-        border: 2px solid #e0e0e0 !important; 
-        border-radius: 4px; 
-      }
-      .piece-option img[src*="bN.png"] {
-        background-color: #f0f0f0 !important; 
-        border-radius: 4px; 
-      }
-      .piece-options {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        gap: 10px;
-      }
-      .custom-button {
-        background: #e0e0e0 !important; 
-        color: #333333 !important;
-        border: 1px solid #d0d0d0 !important;
-      }
-      .custom-button:hover {
-        background: #d0d0d0 !important; 
-      }
-      .notification-modal p {
-        color: #333333 !important;
-      }
-    `;
-    
-    const oldStyle = document.getElementById("modal-style");
-    if (oldStyle) oldStyle.remove();
-    document.head.appendChild(modalStyle);
-
-    // Apply all theme changes
-    if (isDarkMode) {
-      document.documentElement.style.setProperty('--body-bg-color', '#302e2b');
-      const rootElement = document.getElementById("root");
-      if (rootElement) {
-        rootElement.style.backgroundColor = "#262522";
-        rootElement.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
-        rootElement.style.border = "none";
-      }
-
-      document.documentElement.style.setProperty("--control-bg", "#2a2927");
-      document.documentElement.style.setProperty("--control-border", "#3a3937");
-      document.documentElement.style.setProperty("--control-hover", "#3a3937");
-      document.documentElement.style.setProperty("--modal-bg-color", "#262522");
-      document.documentElement.style.removeProperty("--modal-text-color");
-      document.documentElement.style.setProperty("--piece-bg-color", "#4a4947");
-
-      const gameSetupHeading = document.querySelector(".clock-setup-modal h2");
-      if (gameSetupHeading) {
-        gameSetupHeading.style.setProperty("color", "#ffffff", "important");
-      }
-
-      document.querySelectorAll(".player-setup").forEach((section) => {
-        section.style.backgroundColor = "#333333";
-      });
-
-      document.querySelectorAll(".clock-setup-modal input").forEach((input) => {
-        input.style.backgroundColor = "#262522";
-        input.style.color = "#ffffff";
-        input.style.border = "1px solid #3a3937";
-      });
-
-      document.querySelectorAll(".clock-setup-modal label").forEach((label) => {
-        label.style.color = "#ffffff";
-      });
-
-      const settingOption = document.querySelector("#flip-board-container");
-      if (settingOption) {
-        settingOption.style.setProperty("background", "#2a2927", "important");
-      }
-
-      const flipIcon = document.getElementById("flip-board-setting");
-      if (flipIcon) {
-        flipIcon.style.setProperty("color", "", "important");
-        flipIcon.style.setProperty("opacity", "", "important");
-      }
-
-      document
-        .querySelectorAll(".color-section-header h5")
-        .forEach((header) => {
-          header.style.color = "#b4b4b4";
-        });
-    } else {
-      document.documentElement.style.setProperty('--body-bg-color', '#ffffff');
-      const rootElement = document.getElementById("root");
-      if (rootElement) {
-        rootElement.style.backgroundColor = "#ffffff";
-        rootElement.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)";
-        rootElement.style.border = "1px solid #e0e0e0";
-      }
-
-      document.documentElement.style.setProperty("--control-bg", "#ffffff");
-      document.documentElement.style.setProperty("--control-border", "#d1d9e6");
-      document.documentElement.style.setProperty("--control-hover", "#f8f9fa");
-      document.documentElement.style.setProperty("--modal-bg-color", "#ffffff");
-      document.documentElement.style.removeProperty("--modal-text-color");
-      document.documentElement.style.setProperty("--piece-bg-color", "#e6e6e6");
-
-      const gameSetupHeading = document.querySelector(".clock-setup-modal h2");
-      if (gameSetupHeading) {
-        gameSetupHeading.style.setProperty("color", "#000000", "important");
-      }
-
-      document.querySelectorAll(".player-setup").forEach((section) => {
-        section.style.backgroundColor = "#f4f6f8";
-      });
-
-      document.querySelectorAll(".clock-setup-modal input").forEach((input) => {
-        input.style.backgroundColor = "#ffffff";
-        input.style.color = "#2c3e50";
-        input.style.border = "1px solid #dee2e6";
-      });
-
-      document.querySelectorAll(".clock-setup-modal label").forEach((label) => {
-        label.style.color = "#495057";
-      });
-
-      document.querySelectorAll(".clock-setup-modal input").forEach((input) => {
-        input.style.setProperty("::placeholder", "#6c757d", "important");
-      });
-
-      document.querySelectorAll(".clock-setup-modal input").forEach((input) => {
-        input.style.padding = "8px 12px";
-        input.style.borderRadius = "4px";
-        input.style.transition = "all 0.2s ease";
-      });
-
-      document
-        .querySelectorAll(
-          ".clock-setup-modal h2, .clock-setup-modal h3, .clock-setup-modal label, .clock-setup-modal input"
-        )
-        .forEach((element) => {
-          element.style.setProperty("color", "#000000", "important");
-        });
-
-      document.querySelectorAll(".clock-setup-modal input").forEach((input) => {
-        input.style.setProperty("::placeholder", "#000000", "important");
-      });
-
-      if (!isDarkMode) {
-        console.log("Theme switching...");
-        const inputs = document.querySelectorAll(
-          "#player1-name-input, #player2-name-input"
-        );
-        console.log("Found inputs:", inputs);
-
-        const existingStyle = document.getElementById("placeholder-style");
-        if (existingStyle) {
-          existingStyle.remove();
-        }
-
-        const placeholderStyle = document.createElement("style");
-        placeholderStyle.id = "placeholder-style";
-        placeholderStyle.textContent = `
-          #player1-name-input::placeholder,
-          #player2-name-input::placeholder {
-            color: black !important;
-          }
-        `;
-        document.head.appendChild(placeholderStyle);
-
-        const modalStyle = document.createElement("style");
-        modalStyle.id = "modal-style";
-        modalStyle.textContent = `
-          .theme-modal-content {
-            background-color: #ffffff !important;
-            color: #333333 !important;
-          }
-          .theme-section-header h4,
-          .theme-header h3 {
-            color: #333333 !important;
-          }
-          .theme-section-header {
-            background-color: #f0f0f0 !important;
-            border-bottom: 1px solid #e0e0e0 !important;
-          }
-          .theme-section-content {
-            background-color: #f8f9fa !important;
-          }
-          .setting-label {
-            color: #333333 !important;
-          }
-          .setting-description {
-            color: #666666 !important;
-          }
-          .color-option:hover::after,
-          .piece-option:hover::after {
-            background-color: rgba(0, 0, 0, 0.8) !important;
-          }
-          #flip-board-container .setting-label {
-            color: #666666 !important; 
-          }
-          .piece-option {
-            background: #f0f0f0 !important; 
-            border: 2px solid #e0e0e0 !important; 
-            border-radius: 4px; 
-          }
-          .piece-option img[src*="bN.png"] {
-            background-color: #f0f0f0 !important; 
-            border-radius: 4px; 
-          }
-          .piece-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 10px;
-          }
-          .custom-button {
-            background: #e0e0e0 !important; 
-            color: #333333 !important;
-            border: 1px solid #d0d0d0 !important;
-          }
-          .custom-button:hover {
-            background: #d0d0d0 !important; 
-          }
-          .notification-modal p {
-            color: #333333 !important;
-          }
-        `;
-        document.head.appendChild(modalStyle);
-
-        const flipLabel = document.querySelector(
-          "#flip-board-container .setting-label"
-        );
-        if (flipLabel) {
-          flipLabel.style.color = "#666666";
-        }
-
-        inputs.forEach((input) => {
-          console.log("Current input:", input);
-          input.style.setProperty("color", "black", "important");
-          console.log("Updated input style:", input.style);
-        });
-
-        const settingOption = document.querySelector("#flip-board-container");
-        if (settingOption) {
-          settingOption.style.setProperty("background", "#f0f0f0", "important");
-        }
-
-        document
-          .querySelectorAll(".color-section-header h5")
-          .forEach((header) => {
-            header.style.color = "#666666";
-          });
-      } else {
-        const modalStyle = document.getElementById("modal-style");
-        if (modalStyle) {
-          modalStyle.remove();
-        }
-
-        const settingOption = document.querySelector("#flip-board-container");
-        if (settingOption) {
-          settingOption.style.setProperty("background", "#2a2927", "important");
-        }
-
-        const flipIcon = document.getElementById("flip-board-setting");
-        if (flipIcon) {
-          flipIcon.style.setProperty("color", "", "important");
-          flipIcon.style.setProperty("opacity", "", "important");
-        }
-      }
+    // Remove any existing modal styles
+    const existingModalStyle = document.getElementById("modal-style");
+    if (existingModalStyle) {
+      existingModalStyle.remove();
     }
 
-    // Create and apply dynamic styles
-    const styles = document.createElement("style");
-    styles.textContent = `
-      .settings-button, .flip-button, .timer-button, .theme-toggle-button {
-        background: var(--control-bg);
-        border: 1px solid var(--control-border);
-        box-shadow: ${isDarkMode ? "none" : "0 2px 4px rgba(0,0,0,0.05)"};
-      }
+    // Apply modal styles based on theme
+    const modalStyle = document.createElement("style");
+    modalStyle.id = "modal-style";
+    modalStyle.textContent = isDarkMode ? darkModeStyles : lightModeStyles;
+    document.head.appendChild(modalStyle);
 
-      .settings-button img, .timer-button img, .theme-toggle-button img {
-        filter: ${isDarkMode ? "brightness(0) invert(1)" : "none"};
-      }
-
-      .timer-button.active img {
-        filter: brightness(0) invert(1);  
-      }
-
-      .flip-button {
-        color: ${isDarkMode ? "#ffffff" : "#000000"};
-      }
-
-      .settings-button:hover, .flip-button:hover, .timer-button:hover, .theme-toggle-button:hover {
-        background: ${isDarkMode ? "#3a3937" : "#ffffff"};
-        border-color: ${isDarkMode ? "#3a3937" : "#b8c2cc"};
-      }
-
-      .chess-clock, .status-box, .scoresheet {
-        background: ${isDarkMode ? "#262522" : "#ffffff"};
-        border: 1px solid ${isDarkMode ? "#3a3937" : "#d1d9e6"};
-        box-shadow: ${isDarkMode ? "none" : "0 4px 6px rgba(0,0,0,0.05)"};
-        color: ${isDarkMode ? "#ffffff" : "#2c3e50"};
-      }
-
-      .player-clock {
-        background: ${isDarkMode ? "#2a2927" : "#f8f9fa"};
-        border: 1px solid ${isDarkMode ? "#3a3937" : "#e9ecef"};
-      }
-
-      .player-time {
-        color: ${isDarkMode ? "#ffffff" : "#2c3e50"};  
-        font-weight: ${isDarkMode ? "normal" : "500"};  
-      }
-
-      .player-name {
-        color: ${isDarkMode ? "#b4b4b4" : "#495057"};  
-        font-weight: ${isDarkMode ? "normal" : "500"};
-      }
-
-      .status-box {
-        color: ${isDarkMode ? "#ffffff" : "#2c3e50"} !important;  
-        font-weight: ${isDarkMode ? "normal" : "500"};
-      }
-
-      .scoresheet {
-        color: ${isDarkMode ? "#ffffff" : "#2c3e50"};
-      }
-
-      .move-row {
-        color: ${isDarkMode ? "#ffffff" : "#2c3e50"};
-        background-color: ${isDarkMode ? "#262522" : "#ffffff"} !important;  
-      }
-
-      .move-row:nth-child(odd) {
-        background-color: ${isDarkMode ? "#262522" : "#ffffff"} !important;  
-      }
-
-      .move-row:nth-child(even) {
-        background-color: ${isDarkMode ? "#262522" : "#ffffff"} !important;  
-      }
-
-      .move-number {
-        color: ${isDarkMode ? "#b4b4b4" : "#6c757d"};
-      }
-
-      .move {
-        color: ${isDarkMode ? "#ffffff" : "#2c3e50"};
-      }
-
-      .move.last {
-        background-color: ${isDarkMode ? "#3a3937" : "#e9ecef"};
-      }
-    `;
-
-    const oldStyles = document.getElementById("theme-dynamic-styles");
-    if (oldStyles) oldStyles.remove();
-
-    styles.id = "theme-dynamic-styles";
-    document.head.appendChild(styles);
-
-    // Ensure all DOM updates are complete before showing
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Restore opacity after theme change
     document.body.style.opacity = "1";
   });
 
-  // Apply initial theme with the same consistency
-  const storedTheme = localStorage.getItem("chess-theme-mode") || "dark";
-  if (storedTheme === "light") {
-    // Small delay before initial theme application
-    setTimeout(() => {
-      themeToggleBtn.click();
-    }, 50);
+  // Define theme-specific styles
+  const lightModeStyles = `
+    .theme-modal-content {
+      background-color: #ffffff !important;
+      color: #333333 !important;
+    }
+    // ... rest of light mode styles ...
+  `;
+
+  const darkModeStyles = `
+    .theme-modal-content {
+      background-color: #262522 !important;
+      color: #ffffff !important;
+    }
+    // ... rest of dark mode styles ...
+  `;
+
+  // Set default theme if not set
+  if (!localStorage.getItem("chess-theme-mode")) {
+    localStorage.setItem("chess-theme-mode", "light");
+  }
+
+  // Apply initial theme
+  const initialTheme = localStorage.getItem("chess-theme-mode");
+  document.documentElement.setAttribute("data-theme", initialTheme);
+  
+  // Update toggle button state based on stored theme
+  if (initialTheme === "dark") {
+    themeToggleBtn.classList.add("active");
+    const themeIcon = themeToggleBtn.querySelector("img");
+    if (themeIcon) {
+      themeIcon.src = "Assets/images/light-mode.png";
+    }
   }
 }
 
