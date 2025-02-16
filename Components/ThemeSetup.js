@@ -69,7 +69,7 @@ function createThemeSetup() {
         <img src="Assets/images/settings.png" alt="Settings" />
       </button>
       <button class="flip-button" title="Flip Board">⟳</button>
-      <button class="timer-button" title="Stop Clock">
+      <button class="timer-button" title="Stop Clock" data-start-title="Start Clock" data-stop-title="Stop Clock">
         <img src="Assets/images/timer.png" alt="Timer" />
       </button>
       <button class="theme-toggle-button" title="Switch Theme">
@@ -847,12 +847,14 @@ function createThemeSetup() {
   });
 
   const timerBtn = document.querySelector(".timer-button");
-  timerBtn.addEventListener("click", () => {
-    timerBtn.classList.toggle("active");
-    if (timerBtn.classList.contains("active")) {
-      chessClock.pause();
+  timerBtn.addEventListener("click", function() {
+    const isActive = this.classList.toggle("active");
+    if (isActive) {
+      this.setAttribute("title", this.dataset.startTitle);
+      if (chessClock) chessClock.pause();
     } else {
-      chessClock.resume();
+      this.setAttribute("title", this.dataset.stopTitle);
+      if (chessClock) chessClock.resume();
     }
   });
 
