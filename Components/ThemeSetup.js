@@ -1140,11 +1140,58 @@ function createThemeSetup() {
   const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
   const boardControls = document.querySelector('.board-controls');
 
+  // Function to handle mobile navigation setup
+  function setupMobileNavigation() {
+    if (window.innerWidth <= 768) {
+      // Hide board controls by default on mobile
+      if (boardControls) {
+        boardControls.style.right = '-80vw';
+        boardControls.classList.remove('active');
+        
+        // Hide all control buttons
+        const buttons = boardControls.querySelectorAll('button:not(.mobile-nav-toggle)');
+        buttons.forEach(button => {
+          button.style.display = 'none';
+        });
+      }
+      
+      if (mobileNavToggle) {
+        mobileNavToggle.textContent = '☰';
+      }
+    } else {
+      // Reset styles for desktop view
+      if (boardControls) {
+        boardControls.style.right = '0';
+        
+        // Show all control buttons
+        const buttons = boardControls.querySelectorAll('button:not(.mobile-nav-toggle)');
+        buttons.forEach(button => {
+          button.style.display = 'flex';
+        });
+      }
+    }
+  }
+
+  // Run setup on initial load
+  setupMobileNavigation();
+
+  // Run setup on window resize
+  window.addEventListener('resize', setupMobileNavigation);
+
   if (mobileNavToggle && boardControls) {
     mobileNavToggle.addEventListener('click', () => {
       const isOpen = boardControls.classList.contains('active');
       mobileNavToggle.textContent = isOpen ? '☰' : '✕';
       boardControls.classList.toggle('active');
+      
+      // Show/hide buttons based on active state
+      const buttons = boardControls.querySelectorAll('button:not(.mobile-nav-toggle)');
+      buttons.forEach(button => {
+        button.style.display = isOpen ? 'none' : 'flex';
+      });
+      
+      // Update board controls position
+      boardControls.style.right = isOpen ? '-80vw' : '0';
     });
 
     // Close navigation when clicking outside
@@ -1154,6 +1201,13 @@ function createThemeSetup() {
           boardControls.classList.contains('active')) {
         boardControls.classList.remove('active');
         mobileNavToggle.textContent = '☰';
+        boardControls.style.right = '-80vw';
+        
+        // Hide buttons
+        const buttons = boardControls.querySelectorAll('button:not(.mobile-nav-toggle)');
+        buttons.forEach(button => {
+          button.style.display = 'none';
+        });
       }
     });
   }

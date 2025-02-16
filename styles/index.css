@@ -15,7 +15,6 @@ body {
   margin: auto;
   overflow: hidden;
   background-color: var(--container-bg-color, #ffffff);
-  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2179,11 +2178,54 @@ body {
     width: 100%;
     order: -1;
     padding: 0.5rem;
+    gap: 10px;  /* Reduced gap since one element is hidden */
   }
 
   .chess-clock {
-    width: 100%;
-    margin-bottom: 1rem;
+    margin: 0.5rem 0;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  .player-clock {
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+    background: var(--container-bg-color);
+    border: 1px solid var(--border-color);
+  }
+
+  .player-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .player-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }
+
+  .player-name {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .player-time {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* Low time warning */
+  .player-time.low-time {
+    color: #ff4444;
   }
 
   /* Scoresheet adjustments */
@@ -2201,12 +2243,10 @@ body {
     right: -80vw;
     height: 100vh;
     width: 80vw;
-    background: var(--container-bg-color);
     flex-direction: column;
     padding: 4rem 1rem;
     transition: right 0.3s ease;
     z-index: 999;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
   }
 
   .board-controls.active {
@@ -2260,6 +2300,11 @@ body {
     display: block;
     height: 2rem;
   }
+
+  /* Hide status box in mobile view */
+  .status-box {
+    display: none;
+  }
 }
 
 /* Additional adjustments for smaller screens */
@@ -2269,8 +2314,8 @@ body {
   }
 
   #root {
-    width: 98vw;
-    height: 98vw;
+    width: 90vw;
+    height: 90vw;
   }
 
   .piece {
