@@ -530,8 +530,106 @@ function createThemeSetup() {
   themeModal.style.display = "none";
 
   settingsBtn.addEventListener("click", () => {
-    themeModal.style.display = "flex";
+    const isDarkMode = localStorage.getItem("chess-theme-mode") === "dark";
+    
+    if (!isDarkMode) {
+      const modalStyle = document.createElement("style");
+      modalStyle.id = "modal-style";
+      modalStyle.textContent = `
+        .theme-modal-content {
+          background-color: #ffffff !important;
+          color: #333333 !important;
+        }
+        .theme-section-header h4,
+        .theme-header h3 {
+          color: #333333 !important;
+        }
+        .theme-section-header {
+          background-color: #f0f0f0 !important;
+          border-bottom: 1px solid #e0e0e0 !important;
+        }
+        .theme-section-content {
+          background-color: #f8f9fa !important;
+        }
+        .setting-label {
+          color: #333333 !important;
+        }
+        .setting-description {
+          color: #666666 !important;
+        }
+        .custom-button {
+          background: #e0e0e0 !important; 
+          color: #333333 !important;
+          border: 1px solid #d0d0d0 !important;
+        }
+        .custom-button:hover {
+          background: #d0d0d0 !important; 
+        }
+      `;
+      const oldStyle = document.getElementById("modal-style");
+      if (oldStyle) oldStyle.remove();
+      document.head.appendChild(modalStyle);
+    } else {
+      const modalStyle = document.createElement("style");
+      modalStyle.id = "modal-style";
+      modalStyle.textContent = `
+        .theme-modal-content {
+          background-color: #262522 !important;
+          color: #ffffff !important;
+        }
+        .theme-section-header h4,
+        .theme-header h3 {
+          color: #ffffff !important;
+        }
+        .theme-section-header {
+          background-color: #2a2927 !important;
+          border-bottom: 1px solid #3a3937 !important;
+        }
+        .theme-section-content {
+          background-color: #262522 !important;
+        }
+        .setting-label {
+          color: #ffffff !important;
+        }
+        .setting-description {
+          color: #b4b4b4 !important;
+        }
+        .color-option:hover::after,
+        .piece-option:hover::after {
+          background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        #flip-board-container .setting-label {
+          color: #ffffff !important; 
+        }
+        .piece-option {
+          background: #3a3937 !important; 
+          border: 2px solid #4a4947 !important; 
+          border-radius: 4px; 
+        }
+        .piece-option img[src*="bN.png"] {
+          background-color: #3a3937 !important; 
+          border-radius: 4px; 
+        }
+        .piece-options {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+          gap: 10px;
+        }
+        .custom-button {
+          background: #3a3937 !important;
+          color: #ffffff !important;
+          border: 1px solid #4a4947 !important;
+        }
+        .custom-button:hover {
+          background: #4a4947 !important;
+        }
+      `;
+      const oldStyle = document.getElementById("modal-style");
+      if (oldStyle) oldStyle.remove();
+      document.head.appendChild(modalStyle);
+    }
 
+    themeModal.style.display = "flex";
     document.querySelector(".theme-modal-content").scrollTop = 0;
 
     document.querySelectorAll(".theme-section-header").forEach((header) => {
@@ -728,7 +826,14 @@ function createThemeSetup() {
   });
 
   const themeToggleBtn = document.querySelector(".theme-toggle-button");
-  themeToggleBtn.addEventListener("click", () => {
+  themeToggleBtn.addEventListener("click", async () => {
+    // Show loading state or transition effect if desired
+    document.body.style.opacity = "0.5";
+    document.body.style.transition = "opacity 0.2s ease";
+
+    // Small delay to ensure transitions are smooth
+    await new Promise(resolve => setTimeout(resolve, 50));
+
     themeToggleBtn.classList.toggle("active");
     const isDarkMode = !themeToggleBtn.classList.contains("active");
 
@@ -740,6 +845,7 @@ function createThemeSetup() {
       ? "Switch to Light Mode"
       : "Switch to Dark Mode";
 
+    // Apply all theme changes
     if (isDarkMode) {
       document.documentElement.style.setProperty('--body-bg-color', '#302e2b');
       const rootElement = document.getElementById("root");
@@ -968,6 +1074,7 @@ function createThemeSetup() {
       }
     }
 
+    // Create and apply dynamic styles
     const styles = document.createElement("style");
     styles.textContent = `
       .settings-button, .flip-button, .timer-button, .theme-toggle-button {
@@ -1057,11 +1164,19 @@ function createThemeSetup() {
     document.head.appendChild(styles);
 
     localStorage.setItem("chess-theme-mode", isDarkMode ? "dark" : "light");
+
+    // Ensure all DOM updates are complete before showing
+    await new Promise(resolve => setTimeout(resolve, 100));
+    document.body.style.opacity = "1";
   });
 
+  // Apply initial theme with the same consistency
   const storedTheme = localStorage.getItem("chess-theme-mode") || "dark";
   if (storedTheme === "light") {
-    themeToggleBtn.click();
+    // Small delay before initial theme application
+    setTimeout(() => {
+      themeToggleBtn.click();
+    }, 50);
   }
 }
 
