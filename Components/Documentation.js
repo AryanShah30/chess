@@ -304,7 +304,7 @@ function createDocumentation() {
     });
   });
 
-  // Add click handler for code icon after docIcon
+  // Add click handler for code icon
   const codeIcon = document.createElement("button");
   codeIcon.className = "code-icon";
   codeIcon.innerHTML =

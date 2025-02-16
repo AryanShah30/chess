@@ -162,6 +162,13 @@ function createClockSetup(onGameStart) {
       initGameRender(globalState);
       globalEvent();
 
+      // Reset timer button state
+      const timerBtn = document.querySelector(".timer-button");
+      if (timerBtn) {
+        timerBtn.classList.remove("active");
+        timerBtn.setAttribute("title", timerBtn.dataset.stopTitle);
+      }
+
       onGameStart(p1Name, p2Name, p1Time, p2Time, p1Inc, p2Inc);
       document.querySelector(".clock-setup-overlay").style.display = "none";
     });
