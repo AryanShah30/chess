@@ -837,13 +837,125 @@ function createThemeSetup() {
     themeToggleBtn.classList.toggle("active");
     const isDarkMode = !themeToggleBtn.classList.contains("active");
 
-    const themeIcon = themeToggleBtn.querySelector("img");
-    themeIcon.src = isDarkMode
-      ? "Assets/images/light-mode.png"
-      : "Assets/images/dark-mode.png";
-    themeToggleBtn.title = isDarkMode
-      ? "Switch to Light Mode"
-      : "Switch to Dark Mode";
+    // Store theme preference
+    localStorage.setItem("chess-theme-mode", isDarkMode ? "dark" : "light");
+
+    // Create and apply theme styles immediately
+    const modalStyle = document.createElement("style");
+    modalStyle.id = "modal-style";
+    modalStyle.textContent = isDarkMode ? `
+      .theme-modal-content {
+        background-color: #262522 !important;
+        color: #ffffff !important;
+      }
+      .theme-section-header h4,
+      .theme-header h3 {
+        color: #ffffff !important;
+      }
+      .theme-section-header {
+        background-color: #2a2927 !important;
+        border-bottom: 1px solid #3a3937 !important;
+      }
+      .theme-section-content {
+        background-color: #262522 !important;
+      }
+      .setting-label {
+        color: #ffffff !important;
+      }
+      .setting-description {
+        color: #b4b4b4 !important;
+      }
+      .color-option:hover::after,
+      .piece-option:hover::after {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+      }
+      #flip-board-container .setting-label {
+        color: #ffffff !important; 
+      }
+      .piece-option {
+        background: #3a3937 !important; 
+        border: 2px solid #4a4947 !important; 
+        border-radius: 4px; 
+      }
+      .piece-option img[src*="bN.png"] {
+        background-color: #3a3937 !important; 
+        border-radius: 4px; 
+      }
+      .piece-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+      }
+      .custom-button {
+        background: #3a3937 !important;
+        color: #ffffff !important;
+        border: 1px solid #4a4947 !important;
+      }
+      .custom-button:hover {
+        background: #4a4947 !important;
+      }
+      .notification-modal p {
+        color: #ffffff !important;
+      }
+    ` : `
+      .theme-modal-content {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+      }
+      .theme-section-header h4,
+      .theme-header h3 {
+        color: #333333 !important;
+      }
+      .theme-section-header {
+        background-color: #f0f0f0 !important;
+        border-bottom: 1px solid #e0e0e0 !important;
+      }
+      .theme-section-content {
+        background-color: #f8f9fa !important;
+      }
+      .setting-label {
+        color: #333333 !important;
+      }
+      .setting-description {
+        color: #666666 !important;
+      }
+      .color-option:hover::after,
+      .piece-option:hover::after {
+        background-color: rgba(0, 0, 0, 0.8) !important;
+      }
+      #flip-board-container .setting-label {
+        color: #666666 !important; 
+      }
+      .piece-option {
+        background: #f0f0f0 !important; 
+        border: 2px solid #e0e0e0 !important; 
+        border-radius: 4px; 
+      }
+      .piece-option img[src*="bN.png"] {
+        background-color: #f0f0f0 !important; 
+        border-radius: 4px; 
+      }
+      .piece-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+      }
+      .custom-button {
+        background: #e0e0e0 !important; 
+        color: #333333 !important;
+        border: 1px solid #d0d0d0 !important;
+      }
+      .custom-button:hover {
+        background: #d0d0d0 !important; 
+      }
+      .notification-modal p {
+        color: #333333 !important;
+      }
+    `;
+    
+    const oldStyle = document.getElementById("modal-style");
+    if (oldStyle) oldStyle.remove();
+    document.head.appendChild(modalStyle);
 
     // Apply all theme changes
     if (isDarkMode) {
@@ -1029,6 +1141,9 @@ function createThemeSetup() {
           .custom-button:hover {
             background: #d0d0d0 !important; 
           }
+          .notification-modal p {
+            color: #333333 !important;
+          }
         `;
         document.head.appendChild(modalStyle);
 
@@ -1162,8 +1277,6 @@ function createThemeSetup() {
 
     styles.id = "theme-dynamic-styles";
     document.head.appendChild(styles);
-
-    localStorage.setItem("chess-theme-mode", isDarkMode ? "dark" : "light");
 
     // Ensure all DOM updates are complete before showing
     await new Promise(resolve => setTimeout(resolve, 100));
