@@ -435,8 +435,8 @@ function createThemeSetup() {
     }
 
     .timer-button {
-      background: #2a2927;
-      border: 1px solid #3a3937;
+      background: var(--button-bg, #ffffff);
+      border: 1px solid var(--border-color, #d1d9e6);
       border-radius: 8px;
       cursor: pointer;
       padding: 8px;
@@ -451,11 +451,11 @@ function createThemeSetup() {
     .timer-button img {
       width: 24px;
       height: 24px;
-      filter: brightness(0) invert(1);
+      filter: ${localStorage.getItem("chess-theme-mode") === "light" ? "brightness(0) invert(1)" : "none"};
     }
 
     .timer-button:hover {
-      background: #3a3937;
+      background: var(--button-hover, #f0f0f0);
     }
 
     .timer-button.active {
@@ -463,9 +463,13 @@ function createThemeSetup() {
       border-color: #45a049;
     }
 
+    .timer-button.active img {
+      filter: brightness(0) invert(1);
+    }
+
     .theme-toggle-button {
-      background: #2a2927;
-      border: 1px solid #3a3937;
+      background: var(--button-bg, #ffffff);
+      border: 1px solid var(--border-color, #d1d9e6);
       border-radius: 8px;
       cursor: pointer;
       padding: 4px;
@@ -480,11 +484,11 @@ function createThemeSetup() {
     .theme-toggle-button img {
       width: 20px;
       height: 20px;
-      filter: brightness(0) invert(1);
+      filter: ${localStorage.getItem("chess-theme-mode") === "light" ? "brightness(0) invert(1)" : "none"};
     }
 
     .theme-toggle-button:hover {
-      background: #3a3937;
+      background: var(--button-hover, #f0f0f0);
     }
 
     .theme-toggle-button.active {
@@ -835,7 +839,7 @@ function createThemeSetup() {
     await new Promise(resolve => setTimeout(resolve, 50));
 
     themeToggleBtn.classList.toggle("active");
-    const isDarkMode = !themeToggleBtn.classList.contains("active");
+    const isDarkMode = themeToggleBtn.classList.contains("active");
 
     // Store theme preference
     localStorage.setItem("chess-theme-mode", isDarkMode ? "dark" : "light");
