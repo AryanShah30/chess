@@ -65,6 +65,7 @@ function createThemeSetup() {
 
   const settingsButtonHTML = `
     <div class="board-controls">
+      <button class="mobile-nav-toggle" aria-label="Toggle navigation">☰</button>
       <button class="settings-button" title="Settings">
         <img src="Assets/images/settings.png" alt="Settings" />
       </button>
