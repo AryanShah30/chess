@@ -16,8 +16,74 @@ function createDocumentation() {
           <button class="doc-close-btn">CLOSE</button>
         </div>
 
+        <div class="intro-section">
+          <p>This project presents a lightweight, open-source chess web application developed exclusively with front-end technologies (HTML, CSS, and JavaScript). By eliminating the need for a back-end server, the application offers a seamless and accessible chess experience directly in the user's browser.</p>
+          
+          <div class="key-features">
+            <h3>Key Features</h3>
+            <ul>
+              <li>
+                <img src="assets/images/features/no-signup-required.png" class="feature-icon" alt="No Signup" />
+                <div class="feature-text">
+                  <strong>No Signups Required</strong>
+                  <p>Start playing immediately without account creation</p>
+                </div>
+              </li>
+              <li>
+                <img src="assets/images/features/always-available.png" class="feature-icon" alt="Always Available" />
+                <div class="feature-text">
+                  <strong>Always Available</strong>
+                  <p>Access anytime without interruptions</p>
+                </div>
+              </li>
+              <li>
+                <img src="assets/images/features/multi-device.png" class="feature-icon" alt="Cross Device" />
+                <div class="feature-text">
+                  <strong>Cross-Device Compatibility</strong>
+                  <p>Play on various devices and platforms</p>
+                </div>
+              </li>
+              <li>
+                <img src="assets/images/features/open-source.png" class="feature-icon" alt="Open Source" />
+                <div class="feature-text">
+                  <strong>Open Source</strong>
+                  <p>Modify and extend the code for your needs</p>
+                </div>
+              </li>
+              <li>
+                <img src="assets/images/features/privacy-focused.png" class="feature-icon" alt="Privacy" />
+                <div class="feature-text">
+                  <strong>Privacy-Focused</strong>
+                  <p>No data collection or storage</p>
+                </div>
+              </li>
+              <li>
+                <img src="assets/images/features/free-access.png" class="feature-icon" alt="Free" />
+                <div class="feature-text">
+                  <strong>Free Access</strong>
+                  <p>No fees or licensing costs</p>
+                </div>
+              </li>
+              <li>
+                <img src="assets/images/features/optimized-performance.png" class="feature-icon" alt="Performance" />
+                <div class="feature-text">
+                  <strong>Optimized Performance</strong>
+                  <p>Fast and responsive gameplay</p>
+                </div>
+              </li>
+              <li>
+                <img src="assets/images/features/backend-independence.png" class="feature-icon" alt="Backend" />
+                <div class="feature-text">
+                  <strong>Back-End Independence</strong>
+                  <p>Operates without a server</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div class="doc-section">
-          <div class="doc-section-header" data-section="whats-new">
+          <div class="doc-section-header collapsed" data-section="whats-new">
             <h3>What's New on the Board</h3>
             <button class="dropdown-toggle">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,18 +91,49 @@ function createDocumentation() {
               </svg>
             </button>
           </div>
-          <div class="doc-section-content">
-            <ul>
-              <li>🎮 Custom Game Setup: Set player names and time controls</li>
-              <li>🎨 Theme Customization: Choose from various piece styles and board colors</li>
-              <li>⏱️ Chess Clock: Professional timing system with increment support</li>
-              <li>📝 Move Notation: Automatic chess notation recording</li>
-            </ul>
+          <div class="doc-section-content" style="display: none;">
+            <div class="feature-grid">
+              <div class="feature-card">
+                <img src="Assets/images/updates/personalised-experience.png" class="feature-icon" alt="Personalized Experience" />
+                <h4>Personalized Experience</h4>
+                <p>Customize player names and avatars to reflect your unique style.</p>
+              </div>
+
+              <div class="feature-card">
+                <img src="Assets/images/updates/chess-clock.png" class="feature-icon" alt="Dynamic Time Controls" />
+                <h4>Dynamic Time Controls</h4>
+                <p>Flexible time settings with options for hours, minutes, and seconds for any game type.</p>
+              </div>
+
+              <div class="feature-card">
+                <img src="Assets/images/updates/diverse-piece-styles.png" class="feature-icon" alt="Diverse Piece Styles" />
+                <h4>Diverse Piece Styles</h4>
+                <p>Choose from over 30 stunning piece designs like Alpha, Celtic, and Fantasy to personalize your board.</p>
+              </div>
+
+              <div class="feature-card">
+                <img src="Assets/images/updates/multi-colors.png" class="feature-icon" alt="Tailored Board Colors" />
+                <h4>Tailored Board Colors</h4>
+                <p>Create the perfect ambiance with custom board colors using our intuitive color picker.</p>
+              </div>
+
+              <div class="feature-card">
+                <img src="Assets/images/updates/scoresheet.png" class="feature-icon" alt="Complete Game Scoresheet" />
+                <h4>Complete Game Scoresheet</h4>
+                <p>Access a detailed scoresheet for each game, ensuring you have all the information at your fingertips.</p>
+              </div>
+
+              <div class="feature-card">
+                <img src="Assets/images/updates/special-move-notation.png" class="feature-icon" alt="Special Move Notation" />
+                <h4>Special Move Notation</h4>
+                <p>Keep track of special moves like castling and en passant with dedicated notation.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="doc-section">
-          <div class="doc-section-header" data-section="future">
+          <div class="doc-section-header collapsed" data-section="future">
             <h3>Future Strategies</h3>
             <button class="dropdown-toggle">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,18 +141,31 @@ function createDocumentation() {
               </svg>
             </button>
           </div>
-          <div class="doc-section-content">
-            <ul>
-              <li>🤖 AI Integration: Play against different difficulty levels</li>
-              <li>🌐 Online Multiplayer: Challenge players worldwide</li>
-              <li>📊 Performance Analytics: Track your progress and improvement</li>
-              <li>📱 Mobile Support: Play on any device</li>
-            </ul>
+          <div class="doc-section-content" style="display: none;">
+            <div class="feature-grid">
+              <div class="feature-card future-card">
+                <img src="Assets/images/upcoming/share.png" class="feature-icon" alt="PGN Export" />
+                <h4>PGN Export</h4>
+                <p>Easily export your game scoresheets in PGN format for analysis, sharing, or archiving.</p>
+              </div>
+
+              <div class="feature-card future-card">
+                <img src="Assets/images/upcoming/stockfish.png" class="feature-icon" alt="Stockfish Integration" />
+                <h4>Stockfish Integration</h4>
+                <p>Get real-time insights with integrated Stockfish analysis, including an evaluation bar to understand the dynamics of each move, and challenge yourself by playing against Stockfish at various difficulty levels.</p>
+              </div>
+
+              <div class="feature-card future-card">
+                <img src="Assets/images/upcoming/link.png" class="feature-icon" alt="Multiplayer Link Sharing" />
+                <h4>Multiplayer Link Sharing</h4>
+                <p>Invite friends for a game with easy link sharing, making multiplayer matches more accessible than ever.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="doc-section">
-          <div class="doc-section-header" data-section="feedback">
+          <div class="doc-section-header collapsed" data-section="feedback">
             <h3>Your Move: Share Your Thoughts</h3>
             <button class="dropdown-toggle">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,13 +173,18 @@ function createDocumentation() {
               </svg>
             </button>
           </div>
-          <div class="doc-section-content">
-            <ul>
-              <li>💡 Suggest new features</li>
-              <li>🐛 Report bugs or issues</li>
-              <li>🌟 Share your experience</li>
-              <li>🤝 Join our community</li>
-            </ul>
+          <div class="doc-section-content" style="display: none;">
+            <p>We want to emphasize that this project is a work in progress and not yet complete. As a complex front-end application without backend support, it may experience occasional glitches or bugs, and we are actively working to minimize these issues. The intricacies of the code can also lead to unexpected behavior in certain edge cases. Your feedback is invaluable in helping us identify and resolve these scenarios.
+
+Feel free to suggest new features, report any bugs or issues, or share your experience with us. You can reach out through the contact button or contribute directly via our GitHub repository: GitHub Repo. Join our community and help us improve!</p>
+            <div class="github-link-container">
+              <a href="https://github.com/AryanShah30/chess" target="_blank" class="github-link">
+                <svg height="32" viewBox="0 0 16 16" width="32" class="github-icon">
+                  <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+                <span>View on GitHub</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -139,7 +254,7 @@ function createDocumentation() {
     docOverlay.style.opacity = "1";
   }, 100);
 
-  setTimeout(animateClose, 5000);
+  setTimeout(animateClose, 10000);
 
   closeBtn.addEventListener("click", animateClose);
 
@@ -150,20 +265,29 @@ function createDocumentation() {
     docOverlay.style.display = "flex";
   });
 
-  document.querySelectorAll(".doc-section-header").forEach((header) => {
-    const toggleBtn = header.querySelector(".dropdown-toggle");
-    const content = header.nextElementSibling;
+  document.querySelectorAll('.doc-section-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const content = header.nextElementSibling;
+      const isCollapsed = header.classList.contains('collapsed');
+      
+      // Close all other sections
+      document.querySelectorAll('.doc-section-header').forEach(h => {
+        if (h !== header) {
+          h.classList.add('collapsed');
+          h.nextElementSibling.style.display = 'none';
+          const svg = h.querySelector('svg');
+          if (svg) svg.style.transform = 'rotate(0deg)';
+        }
+      });
 
-    toggleBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      header.classList.toggle("collapsed");
-      content.classList.toggle("collapsed");
-
-      const svg = toggleBtn.querySelector("svg");
-      if (header.classList.contains("collapsed")) {
-        svg.style.transform = "rotate(-180deg)";
-      } else {
-        svg.style.transform = "rotate(0deg)";
+      // Toggle current section
+      header.classList.toggle('collapsed');
+      content.style.display = isCollapsed ? 'block' : 'none';
+      
+      // Rotate arrow
+      const svg = header.querySelector('svg');
+      if (svg) {
+        svg.style.transform = isCollapsed ? 'rotate(-180deg)' : 'rotate(0deg)';
       }
     });
   });
