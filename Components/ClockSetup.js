@@ -7,7 +7,10 @@ function createClockSetup(onGameStart) {
     <div class="clock-setup-overlay" style="display: none;">
       <div class="clock-setup-modal">
         <div class="setup-header">
-          <h2><img src="Assets/images/chess-clock.png" alt="Clock" class="header-icon">Game Setup</h2>
+          <h2>
+            <img src="Assets/images/chess-clock.png" alt="Clock" class="header-icon">
+            Game Setup
+          </h2>
           <button class="close-setup-btn">CLOSE</button>
         </div>
         <div class="setup-disclaimer">
@@ -65,6 +68,47 @@ function createClockSetup(onGameStart) {
   `;
 
   document.body.insertAdjacentHTML("beforeend", setupHTML);
+
+  // Add styles for the header icon and disclaimer
+  const setupStyle = document.createElement('style');
+  setupStyle.textContent = `
+    .setup-header h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Light theme (default) */
+    .header-icon {
+      filter: none;
+    }
+
+    .setup-disclaimer {
+      background-color: #fff3cd;
+      color: #856404;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 4px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* Dark theme */
+    [data-theme="dark"] .header-icon {
+      filter: brightness(0) invert(1);
+    }
+
+    [data-theme="dark"] .setup-disclaimer {
+      background-color: #382f1a;
+      color: #ffd970;
+    }
+  `;
+  document.head.appendChild(setupStyle);
 
   // Get the game setup button
   const gameSetupBtn = document.querySelector('.game-setup-btn');
