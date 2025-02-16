@@ -288,17 +288,19 @@ body {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #4caf50;
+  filter: none;  /* Keep original black color in light mode */
 }
 
 .player-clock.active .player-avatar {
-  border-color: #4caf50;
+  border-color: #000000;
   transform: scale(1.1);
 }
 
 .player-name {
+  color: var(--text-color);
   font-size: 18px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  margin-left: 8px;
   flex-grow: 1;
   text-align: left;
 }
@@ -649,47 +651,12 @@ body {
   align-items: center;
 }
 
-.apply-button {
-  background: var(--button-bg);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.apply-button:hover {
-  background: var(--button-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.apply-button:active {
-  transform: translateY(0);
-}
-
-.apply-button::before {
-  content: "✓";
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.theme-section {
-  margin: 15px 0;
-}
-
+.apply-button,
 .reset-button {
   background: #4caf50;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 6px 16px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
@@ -699,26 +666,39 @@ body {
   align-items: center;
   gap: 6px;
   box-shadow: 0 2px 4px rgba(76, 175, 80, 0.2);
+  width: 85px;
+  height: 33.5px;
+  justify-content: center;
 }
 
+.apply-button::before {
+  content: "✓";
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: -2px;
+}
+
+.reset-button::before {
+  content: "↺";
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: -2px;
+}
+
+.apply-button:hover,
 .reset-button:hover {
   background: #45a049;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
 }
 
+.apply-button:active,
 .reset-button:active {
   transform: translateY(0);
 }
 
-.reset-button::before {
-  content: "↺";
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.theme-section:first-of-type {
-  margin-top: 0;
+.theme-section {
+  margin: 15px 0;
 }
 
 .theme-section-header {
@@ -1283,15 +1263,99 @@ body {
   color: white;
 }
 
-/* Default (light mode) icon styles */
+/* Default icon styles for settings and timer */
 .settings-button img,
 .timer-button img {
   width: 24px;
   height: 24px;
+  filter: none;  /* Reset any filters for light mode */
 }
 
-/* Dark mode icon styles */
+/* Dark mode icon styles for settings and timer */
 [data-theme="dark"] .settings-button img,
 [data-theme="dark"] .timer-button img {
-  filter: invert(1) brightness(100%);  /* Makes dark icons white */
+  filter: invert(1) brightness(100%);  /* Makes icons white in dark mode */
+}
+
+/* Light mode icon styles for settings and timer */
+[data-theme="light"] .settings-button img,
+[data-theme="light"] .timer-button img {
+  filter: none;  /* Ensures icons stay in original color in light mode */
+}
+
+/* Theme toggle button specific styles */
+[data-theme="light"] .theme-toggle-button img {
+  filter: none;  /* Keep dark mode icon dark in light theme */
+}
+
+[data-theme="dark"] .theme-toggle-button img {
+  filter: invert(1) brightness(100%);  /* Keep light mode icon white in dark theme */
+}
+
+/* Ensure player names are visible in both themes */
+[data-theme="light"] .player-name {
+  color: #333333;  /* Dark text for light theme */
+}
+
+[data-theme="dark"] .player-name {
+  color: #ffffff;  /* White text for dark theme */
+}
+
+/* Light mode piece theme styles */
+[data-theme="light"] .piece-option {
+  background: #f0f0f0 !important;
+  border: 2px solid #e0e0e0 !important;
+  border-radius: 4px;
+}
+
+[data-theme="light"] .piece-option img[src*="bN.png"] {
+  background-color: #f0f0f0 !important;
+  border-radius: 4px;
+}
+
+[data-theme="light"] .piece-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+/* Dark mode piece theme styles (existing) */
+[data-theme="dark"] .piece-option {
+  background: #3a3937 !important;
+  border: 2px solid #4a4947 !important;
+  border-radius: 4px;
+}
+
+[data-theme="dark"] .piece-option img[src*="bN.png"] {
+  background-color: #3a3937 !important;
+  border-radius: 4px;
+}
+
+[data-theme="dark"] .piece-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+/* Light mode color section header */
+[data-theme="light"] .color-section-header h5 {
+  margin: 0;
+  color: #4a4a4a;  /* Darker grayish color */
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Dark mode color section header (existing style) */
+[data-theme="dark"] .color-section-header h5 {
+  margin: 0;
+  color: #b4b4b4;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Dark mode player icon */
+[data-theme="dark"] .player-avatar {
+  filter: invert(1) brightness(100%);  /* Makes icon white in dark mode */
 }

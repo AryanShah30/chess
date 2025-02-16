@@ -73,7 +73,7 @@ function createThemeSetup() {
         <img src="Assets/images/timer.png" alt="Timer" />
       </button>
       <button class="theme-toggle-button" title="Switch Theme">
-        <img src="Assets/images/${localStorage.getItem("chess-theme-mode") === "light" ? "light-mode.png" : "dark-mode.png"}" alt="Theme Toggle" />
+        <img src="Assets/images/dark-mode.png" alt="Theme Toggle" />
       </button>
     </div>
   `;
