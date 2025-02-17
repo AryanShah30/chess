@@ -1,12 +1,8 @@
 # Zero-Lag Chess: The Ultimate Serverless Experience
 
-A fully open-source, browser-based chess platform delivering a lightweight and accessible chess experience—all without the need for backend servers.
+This web app aims to deliver a lightweight, fully accessible chess experience that operates entirely in the browser, without relying on backend servers. Unlike many existing chess platforms that require account creation, track user data, or depend on slow server interactions, this application offers a seamless and privacy-focused alternative.
 
-## Overview
-
-This project aims to deliver a lightweight, fully accessible chess experience that operates entirely in the browser. Unlike many existing chess platforms that require account creation, track user data, or depend on slow server interactions, this application offers a seamless and privacy-focused alternative.
-
-Built from the ground up using pure JavaScript, every aspect of the game—from move validation to handling special rules like castling and en passant—has been meticulously implemented according to official chess regulations.
+A fully open-source chess platform built from the ground up. No external chess libraries were used—every aspect of the game, from move validation to special rules like castling and en passant, has been meticulously implemented using pure JavaScript, strictly following chess regulations.
 
 ## Key Features
 
