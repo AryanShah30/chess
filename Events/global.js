@@ -246,7 +246,6 @@ function checkForCheck() {
     const legalMoves = getAllLegalMoves(whoInCheck);
     if (legalMoves.length === 0) {
       isCheckmate = true;
-      console.log("Checkmate detected!");
       createNotificationModal(
         `Checkmate! ${
           currentPlayerColor === "white" ? "White" : "Black"
@@ -361,27 +360,10 @@ function checkForPawnPromotion(piece, id) {
 }
 
 function callbackPawnPromotion(piece, id, originalPosition) {
-  console.log("DEBUG Promotion - Initial values:", {
-    piece: piece,
-    id: id,
-    originalPosition: originalPosition,
-  });
 
   const realPiece = piece(id);
   const currentSquare = keySquareMapper[id];
   const oldPiece = currentSquare.piece;
-
-  console.log("DEBUG Promotion - After initialization:", {
-    realPiece,
-    currentSquare,
-    oldPiece,
-    originalPosition,
-    pieceDetails: {
-      realPieceName: realPiece?.piece_name,
-      oldPieceName: oldPiece?.piece_name,
-      currentSquareId: currentSquare?.id,
-    },
-  });
 
   realPiece.current_position = id;
   currentSquare.piece = realPiece;
@@ -393,8 +375,6 @@ function callbackPawnPromotion(piece, id, originalPosition) {
       : "BLACK_PAWN",
     current_position: originalPosition,
   };
-
-  console.log("Pawn piece for scoresheet:", pawnPiece);
 
   if (oldPiece) {
     Object.keys(globalPiece).forEach((key) => {
@@ -417,14 +397,6 @@ function callbackPawnPromotion(piece, id, originalPosition) {
   else if (realPiece.piece_name.includes("BISHOP")) promotedTo = "B";
   else if (realPiece.piece_name.includes("KNIGHT")) promotedTo = "N";
 
-  console.log("Adding move to scoresheet:", {
-    piece: pawnPiece,
-    from: originalPosition,
-    to: id,
-    isCapture: isPawnCapture,
-    promotedTo,
-  });
-
   checkForCheck();
 
   const opponentColor = realPiece.piece_name.includes("WHITE")
@@ -434,13 +406,6 @@ function callbackPawnPromotion(piece, id, originalPosition) {
 
   const isCheck = whoInCheck !== null;
   const isCheckmate = isCheck && legalMovesAfterPromotion.length === 0;
-
-  console.log("Check/Checkmate status:", {
-    whoInCheck,
-    isCheck,
-    isCheckmate,
-    legalMovesAfterPromotion: legalMovesAfterPromotion.length,
-  });
 
   scoresheet.addMove(
     pawnPiece,
@@ -629,11 +594,6 @@ function movePiece(piece, targetSquare, castle) {
       (color === "white" && targetSquare[1] === "8") ||
       (color === "black" && targetSquare[1] === "1")
     ) {
-      console.log("Starting pawn promotion:", {
-        from: originalPosition,
-        to: targetSquare,
-      });
-
       keySquareMapper[originalPosition].piece = null;
       keySquareMapper[targetSquare].piece = piece;
       piece.current_position = targetSquare;
@@ -847,7 +807,6 @@ function movePiece(piece, targetSquare, castle) {
   piece.current_position = targetSquare;
 
   const checkStatus = checkForCheck();
-  console.log("Check status:", checkStatus);
 
   if (!castle || (castle && piece.piece_name.includes("KING"))) {
     scoresheet.addMove(

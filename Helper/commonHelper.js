@@ -744,10 +744,6 @@ function isMoveLegal(piece, targetSquare, color) {
   targetSquareObj.piece = originalTargetPiece;
   piece.current_position = originalPiecePosition;
 
-  console.log(
-    `Move ${piece.piece_name} from ${originalPosition} to ${targetSquare} legal:`,
-    !inCheck
-  );
   return !inCheck;
 }
 

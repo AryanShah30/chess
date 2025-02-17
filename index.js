@@ -7,8 +7,6 @@ import { Scoresheet } from "./Components/Scoresheet.js";
 import { createThemeSetup } from "./Components/ThemeSetup.js";
 import { createDocumentation } from "./Components/Documentation.js";
 
-console.log("Index.js loaded");
-
 let chessClock;
 let globalState;
 let keySquareMapper = {};
@@ -68,7 +66,6 @@ function initializeGame(
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM loaded");
   createDocumentation();
 
   globalState = initGame();

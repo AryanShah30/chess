@@ -31,7 +31,6 @@ class Scoresheet {
     isCastle,
     isEnPassant
   ) {
-    console.log("Converting to notation with checkmate status:", isCheckmate);
     let notation = "";
 
     if (isCastle) {
@@ -40,18 +39,11 @@ class Scoresheet {
 
     if (!piece.piece_name.includes("PAWN")) {
       notation += this.getPieceSymbol(piece);
-      console.log("Added piece symbol:", notation);
     }
 
     if (isCapture) {
       if (piece.piece_name.includes("PAWN")) {
         notation += fromPos[0];
-        console.log(
-          "Added pawn capture file:",
-          notation,
-          "from position:",
-          fromPos
-        );
       }
       notation += "x";
     }
@@ -60,18 +52,14 @@ class Scoresheet {
 
     if (this.promotedTo) {
       notation += "=" + this.promotedTo;
-      console.log("Added promotion:", notation);
     }
 
     if (isCheckmate) {
-      console.log("Adding checkmate symbol to notation");
       notation += "#";
     } else if (isCheck) {
-      console.log("Adding check symbol to notation");
       notation += "+";
     }
 
-    console.log("Final notation with symbols:", notation);
     return notation;
   }
 
@@ -86,8 +74,6 @@ class Scoresheet {
     promotedTo = null,
     isEnPassant = false
   ) {
-    console.log("Adding move with checkmate status:", isCheckmate);
-
     this.promotedTo = promotedTo;
     const notation = this.convertPositionToNotation(
       piece,
