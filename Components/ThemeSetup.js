@@ -1054,7 +1054,6 @@ function createThemeSetup() {
   pieceOptions.forEach((option) => {
     option.addEventListener("click", (e) => {
       const theme = e.currentTarget.dataset.theme;
-      console.log("Piece theme clicked:", theme);
 
       localStorage.setItem("chess-theme-piece-style", theme);
 
@@ -1334,7 +1333,6 @@ function createThemeSetup() {
 
   const bugReportButton = document.querySelector(".bug-report-button");
   bugReportButton.addEventListener("click", () => {
-    console.log("Bug report button clicked");
     createBugReportModal();
   });
 }

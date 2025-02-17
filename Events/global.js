@@ -170,14 +170,13 @@ function changeTurn() {
   }
 
   inTurn = inTurn === "white" ? "black" : "white";
-  
+
   updateStatusMessage();
-  
-  // Check if board flipping is enabled and flip if necessary
-  if (localStorage.getItem('chess-flip-board') === 'true') {
+
+  if (localStorage.getItem("chess-flip-board") === "true") {
     flipBoard();
   }
-  
+
   getAllLegalMoves(inTurn);
 }
 
@@ -360,7 +359,6 @@ function checkForPawnPromotion(piece, id) {
 }
 
 function callbackPawnPromotion(piece, id, originalPosition) {
-
   const realPiece = piece(id);
   const currentSquare = keySquareMapper[id];
   const oldPiece = currentSquare.piece;
@@ -419,7 +417,7 @@ function callbackPawnPromotion(piece, id, originalPosition) {
   );
 
   changeTurn();
-  // Only switch turn on chess clock if it exists
+
   if (chessClock) {
     chessClock.switchTurn();
   }
@@ -607,10 +605,9 @@ function movePiece(piece, targetSquare, castle) {
       if (previousElement) previousElement.innerHTML = "";
 
       pawnPromotion(color, (Constructor) => {
-        // Clear all existing highlights first
-        const allSquares = document.querySelectorAll('.square');
-        allSquares.forEach(square => {
-          square.classList.remove('highlightYellow');
+        const allSquares = document.querySelectorAll(".square");
+        allSquares.forEach((square) => {
+          square.classList.remove("highlightYellow");
         });
 
         const promotedPiece = new Constructor(targetSquare);
@@ -626,9 +623,12 @@ function movePiece(piece, targetSquare, castle) {
         img.classList.add("piece");
         element.appendChild(img);
 
-        // Add highlight only to the last move squares
-        document.getElementById(originalPosition)?.classList?.add("highlightYellow");
-        document.getElementById(targetSquare)?.classList?.add("highlightYellow");
+        document
+          .getElementById(originalPosition)
+          ?.classList?.add("highlightYellow");
+        document
+          .getElementById(targetSquare)
+          ?.classList?.add("highlightYellow");
 
         Object.keys(globalPiece).forEach((key) => {
           if (
@@ -659,7 +659,7 @@ function movePiece(piece, targetSquare, castle) {
         );
 
         changeTurn();
-        // Only switch turn on chess clock if it exists
+
         if (chessClock) {
           chessClock.switchTurn();
         }
@@ -828,7 +828,7 @@ function movePiece(piece, targetSquare, castle) {
     );
 
     changeTurn();
-    // Only switch turn on chess clock if it exists
+
     if (chessClock) {
       chessClock.switchTurn();
     }
@@ -842,10 +842,12 @@ function movePiece(piece, targetSquare, castle) {
 }
 
 function updateStatusMessage() {
-  const statusBox = document.getElementById('status-box');
+  const statusBox = document.getElementById("status-box");
   if (!statusBox) return;
 
-  let message = `It's ${inTurn.charAt(0).toUpperCase() + inTurn.slice(1)}'s turn to move`;
+  let message = `It's ${
+    inTurn.charAt(0).toUpperCase() + inTurn.slice(1)
+  }'s turn to move`;
 
   statusBox.textContent = message;
   statusBox.className = `status-box ${inTurn}-turn`;
@@ -1090,19 +1092,17 @@ function whiteKnightClick(square) {
   const piece = square.piece;
   selfHighlightState = piece;
   moveState = piece;
-  
+
   selfHighlight(piece);
 
   const current_pos = piece.current_position;
   const possibleMoves = giveKnightHighlightIds(current_pos, "white");
 
-  // Handle regular moves
   possibleMoves.forEach((moveId) => {
     const targetSquare = keySquareMapper[moveId];
     if (!targetSquare.piece) {
       targetSquare.highlight = true;
     } else if (targetSquare.piece.piece_name.includes("BLACK")) {
-      // Handle captures
       document.getElementById(moveId).classList.add("captureColor");
       targetSquare.captureHighlight = true;
     }
@@ -1552,19 +1552,17 @@ function blackKnightClick(square) {
   const piece = square.piece;
   selfHighlightState = piece;
   moveState = piece;
-  
+
   selfHighlight(piece);
 
   const current_pos = piece.current_position;
   const possibleMoves = giveKnightHighlightIds(current_pos, "black");
 
-  // Handle regular moves
   possibleMoves.forEach((moveId) => {
     const targetSquare = keySquareMapper[moveId];
     if (!targetSquare.piece) {
       targetSquare.highlight = true;
     } else if (targetSquare.piece.piece_name.includes("WHITE")) {
-      // Handle captures
       document.getElementById(moveId).classList.add("captureColor");
       targetSquare.captureHighlight = true;
     }

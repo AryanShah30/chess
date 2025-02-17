@@ -20,15 +20,6 @@ function initializeGame(
   increment1,
   increment2
 ) {
-  console.log("Received values:", {
-    player1Name,
-    player2Name,
-    time1,
-    time2,
-    increment1,
-    increment2,
-  });
-
   const rootDiv = document.getElementById("root");
   while (rootDiv.firstChild) {
     rootDiv.removeChild(rootDiv.firstChild);

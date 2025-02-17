@@ -162,7 +162,6 @@ function createClockSetup(onGameStart) {
       initGameRender(globalState);
       globalEvent();
 
-      // Reset timer button state
       const timerBtn = document.querySelector(".timer-button");
       if (timerBtn) {
         timerBtn.classList.remove("active");

@@ -1,6 +1,4 @@
 export function createBugReportModal() {
-  console.log("Creating bug report modal");
-
   const modalOverlay = document.createElement("div");
   modalOverlay.className = "bug-report-overlay";
 
@@ -89,7 +87,6 @@ export function createBugReportModal() {
 
       showSuccessMessage();
     } catch (error) {
-      console.error("Failed to send bug report:", error);
       showErrorMessage(error);
     }
   });

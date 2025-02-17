@@ -38,10 +38,8 @@ class ModalCreator {
 }
 
 export function pawnPromotion(color, callback) {
-
-  if (localStorage.getItem('chess-auto-queen') === 'true') {
-
-    const queenConstructor = color === 'white' ? whiteQueen : blackQueen;
+  if (localStorage.getItem("chess-auto-queen") === "true") {
+    const queenConstructor = color === "white" ? whiteQueen : blackQueen;
     callback(queenConstructor);
     return;
   }
@@ -79,10 +77,7 @@ export function pawnPromotion(color, callback) {
 }
 
 function callbackPawnPromotion(newPiece, id) {
-  console.log("Callback called with:", newPiece, id);
   if (typeof newPiece === "function") {
     const piece = newPiece(id);
-  } else {
-    console.error("Expected a function to create a piece, but got:", newPiece);
   }
 }

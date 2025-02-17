@@ -202,26 +202,21 @@ function clearHighlight() {
 }
 
 function updatePieceImages() {
-  const pieceStyle = localStorage.getItem('chess-theme-piece-style') || 'default';
-  const pieces = document.querySelectorAll('.piece');
-  
-  console.log('Updating piece images to style:', pieceStyle);
-  console.log('Found pieces:', pieces.length);
-  
-  pieces.forEach(piece => {
+  const pieceStyle =
+    localStorage.getItem("chess-theme-piece-style") || "default";
+  const pieces = document.querySelectorAll(".piece");
+
+  pieces.forEach((piece) => {
     const currentSrc = piece.src;
-    // Extract piece info from current path
-    const pathParts = currentSrc.split('/');
-    const pieceFileName = pathParts[pathParts.length - 1]; // e.g., "bN.png"
-    const colorFolder = pathParts[pathParts.length - 2]; // e.g., "black" or "white"
-    
-    // Construct new path
+
+    const pathParts = currentSrc.split("/");
+    const pieceFileName = pathParts[pathParts.length - 1];
+    const colorFolder = pathParts[pathParts.length - 2];
+
     const newSrc = `Assets/images/pieces/${pieceStyle}/${colorFolder}/${pieceFileName}`;
-    console.log('Updating piece from:', currentSrc, 'to:', newSrc);
-    
-    // Create a new image to preload
+
     const img = new Image();
-    img.onload = function() {
+    img.onload = function () {
       piece.src = newSrc;
     };
     img.src = newSrc;
@@ -231,20 +226,17 @@ function updatePieceImages() {
 function flipBoard() {
   const board = ROOT_DIV;
   const rows = Array.from(board.children);
-  
-  // Remove all rows
+
   while (board.firstChild) {
     board.removeChild(board.firstChild);
   }
-  
-  // Add rows back in reverse order
-  rows.reverse().forEach(row => {
-    // Reverse squares within each row
+
+  rows.reverse().forEach((row) => {
     const squares = Array.from(row.children);
     while (row.firstChild) {
       row.removeChild(row.firstChild);
     }
-    squares.reverse().forEach(square => row.appendChild(square));
+    squares.reverse().forEach((square) => row.appendChild(square));
     board.appendChild(row);
   });
 }
@@ -259,5 +251,5 @@ export {
   globalPiece,
   clearAllHighlightsExceptMove,
   updatePieceImages,
-  flipBoard
+  flipBoard,
 };
