@@ -23,56 +23,56 @@ function createDocumentation() {
             <h3>Key Features</h3>
             <ul>
               <li>
-                <img src="assets/images/features/no-signup-required.png" class="feature-icon" alt="No Signup" />
+                <img src="Assets/images/features/no-signup-required.png" class="feature-icon" alt="No Signup" />
                 <div class="feature-text">
                   <strong>No Signups Required</strong>
                   <p>Start playing immediately without account creation</p>
                 </div>
               </li>
               <li>
-                <img src="assets/images/features/always-available.png" class="feature-icon" alt="Always Available" />
+                <img src="Assets/images/features/always-available.png" class="feature-icon" alt="Always Available" />
                 <div class="feature-text">
                   <strong>Always Available</strong>
                   <p>Access anytime without interruptions</p>
                 </div>
               </li>
               <li>
-                <img src="assets/images/features/multi-device.png" class="feature-icon" alt="Cross Device" />
+                <img src="Assets/images/features/multi-device.png" class="feature-icon" alt="Cross Device" />
                 <div class="feature-text">
                   <strong>Cross-Device Compatibility</strong>
                   <p>Play on various devices and platforms</p>
                 </div>
               </li>
               <li>
-                <img src="assets/images/features/open-source.png" class="feature-icon" alt="Open Source" />
+                <img src="Assets/images/features/open-source.png" class="feature-icon" alt="Open Source" />
                 <div class="feature-text">
                   <strong>Open Source</strong>
                   <p>Modify and extend the code for your needs</p>
                 </div>
               </li>
               <li>
-                <img src="assets/images/features/privacy-focused.png" class="feature-icon" alt="Privacy" />
+                <img src="Assets/images/features/privacy-focused.png" class="feature-icon" alt="Privacy" />
                 <div class="feature-text">
                   <strong>Privacy-Focused</strong>
                   <p>No data collection or storage</p>
                 </div>
               </li>
               <li>
-                <img src="assets/images/features/free-access.png" class="feature-icon" alt="Free" />
+                <img src="Assets/images/features/free-access.png" class="feature-icon" alt="Free" />
                 <div class="feature-text">
                   <strong>Free Access</strong>
                   <p>No fees or licensing costs</p>
                 </div>
               </li>
               <li>
-                <img src="assets/images/features/optimized-performance.png" class="feature-icon" alt="Performance" />
+                <img src="Assets/images/features/optimized-performance.png" class="feature-icon" alt="Performance" />
                 <div class="feature-text">
                   <strong>Optimized Performance</strong>
                   <p>Fast and responsive gameplay</p>
                 </div>
               </li>
               <li>
-                <img src="assets/images/features/backend-independence.png" class="feature-icon" alt="Backend" />
+                <img src="Assets/images/features/backend-independence.png" class="feature-icon" alt="Backend" />
                 <div class="feature-text">
                   <strong>Back-End Independence</strong>
                   <p>Operates without a server</p>

@@ -2622,6 +2622,10 @@ body {
     margin-bottom: 16px;
   }
 
+  .doc-section-content {
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+
   .doc-section-header h3 {
     font-size: 18px;
   }
