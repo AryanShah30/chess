@@ -782,14 +782,6 @@ function createThemeSetup() {
         .setting-description {
           color: #666666 !important;
         }
-        .custom-button {
-          background: #e0e0e0 !important; 
-          color: #333333 !important;
-          border: 1px solid #d0d0d0 !important;
-        }
-        .custom-button:hover {
-          background: #d0d0d0 !important; 
-        }
         .section-icon {
           filter: none !important; 
         }
@@ -1148,10 +1140,14 @@ function createThemeSetup() {
       <div class="mobile-nav-modal" style="display: none;">
         <div class="mobile-nav-content">
           <div class="modal-header">
-            <h3>Game Controls</h3>
             <button class="doc-close-btn">CLOSE</button>
           </div>
           <div class="nav-buttons">
+          <div class="nav-button" data-action="settings">
+          <img src="Assets/images/game-settings.png" alt="Game Settings" class="section-icon">
+              <span>Game Settings</span>
+              <div class="button-description">Customize game settings</div>
+          </div>
             <div class="nav-button" data-action="flip">
               <img src="Assets/images/reset.png" alt="Flip Board" />
               <span>Flip Board</span>
@@ -1217,15 +1213,26 @@ function createThemeSetup() {
     navButtons.forEach(button => {
       button.addEventListener('click', () => {
         const action = button.dataset.action;
+        
+        // Update active states based on current status
         switch(action) {
+          case 'settings':
+            document.querySelector('.settings-button').click();
+            break;
           case 'flip':
-            document.querySelector('.flip-button').click();
+            const flipBtn = document.querySelector('.flip-button');
+            flipBtn.click();
+            button.classList.toggle('active', flipBtn.classList.contains('active'));
             break;
           case 'timer':
-            document.querySelector('.timer-button').click();
+            const timerBtn = document.querySelector('.timer-button');
+            timerBtn.click();
+            button.classList.toggle('active', timerBtn.classList.contains('active'));
             break;
           case 'theme':
-            document.querySelector('.theme-toggle-button').click();
+            const themeBtn = document.querySelector('.theme-toggle-button');
+            themeBtn.click();
+            button.classList.toggle('active', themeBtn.classList.contains('active'));
             break;
           case 'contact':
             document.querySelector('.contact-button').click();
@@ -1234,21 +1241,33 @@ function createThemeSetup() {
             window.open('https://github.com/AryanShah30/chess', '_blank');
             break;
         }
-        modal.classList.remove('active');
+
+        // Close modal with delay
         setTimeout(() => {
-          modal.style.display = 'none';
-        }, 300);
+          modal.classList.remove('active');
+          setTimeout(() => {
+            modal.style.display = 'none';
+          }, 300);
+        }, 100);
       });
     });
 
-    // Close modal when clicking outside
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
-        setTimeout(() => {
-          modal.style.display = 'none';
-        }, 300);
-      }
+    // Update active states when modal opens
+    newToggle.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      
+      // Sync active states with buttons
+      const flipBtn = document.querySelector('.flip-button');
+      const timerBtn = document.querySelector('.timer-button');
+      const themeBtn = document.querySelector('.theme-toggle-button');
+      
+      modal.querySelector('[data-action="flip"]').classList.toggle('active', flipBtn.classList.contains('active'));
+      modal.querySelector('[data-action="timer"]').classList.toggle('active', timerBtn.classList.contains('active'));
+      modal.querySelector('[data-action="theme"]').classList.toggle('active', themeBtn.classList.contains('active'));
+      
+      setTimeout(() => {
+        modal.classList.add('active');
+      }, 10);
     });
   }
 
