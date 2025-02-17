@@ -845,15 +845,7 @@ function updateStatusMessage() {
   const statusBox = document.getElementById('status-box');
   if (!statusBox) return;
 
-  let message = `It's ${inTurn.charAt(0).toUpperCase() + inTurn.slice(1)}'s turn`;
-  
-  if (lastMove) {
-    message += ` • ${lastMove.piece.piece_name.split('_')[0].charAt(0) + lastMove.piece.piece_name.split('_')[0].slice(1).toLowerCase()} last played ${lastMove.id}`;
-  }
-
-  if (whoInCheck) {
-    message += ` • ${whoInCheck.charAt(0).toUpperCase() + whoInCheck.slice(1)} is in check!`;
-  }
+  let message = `It's ${inTurn.charAt(0).toUpperCase() + inTurn.slice(1)}'s turn to move`;
 
   statusBox.textContent = message;
   statusBox.className = `status-box ${inTurn}-turn`;
@@ -1092,45 +1084,28 @@ function whiteRookClick(square) {
 }
 
 function whiteKnightClick(square) {
-  if (!square || !square.piece) return;
-
-  const piece = square.piece;
-
-  if (piece == selfHighlightState) {
-    clearPreviousSelfHighlight(selfHighlightState);
-    clearHighlightLocal();
-    return;
-  }
-
-  if (square.captureHighlight) {
-    movePiece(selfHighlightState, piece.current_position);
-    clearPreviousSelfHighlight(selfHighlightState);
-    clearHighlightLocal();
-    return;
-  }
-
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  selfHighlight(piece);
-  highlight_state = true;
+  const piece = square.piece;
   selfHighlightState = piece;
   moveState = piece;
+  
+  selfHighlight(piece);
 
   const current_pos = piece.current_position;
-  const flatArray = globalState.flat();
+  const possibleMoves = giveKnightHighlightIds(current_pos, "white");
 
-  let highlightSquareIds = giveKnightHighlightIds(current_pos);
-
-  highlightSquareIds.forEach((highlight) => {
-    const element = keySquareMapper[highlight];
-    element.highlight = true;
-  });
-
-  let captureIds = [];
-
-  highlightSquareIds.forEach((element) => {
-    checkPieceOfOpponentOnElement(element, "white");
+  // Handle regular moves
+  possibleMoves.forEach((moveId) => {
+    const targetSquare = keySquareMapper[moveId];
+    if (!targetSquare.piece) {
+      targetSquare.highlight = true;
+    } else if (targetSquare.piece.piece_name.includes("BLACK")) {
+      // Handle captures
+      document.getElementById(moveId).classList.add("captureColor");
+      targetSquare.captureHighlight = true;
+    }
   });
 
   globalStateRender();
@@ -1571,45 +1546,28 @@ function blackRookClick(square) {
 }
 
 function blackKnightClick(square) {
-  if (!square || !square.piece) return;
-
-  const piece = square.piece;
-
-  if (piece == selfHighlightState) {
-    clearPreviousSelfHighlight(selfHighlightState);
-    clearHighlightLocal();
-    return;
-  }
-
-  if (square.captureHighlight) {
-    movePiece(selfHighlightState, piece.current_position);
-    clearPreviousSelfHighlight(selfHighlightState);
-    clearHighlightLocal();
-    return;
-  }
-
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  selfHighlight(piece);
-  highlight_state = true;
+  const piece = square.piece;
   selfHighlightState = piece;
   moveState = piece;
+  
+  selfHighlight(piece);
 
   const current_pos = piece.current_position;
-  const flatArray = globalState.flat();
+  const possibleMoves = giveKnightHighlightIds(current_pos, "black");
 
-  let highlightSquareIds = giveKnightHighlightIds(current_pos);
-
-  highlightSquareIds.forEach((highlight) => {
-    const element = keySquareMapper[highlight];
-    element.highlight = true;
-  });
-
-  let captureIds = [];
-
-  highlightSquareIds.forEach((element) => {
-    checkPieceOfOpponentOnElement(element, "black");
+  // Handle regular moves
+  possibleMoves.forEach((moveId) => {
+    const targetSquare = keySquareMapper[moveId];
+    if (!targetSquare.piece) {
+      targetSquare.highlight = true;
+    } else if (targetSquare.piece.piece_name.includes("WHITE")) {
+      // Handle captures
+      document.getElementById(moveId).classList.add("captureColor");
+      targetSquare.captureHighlight = true;
+    }
   });
 
   globalStateRender();
