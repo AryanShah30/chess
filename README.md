@@ -105,3 +105,4 @@ This project is licensed under the [MIT License](LICENSE).
 ## Contact
 
 For inquiries or suggestions, please reach out through [GitHub Repository](https://github.com/AryanShah30/chess).
+
