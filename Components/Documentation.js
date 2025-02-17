@@ -1,3 +1,5 @@
+import { createBugReportModal } from '../Helper/bugReportModal.js';
+
 function createDocumentation() {
   const docIcon = document.createElement("button");
   docIcon.className = "doc-icon";
@@ -177,12 +179,16 @@ function createDocumentation() {
             <p>This project is a work in progress and not yet complete. As a complex front-end application without backend support, it may occasionally experience glitches or bugs. Efforts are ongoing to minimize these issues, but due to the intricacies of the code, unexpected behavior may occur in certain edge cases. In many cases, simply refreshing the page can resolve minor glitches.</p>
 
 <p>Your feedback is invaluable in identifying and addressing these scenarios. Feel free to suggest new features, report any issues, or share your experience. You can reach out through the contact button or contribute directly via the GitHub repository: GitHub Repo. Join the community and help improve the project!</p>
-            <div class="github-link-container">
+            <div class="github-link-container doc-links-container" style="display: flex; gap: 16px;">
               <a href="https://github.com/AryanShah30/chess" target="_blank" class="github-link">
                 <svg height="32" viewBox="0 0 16 16" width="32" class="github-icon">
                   <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
                 </svg>
                 <span>View on GitHub</span>
+              </a>
+              <a class="github-link bug-report-doc-link" style="cursor: pointer;">
+                <img src="Assets/images/bug.png" alt="Report Bug" class="github-icon bug-doc-icon" style="width: 32px; height: 32px;" />
+                <span>Report a Bug</span>
               </a>
             </div>
           </div>
@@ -222,6 +228,54 @@ function createDocumentation() {
     .documentation-overlay {
       transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    [data-theme="dark"] .bug-doc-icon {
+      filter: brightness(0) invert(1);
+    }
+
+    @media screen and (max-width: 768px) {
+      .doc-links-container {
+        gap: 4px !important;
+      }
+        .bug-doc-icon {
+      width: 20px !important;
+      height: 20px !important;
+    }
+    }
+
+    .future-card {
+      position: relative;
+    }
+
+    .future-card:hover::after {
+      content: 'Coming Soon';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: linear-gradient(135deg, #4caf50, #45a049);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+      animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
+      white-space: nowrap;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   `;
   document.head.appendChild(docStyle);
 
@@ -232,6 +286,19 @@ function createDocumentation() {
   const animateClose = () => {
     const docIcon = document.querySelector(".doc-icon");
     const iconRect = docIcon.getBoundingClientRect();
+
+    // Collapse all sections when closing
+    document.querySelectorAll('.doc-section-header').forEach(header => {
+      header.classList.add('collapsed');
+      const content = header.nextElementSibling;
+      if (content) {
+        content.style.display = 'none';
+      }
+      const svg = header.querySelector('svg');
+      if (svg) {
+        svg.style.transform = 'rotate(0deg)';
+      }
+    });
 
     docModal.style.transition = "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)";
     docModal.style.transform = `translate(${
@@ -257,22 +324,16 @@ function createDocumentation() {
   closeBtn.addEventListener("click", animateClose);
 
   docIcon.addEventListener("click", () => {
-    document.querySelectorAll('.doc-section-header').forEach(header => {
-      header.classList.add('collapsed');
-      const content = header.nextElementSibling;
-      if (content) {
-        content.style.display = 'none';
-      }
-      const svg = header.querySelector('svg');
-      if (svg) {
-        svg.style.transform = 'rotate(0deg)';
-      }
-    });
-
+    const docModal = document.querySelector('.documentation-modal');
     docModal.style.transform = "";
     docModal.style.opacity = "1";
     docOverlay.style.opacity = "1";
     docOverlay.style.display = "flex";
+    
+    // Force scroll to top immediately when opening
+    setTimeout(() => {
+      docModal.scrollTop = 0;
+    }, 0);
   });
 
   document.querySelectorAll('.doc-section-header').forEach(header => {
@@ -298,6 +359,30 @@ function createDocumentation() {
       }
     });
   });
+
+  const bugReportDocLink = document.querySelector('.bug-report-doc-link');
+  if (bugReportDocLink) {
+    bugReportDocLink.addEventListener('click', () => {
+      const docModal = document.querySelector('.documentation-modal');
+      
+      // Close all sections before hiding the modal
+      document.querySelectorAll('.doc-section-header').forEach(header => {
+        header.classList.add('collapsed');
+        const content = header.nextElementSibling;
+        if (content) {
+          content.style.display = 'none';
+        }
+        const svg = header.querySelector('svg');
+        if (svg) {
+          svg.style.transform = 'rotate(0deg)';
+        }
+      });
+      
+      docModal.scrollTop = 0;  // Reset scroll position
+      docOverlay.style.display = 'none';
+      createBugReportModal();
+    });
+  }
 }
 
 export { createDocumentation };
