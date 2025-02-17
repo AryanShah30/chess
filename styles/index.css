@@ -17,6 +17,7 @@ body {
   background-color: var(--container-bg-color, #ffffff);
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border: 15px solid var(--body-bg-color);  /* Add white border */
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
   perspective: 1000px;
@@ -230,6 +231,17 @@ body {
   border: 1px solid var(--border-color);
   margin-left: -20px;
   margin-right: 20px;
+}
+
+.board-controls {
+  display: flex;
+  flex-direction: column;  /* Change to vertical layout */
+  gap: 15px;  /* Vertical spacing between buttons */
+  position: absolute;
+  right: 20px;
+  top: 50%;  /* Center vertically */
+  transform: translateY(-50%);  /* Adjust for perfect vertical centering */
+  z-index: 1000;
 }
 
 .move-row {
@@ -819,6 +831,10 @@ body {
 }
 
 @media (max-width: 768px) {
+  #root {
+    border: none;  /* Remove border on mobile */
+  }
+
   .highlight {
     width: 20px;
     height: 20px;
