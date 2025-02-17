@@ -9,35 +9,45 @@ function createNotificationModal(message, isGameOver = false) {
   const modalContent = document.createElement("div");
   modalContent.className = "notification-modal";
 
+  if (isGameOver) {
+    modalContent.classList.add("game-over");
+    if (message.toLowerCase().includes("stalemate")) {
+      modalContent.classList.add("stalemate");
+    } else if (message.toLowerCase().includes("checkmate")) {
+      modalContent.classList.add("checkmate");
+    }
+  }
+
   const messageText = document.createElement("p");
   messageText.textContent = message;
 
   modalContent.appendChild(messageText);
 
   if (isGameOver) {
-    if (chessClock) chessClock.endGame();
-
     const buttonContainer = document.createElement("div");
     buttonContainer.className = "button-container";
 
-    const resetButton = document.createElement("button");
-    resetButton.textContent = "New Game";
-    resetButton.onclick = () => location.reload();
+    const newGameButton = document.createElement("button");
+    newGameButton.textContent = "New Game";
+    newGameButton.onclick = () => location.reload();
 
     const continueButton = document.createElement("button");
-    continueButton.textContent = "Continue";
-    continueButton.onclick = () => {
-      modalOverlay.remove();
-    };
+    continueButton.textContent = "Review Game";
+    continueButton.onclick = () => modalOverlay.remove();
 
-    buttonContainer.appendChild(resetButton);
+    buttonContainer.appendChild(newGameButton);
     buttonContainer.appendChild(continueButton);
     modalContent.appendChild(buttonContainer);
   } else {
     setTimeout(() => {
-      modalOverlay.remove();
-      if (chessClock && !chessClock.isGameOver) chessClock.resume();
-    }, 900);
+      modalOverlay.style.opacity = "0";
+      modalOverlay.style.transition = "opacity 0.6s ease-out";
+
+      setTimeout(() => {
+        modalOverlay.remove();
+        if (chessClock && !chessClock.isGameOver) chessClock.resume();
+      }, 600);
+    }, 1500);
   }
 
   modalOverlay.appendChild(modalContent);

@@ -18,6 +18,8 @@ function createDocumentation() {
           <button class="doc-close-btn">CLOSE</button>
         </div>
 
+        <p class="last-updated">Last updated on 17/02/2025</p>
+
         <div class="intro-section">
           <p>This web app aims to deliver a lightweight, fully accessible chess experience that operates entirely in the browser, without relying on backend servers. Unlike many existing chess platforms that require account creation, track user data, or depend on slow server interactions, this application offers a seamless and privacy-focused alternative.</p>
           <p> A fully open-source chess platform built from the ground up, allowing anyone to play, modify, and learn from the code. No external chess libraries were used—every aspect of the game, from move validation to special rules like castling and en passant, has been meticulously implemented using pure JavaScript, strictly following chess regulations. </p>
