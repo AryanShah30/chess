@@ -1,6 +1,6 @@
 # Zero-Lag Chess: The Ultimate Serverless Experience
 
-[Experience Chess Without Limits](https://aryanshah30.github.io/chess/)
+[Experience Chess Without Limits](https://aryanshah30.github.io/zero-lag-chess/)
 
 ## Overview
 
@@ -37,7 +37,7 @@ A fully open-source chess platform built from the ground up. No external chess l
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/AryanShah30/chess.git
+   git clone https://github.com/AryanShah30/zero-lag-chess.git
    ```
 
 2. Navigate to the project directory:
@@ -108,5 +108,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For inquiries or suggestions, please reach out through [GitHub Repository](https://github.com/AryanShah30/chess).
+For inquiries or suggestions, please reach out through [GitHub Repository](https://github.com/AryanShah30/zero-lag-chess).
 
