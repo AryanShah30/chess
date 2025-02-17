@@ -1,4 +1,4 @@
-# Chess Platform: A Fully Open-Source, Backend-Free Chess Experience
+# Zero-Lag Chess: The Ultimate Serverless Experience
 
 A fully open-source, browser-based chess platform delivering a lightweight and accessible chess experience—all without the need for backend servers.
 
@@ -94,11 +94,9 @@ Contributions are welcome! If you'd like to contribute:
 
 If you encounter any issues:
 
-1. Refresh the page first (as this is a frontend-only application)
-2. If the issue persists, please open an issue on GitHub with:
-   - A description of the problem
-   - Steps to reproduce
-   - Expected vs actual behavior
+1. Refresh the Page: Since this is a frontend-only application, a refresh might resolve minor glitches.
+2. Submit an Issue: Provide a detailed description, steps to reproduce the problem, and the expected versus actual behavior.
+3. Report via the Web App: Alternatively, you can directly report bugs using the 'Report Bugs' button within the web app for a quick and seamless submission.
 
 ## License
 
