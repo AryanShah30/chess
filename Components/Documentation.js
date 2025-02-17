@@ -13,7 +13,7 @@ function createDocumentation() {
         <div class="doc-header">
           <h2>
             <img src="Assets/images/documentation.png" alt="Documentation" class="doc-header-icon">
-            Platform Overview
+            Zero-Lag Chess
           </h2>
           <button class="doc-close-btn">CLOSE</button>
         </div>
