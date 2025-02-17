@@ -1,24 +1,24 @@
 export function createBugReportModal() {
-  console.log('Creating bug report modal'); // Add this to verify function is called
-  
-  const modalOverlay = document.createElement('div');
-  modalOverlay.className = 'bug-report-overlay';
+  console.log("Creating bug report modal");
 
-  const modalContent = document.createElement('div');
-  modalContent.className = 'bug-report-modal';
+  const modalOverlay = document.createElement("div");
+  modalOverlay.className = "bug-report-overlay";
+
+  const modalContent = document.createElement("div");
+  modalContent.className = "bug-report-modal";
 
   modalContent.innerHTML = `
     <div class="modal-header">
       <h3>Report a Bug</h3>
-      <button class="close-btn">&times;</button>
+      <button class="doc-close-btn">CLOSE</button>
     </div>
     <form class="bug-report-form">
       <label for="user-email">Your Email (optional)</label>
       <input type="email" id="user-email" placeholder="your@email.com">
-      
+
       <label for="bug-description">Bug Description</label>
       <textarea id="bug-description" required placeholder="Please describe the bug you encountered..."></textarea>
-      
+
       <button type="submit" class="bug-submit-btn">
         <span class="button-text">Submit Report</span>
         <span class="loading-spinner" style="display: none;">Sending...</span>
@@ -39,10 +39,9 @@ export function createBugReportModal() {
       </div>
     `;
 
-    const closeSuccessBtn = modalContent.querySelector('.close-success-btn');
-    closeSuccessBtn.addEventListener('click', () => modalOverlay.remove());
+    const closeSuccessBtn = modalContent.querySelector(".close-success-btn");
+    closeSuccessBtn.addEventListener("click", () => modalOverlay.remove());
 
-    // Automatically close after 3 seconds
     setTimeout(() => modalOverlay.remove(), 3000);
   }
 
@@ -57,48 +56,41 @@ export function createBugReportModal() {
       </div>
     `;
 
-    const closeErrorBtn = modalContent.querySelector('.close-error-btn');
-    closeErrorBtn.addEventListener('click', () => modalOverlay.remove());
+    const closeErrorBtn = modalContent.querySelector(".close-error-btn");
+    closeErrorBtn.addEventListener("click", () => modalOverlay.remove());
   }
 
-  // Add event listeners
-  const closeBtn = modalContent.querySelector('.close-btn');
-  closeBtn.addEventListener('click', () => modalOverlay.remove());
+  const closeBtn = modalContent.querySelector(".doc-close-btn");
+  closeBtn.addEventListener("click", () => modalOverlay.remove());
 
-  const form = modalContent.querySelector('form');
-  form.addEventListener('submit', async (e) => {
+  const form = modalContent.querySelector("form");
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    
-    const submitBtn = form.querySelector('.bug-submit-btn');
-    const buttonText = submitBtn.querySelector('.button-text');
-    const loadingSpinner = submitBtn.querySelector('.loading-spinner');
-    
-    // Show loading state
-    buttonText.style.display = 'none';
-    loadingSpinner.style.display = 'inline';
+
+    const submitBtn = form.querySelector(".bug-submit-btn");
+    const buttonText = submitBtn.querySelector(".button-text");
+    const loadingSpinner = submitBtn.querySelector(".loading-spinner");
+
+    buttonText.style.display = "none";
+    loadingSpinner.style.display = "inline";
     submitBtn.disabled = true;
 
     try {
-      const description = form.querySelector('#bug-description').value;
-      const userEmail = form.querySelector('#user-email').value;
+      const description = form.querySelector("#bug-description").value;
+      const userEmail = form.querySelector("#user-email").value;
 
-      // Send email using EmailJS
-      await emailjs.send(
-        "service_16cjexb", // Add your EmailJS service ID
-        "template_kjzrmdq", // Add your EmailJS template ID
-        {
-          from_email: userEmail || "Anonymous User",
-          bug_description: description,
-          date: new Date().toLocaleString(),
-          url: window.location.href,
-          user_agent: navigator.userAgent
-        }
-      );
+      await emailjs.send("service_16cjexb", "template_kjzrmdq", {
+        from_email: userEmail || "Anonymous User",
+        bug_description: description,
+        date: new Date().toLocaleString(),
+        url: window.location.href,
+        user_agent: navigator.userAgent,
+      });
 
       showSuccessMessage();
     } catch (error) {
-      console.error('Failed to send bug report:', error);
+      console.error("Failed to send bug report:", error);
       showErrorMessage(error);
     }
   });
-} 
+}

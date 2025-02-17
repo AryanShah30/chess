@@ -1,7 +1,7 @@
 import { updatePieceImages } from "../Render/main.js";
 import { flipBoard } from "../Render/main.js";
 import { chessClock } from "../index.js";
-import { createBugReportModal } from '../Helper/bugReportModal.js';
+import { createBugReportModal } from "../Helper/bugReportModal.js";
 
 const pieceThemes = [
   "alpha",
@@ -130,7 +130,11 @@ function createThemeSetup() {
             </div>
             <div class="setting-option" id="auto-promotion-container">
               <label class="setting-label">
-                <span class="setting-icon ${localStorage.getItem('chess-auto-queen') === 'true' ? 'active-green' : ''}" id="auto-queen-setting">
+                <span class="setting-icon ${
+                  localStorage.getItem("chess-auto-queen") === "true"
+                    ? "active-green"
+                    : ""
+                }" id="auto-queen-setting">
                   <img src="Assets/images/queen.png" alt="Auto Queen">
                 </span>
                 Auto Queen Promotion
@@ -697,8 +701,8 @@ function createThemeSetup() {
       width: 28px;
       height: 28px;
       filter: ${
-        localStorage.getItem("chess-theme-mode") === "light" 
-          ? "brightness(0)" 
+        localStorage.getItem("chess-theme-mode") === "light"
+          ? "brightness(0)"
           : "none"
       };
     }
@@ -730,8 +734,8 @@ function createThemeSetup() {
       width: 24px;
       height: 24px;
       filter: ${
-        localStorage.getItem("chess-theme-mode") === "light" 
-          ? "brightness(0)" 
+        localStorage.getItem("chess-theme-mode") === "light"
+          ? "brightness(0)"
           : "none"
       };
     }
@@ -921,11 +925,12 @@ function createThemeSetup() {
 
     localStorage.setItem("chess-theme-piece-style", "default");
 
-    // Reset auto promotion setting
-    localStorage.setItem('chess-auto-queen', 'false');
-    const autoPromotionIcon = document.querySelector('#auto-promotion-container .setting-icon');
+    localStorage.setItem("chess-auto-queen", "false");
+    const autoPromotionIcon = document.querySelector(
+      "#auto-promotion-container .setting-icon"
+    );
     if (autoPromotionIcon) {
-      autoPromotionIcon.classList.remove('active-green');
+      autoPromotionIcon.classList.remove("active-green");
     }
 
     updateColors();
@@ -1165,10 +1170,9 @@ function createThemeSetup() {
     }
   });
 
-  // Add mobile navigation functionality
   function setupMobileNavigation() {
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-    const boardControls = document.querySelector('.board-controls');
+    const mobileNavToggle = document.querySelector(".mobile-nav-toggle");
+    const boardControls = document.querySelector(".board-controls");
 
     if (!mobileNavToggle || !boardControls) return;
 
@@ -1214,106 +1218,123 @@ function createThemeSetup() {
       </div>
     `;
 
-    if (!document.querySelector('.mobile-nav-modal')) {
-      document.body.insertAdjacentHTML('beforeend', modalHTML);
+    if (!document.querySelector(".mobile-nav-modal")) {
+      document.body.insertAdjacentHTML("beforeend", modalHTML);
     }
 
-    const modal = document.querySelector('.mobile-nav-modal');
-    const modalClose = modal.querySelector('.doc-close-btn');
+    const modal = document.querySelector(".mobile-nav-modal");
+    const modalClose = modal.querySelector(".doc-close-btn");
 
     mobileNavToggle.replaceWith(mobileNavToggle.cloneNode(true));
-    
-    const newToggle = document.querySelector('.mobile-nav-toggle');
 
-    newToggle.addEventListener('click', () => {
-      modal.style.display = 'flex';
+    const newToggle = document.querySelector(".mobile-nav-toggle");
+
+    newToggle.addEventListener("click", () => {
+      modal.style.display = "flex";
       setTimeout(() => {
-        modal.classList.add('active');
+        modal.classList.add("active");
       }, 10);
     });
 
-    modalClose.addEventListener('click', () => {
-      modal.classList.remove('active');
+    modalClose.addEventListener("click", () => {
+      modal.classList.remove("active");
       setTimeout(() => {
-        modal.style.display = 'none';
+        modal.style.display = "none";
       }, 300);
     });
 
-    const navButtons = modal.querySelectorAll('.nav-button');
-    navButtons.forEach(button => {
-      button.addEventListener('click', () => {
+    const navButtons = modal.querySelectorAll(".nav-button");
+    navButtons.forEach((button) => {
+      button.addEventListener("click", () => {
         const action = button.dataset.action;
 
-        switch(action) {
-          case 'settings':
-            document.querySelector('.settings-button').click();
+        switch (action) {
+          case "settings":
+            document.querySelector(".settings-button").click();
             break;
-          case 'flip':
-            const flipBtn = document.querySelector('.flip-button');
+          case "flip":
+            const flipBtn = document.querySelector(".flip-button");
             flipBtn.click();
-            button.classList.toggle('active', flipBtn.classList.contains('active'));
+            button.classList.toggle(
+              "active",
+              flipBtn.classList.contains("active")
+            );
             break;
-          case 'timer':
-            const timerBtn = document.querySelector('.timer-button');
+          case "timer":
+            const timerBtn = document.querySelector(".timer-button");
             timerBtn.click();
-            button.classList.toggle('active', timerBtn.classList.contains('active'));
+            button.classList.toggle(
+              "active",
+              timerBtn.classList.contains("active")
+            );
             break;
-          case 'theme':
-            const themeBtn = document.querySelector('.theme-toggle-button');
+          case "theme":
+            const themeBtn = document.querySelector(".theme-toggle-button");
             themeBtn.click();
-            button.classList.toggle('active', themeBtn.classList.contains('active'));
+            button.classList.toggle(
+              "active",
+              themeBtn.classList.contains("active")
+            );
             break;
-          case 'contact':
-            document.querySelector('.contact-button').click();
+          case "contact":
+            document.querySelector(".contact-button").click();
             break;
-          case 'github':
-            window.open('https://github.com/AryanShah30/chess', '_blank');
+          case "github":
+            window.open("https://github.com/AryanShah30/chess", "_blank");
             break;
         }
 
         setTimeout(() => {
-          modal.classList.remove('active');
+          modal.classList.remove("active");
           setTimeout(() => {
-            modal.style.display = 'none';
+            modal.style.display = "none";
           }, 300);
         }, 100);
       });
     });
 
-    newToggle.addEventListener('click', () => {
-      modal.style.display = 'flex';
-      
-      const flipBtn = document.querySelector('.flip-button');
-      const timerBtn = document.querySelector('.timer-button');
-      const themeBtn = document.querySelector('.theme-toggle-button');
-      
-      modal.querySelector('[data-action="flip"]').classList.toggle('active', flipBtn.classList.contains('active'));
-      modal.querySelector('[data-action="timer"]').classList.toggle('active', timerBtn.classList.contains('active'));
-      modal.querySelector('[data-action="theme"]').classList.toggle('active', themeBtn.classList.contains('active'));
-      
+    newToggle.addEventListener("click", () => {
+      modal.style.display = "flex";
+
+      const flipBtn = document.querySelector(".flip-button");
+      const timerBtn = document.querySelector(".timer-button");
+      const themeBtn = document.querySelector(".theme-toggle-button");
+
+      modal
+        .querySelector('[data-action="flip"]')
+        .classList.toggle("active", flipBtn.classList.contains("active"));
+      modal
+        .querySelector('[data-action="timer"]')
+        .classList.toggle("active", timerBtn.classList.contains("active"));
+      modal
+        .querySelector('[data-action="theme"]')
+        .classList.toggle("active", themeBtn.classList.contains("active"));
+
       setTimeout(() => {
-        modal.classList.add('active');
+        modal.classList.add("active");
       }, 10);
     });
   }
 
   setupMobileNavigation();
 
-  window.addEventListener('resize', setupMobileNavigation);
+  window.addEventListener("resize", setupMobileNavigation);
 
-  const autoPromotionContainer = document.querySelector('#auto-promotion-container');
+  const autoPromotionContainer = document.querySelector(
+    "#auto-promotion-container"
+  );
   if (autoPromotionContainer) {
-    autoPromotionContainer.addEventListener('click', () => {
-      const icon = autoPromotionContainer.querySelector('.setting-icon');
-      const currentValue = localStorage.getItem('chess-auto-queen') === 'true';
-      localStorage.setItem('chess-auto-queen', !currentValue);
-      icon.classList.toggle('active-green');
+    autoPromotionContainer.addEventListener("click", () => {
+      const icon = autoPromotionContainer.querySelector(".setting-icon");
+      const currentValue = localStorage.getItem("chess-auto-queen") === "true";
+      localStorage.setItem("chess-auto-queen", !currentValue);
+      icon.classList.toggle("active-green");
     });
   }
 
-  const bugReportButton = document.querySelector('.bug-report-button');
-  bugReportButton.addEventListener('click', () => {
-    console.log('Bug report button clicked');
+  const bugReportButton = document.querySelector(".bug-report-button");
+  bugReportButton.addEventListener("click", () => {
+    console.log("Bug report button clicked");
     createBugReportModal();
   });
 }

@@ -1,4 +1,4 @@
-import { createBugReportModal } from '../Helper/bugReportModal.js';
+import { createBugReportModal } from "../Helper/bugReportModal.js";
 
 function createDocumentation() {
   const docIcon = document.createElement("button");
@@ -287,16 +287,15 @@ function createDocumentation() {
     const docIcon = document.querySelector(".doc-icon");
     const iconRect = docIcon.getBoundingClientRect();
 
-    // Collapse all sections when closing
-    document.querySelectorAll('.doc-section-header').forEach(header => {
-      header.classList.add('collapsed');
+    document.querySelectorAll(".doc-section-header").forEach((header) => {
+      header.classList.add("collapsed");
       const content = header.nextElementSibling;
       if (content) {
-        content.style.display = 'none';
+        content.style.display = "none";
       }
-      const svg = header.querySelector('svg');
+      const svg = header.querySelector("svg");
       if (svg) {
-        svg.style.transform = 'rotate(0deg)';
+        svg.style.transform = "rotate(0deg)";
       }
     });
 
@@ -324,62 +323,60 @@ function createDocumentation() {
   closeBtn.addEventListener("click", animateClose);
 
   docIcon.addEventListener("click", () => {
-    const docModal = document.querySelector('.documentation-modal');
+    const docModal = document.querySelector(".documentation-modal");
     docModal.style.transform = "";
     docModal.style.opacity = "1";
     docOverlay.style.opacity = "1";
     docOverlay.style.display = "flex";
-    
-    // Force scroll to top immediately when opening
+
     setTimeout(() => {
       docModal.scrollTop = 0;
     }, 0);
   });
 
-  document.querySelectorAll('.doc-section-header').forEach(header => {
-    header.addEventListener('click', () => {
+  document.querySelectorAll(".doc-section-header").forEach((header) => {
+    header.addEventListener("click", () => {
       const content = header.nextElementSibling;
-      const isCollapsed = header.classList.contains('collapsed');
+      const isCollapsed = header.classList.contains("collapsed");
 
-      document.querySelectorAll('.doc-section-header').forEach(h => {
+      document.querySelectorAll(".doc-section-header").forEach((h) => {
         if (h !== header) {
-          h.classList.add('collapsed');
-          h.nextElementSibling.style.display = 'none';
-          const svg = h.querySelector('svg');
-          if (svg) svg.style.transform = 'rotate(0deg)';
+          h.classList.add("collapsed");
+          h.nextElementSibling.style.display = "none";
+          const svg = h.querySelector("svg");
+          if (svg) svg.style.transform = "rotate(0deg)";
         }
       });
 
-      header.classList.toggle('collapsed');
-      content.style.display = isCollapsed ? 'block' : 'none';
-      
-      const svg = header.querySelector('svg');
+      header.classList.toggle("collapsed");
+      content.style.display = isCollapsed ? "block" : "none";
+
+      const svg = header.querySelector("svg");
       if (svg) {
-        svg.style.transform = isCollapsed ? 'rotate(-180deg)' : 'rotate(0deg)';
+        svg.style.transform = isCollapsed ? "rotate(-180deg)" : "rotate(0deg)";
       }
     });
   });
 
-  const bugReportDocLink = document.querySelector('.bug-report-doc-link');
+  const bugReportDocLink = document.querySelector(".bug-report-doc-link");
   if (bugReportDocLink) {
-    bugReportDocLink.addEventListener('click', () => {
-      const docModal = document.querySelector('.documentation-modal');
-      
-      // Close all sections before hiding the modal
-      document.querySelectorAll('.doc-section-header').forEach(header => {
-        header.classList.add('collapsed');
+    bugReportDocLink.addEventListener("click", () => {
+      const docModal = document.querySelector(".documentation-modal");
+
+      document.querySelectorAll(".doc-section-header").forEach((header) => {
+        header.classList.add("collapsed");
         const content = header.nextElementSibling;
         if (content) {
-          content.style.display = 'none';
+          content.style.display = "none";
         }
-        const svg = header.querySelector('svg');
+        const svg = header.querySelector("svg");
         if (svg) {
-          svg.style.transform = 'rotate(0deg)';
+          svg.style.transform = "rotate(0deg)";
         }
       });
-      
-      docModal.scrollTop = 0;  // Reset scroll position
-      docOverlay.style.display = 'none';
+
+      docModal.scrollTop = 0;
+      docOverlay.style.display = "none";
       createBugReportModal();
     });
   }

@@ -17,7 +17,7 @@ body {
   background-color: var(--container-bg-color, #ffffff);
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  border: 15px solid var(--body-bg-color);  /* Add white border */
+  border: 15px solid var(--body-bg-color);  
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
   perspective: 1000px;
@@ -235,12 +235,12 @@ body {
 
 .board-controls {
   display: flex;
-  flex-direction: column;  /* Change to vertical layout */
-  gap: 15px;  /* Vertical spacing between buttons */
+  flex-direction: column;  
+  gap: 15px;  
   position: absolute;
   right: 20px;
-  top: 50%;  /* Center vertically */
-  transform: translateY(-50%);  /* Adjust for perfect vertical centering */
+  top: 50%;  
+  transform: translateY(-50%);  
   z-index: 1000;
 }
 
@@ -832,7 +832,7 @@ body {
 
 @media (max-width: 768px) {
   #root {
-    border: none;  /* Remove border on mobile */
+    border: none;  
   }
 
   .highlight {
@@ -2978,7 +2978,6 @@ body {
   }
 }
 
-/* Add a subtle pulse animation to the success icon */
 .success-icon {
   animation: scaleIn 0.5s ease-out, pulse 2s ease-in-out infinite;
 }
@@ -2995,7 +2994,6 @@ body {
   }
 }
 
-/* Add overlay fade animation */
 .bug-report-overlay {
   animation: fadeIn 0.3s ease-out;
 }
