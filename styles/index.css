@@ -2734,3 +2734,277 @@ body {
   background: #4CAF50;
   color: white;
 }
+
+.bug-report-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+}
+
+.bug-report-modal {
+  background: var(--container-bg-color);
+  border-radius: 20px;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 28px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.bug-report-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.bug-report-form label {
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.bug-report-form textarea {
+  background: var(--button-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  min-height: 100px;
+  color: var(--text-color);
+  font-size: 14px;
+  resize: vertical;
+}
+
+.bug-report-form textarea:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+.bug-submit-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.bug-submit-btn:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.bug-submit-btn:active {
+  transform: translateY(0);
+}
+
+.bug-report-form input[type="email"] {
+  background: var(--button-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--text-color);
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bug-report-form input[type="email"]:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+.loading-spinner {
+  color: white;
+  font-size: 14px;
+}
+
+.bug-submit-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.success-message, .error-message {
+  text-align: center;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.success-icon, .error-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 36px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  animation: scaleIn 0.5s ease-out;
+}
+
+.success-icon {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+}
+
+.error-icon {
+  background: linear-gradient(135deg, #f44336, #e53935);
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+.success-message h3, .error-message h3 {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 24px;
+  font-weight: 500;
+  animation: fadeInUp 0.5s ease-out 0.2s both;
+}
+
+.success-message p, .error-message p {
+  margin: 0;
+  color: var(--text-color);
+  opacity: 0.8;
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 300px;
+  animation: fadeInUp 0.5s ease-out 0.3s both;
+}
+
+.close-success-btn, .close-error-btn {
+  margin-top: 10px;
+  background: var(--button-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.5s ease-out 0.4s both;
+}
+
+.close-success-btn:hover, .close-error-btn:hover {
+  background: #4caf50;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.close-success-btn:active, .close-error-btn:active {
+  transform: translateY(0);
+}
+
+.error-details {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: -5px;
+  animation: fadeInUp 0.5s ease-out 0.35s both;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add a subtle pulse animation to the success icon */
+.success-icon {
+  animation: scaleIn 0.5s ease-out, pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.45);
+  }
+  100% {
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+}
+
+/* Add overlay fade animation */
+.bug-report-overlay {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

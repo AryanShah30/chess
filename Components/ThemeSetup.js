@@ -1,6 +1,7 @@
 import { updatePieceImages } from "../Render/main.js";
 import { flipBoard } from "../Render/main.js";
 import { chessClock } from "../index.js";
+import { createBugReportModal } from '../Helper/bugReportModal.js';
 
 const pieceThemes = [
   "alpha",
@@ -81,6 +82,9 @@ function createThemeSetup() {
       </button>
       <button class="code-button" title="GitHub" onclick="window.open('https://github.com/AryanShah30/chess', '_blank')">
         <img src="Assets/images/code.png" alt="GitHub" />
+      </button>
+      <button class="bug-report-button theme-toggle-button" title="Report Bugs">
+        <img src="Assets/images/bug.png" alt="Report Bugs" />
       </button>
     </div>
   `;
@@ -1306,6 +1310,12 @@ function createThemeSetup() {
       icon.classList.toggle('active-green');
     });
   }
+
+  const bugReportButton = document.querySelector('.bug-report-button');
+  bugReportButton.addEventListener('click', () => {
+    console.log('Bug report button clicked');
+    createBugReportModal();
+  });
 }
 
 export { createThemeSetup };

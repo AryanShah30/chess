@@ -71,11 +71,6 @@ class Scoresheet {
       notation += "+";
     }
 
-    if (isEnPassant) {
-      notation += " e.p.";
-      console.log("Added en passant:", notation);
-    }
-
     console.log("Final notation with symbols:", notation);
     return notation;
   }
