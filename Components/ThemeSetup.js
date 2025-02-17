@@ -124,6 +124,17 @@ function createThemeSetup() {
             <div class="setting-description">
               Automatically rotates the board 180° when a player completes their turn, providing each player's perspective.
             </div>
+            <div class="setting-option" id="auto-promotion-container">
+              <label class="setting-label">
+                <span class="setting-icon ${localStorage.getItem('chess-auto-queen') === 'true' ? 'active-green' : ''}" id="auto-queen-setting">
+                  <img src="Assets/images/queen.png" alt="Auto Queen">
+                </span>
+                Auto Queen Promotion
+              </label>
+            </div>
+            <div class="setting-description" style="margin-bottom: 16px;">
+              Automatically promotes pawns to queens without showing the promotion dialog.
+            </div>
           </div>
         </div>
 
@@ -728,6 +739,21 @@ function createThemeSetup() {
     .code-button:hover {
       background: var(--button-hover, #f0f0f0);
     }
+
+    .setting-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .setting-status {
+      font-size: 12px;
+      color: var(--secondary-text-color);
+    }
+
+    [data-theme="dark"] .setting-status {
+      color: var(--dark-secondary-text-color);
+    }
   `;
 
   const styleSheet = document.createElement("style");
@@ -890,6 +916,13 @@ function createThemeSetup() {
     );
 
     localStorage.setItem("chess-theme-piece-style", "default");
+
+    // Reset auto promotion setting
+    localStorage.setItem('chess-auto-queen', 'false');
+    const autoPromotionIcon = document.querySelector('#auto-promotion-container .setting-icon');
+    if (autoPromotionIcon) {
+      autoPromotionIcon.classList.remove('active-green');
+    }
 
     updateColors();
     updatePieceImages();
@@ -1263,6 +1296,16 @@ function createThemeSetup() {
   setupMobileNavigation();
 
   window.addEventListener('resize', setupMobileNavigation);
+
+  const autoPromotionContainer = document.querySelector('#auto-promotion-container');
+  if (autoPromotionContainer) {
+    autoPromotionContainer.addEventListener('click', () => {
+      const icon = autoPromotionContainer.querySelector('.setting-icon');
+      const currentValue = localStorage.getItem('chess-auto-queen') === 'true';
+      localStorage.setItem('chess-auto-queen', !currentValue);
+      icon.classList.toggle('active-green');
+    });
+  }
 }
 
 export { createThemeSetup };

@@ -949,6 +949,7 @@ body {
   margin-left: 36px;
   margin-top: 8px;
   line-height: 1.4;
+  margin-bottom: 15px;
 }
 
 #root.flipping {
@@ -2665,4 +2666,55 @@ body {
     height: 100%;
     object-fit: contain;
   }
+}
+
+.setting-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: var(--button-bg-color);
+  transition: all 0.3s ease;
+}
+
+.setting-icon img {
+  width: 20px;
+  height: 20px;
+  transition: filter 0.3s ease;
+}
+
+.setting-icon.active {
+  background: var(--highlight-color);
+}
+
+[data-theme="dark"] .setting-icon img {
+  filter: brightness(0) invert(1);
+}
+
+[data-theme="dark"] .setting-icon.active img {
+  filter: brightness(0) invert(1);
+}
+
+.setting-icon.active-green {
+  background: #4CAF50;
+}
+
+[data-theme="dark"] .setting-icon.active-green img {
+  filter: brightness(0) invert(1);
+}
+
+.setting-option.active-green {
+  background: #4CAF50;
+  color: white;
+}
+
+.setting-option.active-green .setting-icon img {
+  filter: brightness(0) invert(1);
+}
+
+[data-theme="dark"] .setting-option.active-green {
+  background: #4CAF50;
+  color: white;
 }

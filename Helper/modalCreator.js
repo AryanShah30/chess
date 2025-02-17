@@ -38,6 +38,14 @@ class ModalCreator {
 }
 
 export function pawnPromotion(color, callback) {
+  // Check if auto-queen is enabled
+  if (localStorage.getItem('chess-auto-queen') === 'true') {
+    // Directly call callback with Queen constructor
+    const queenConstructor = color === 'white' ? whiteQueen : blackQueen;
+    callback(queenConstructor);
+    return;
+  }
+
   const modalOverlay = document.createElement("div");
   modalOverlay.className = "promotion-overlay";
 
