@@ -3,19 +3,18 @@ import { globalPiece } from "../Render/main.js";
 
 function checkPieceOfOpponentOnElement(id, color) {
   const opponentColor = color === "white" ? "BLACK" : "WHITE";
-
   const element = keySquareMapper[id];
 
   if (!element || !element.piece) return false;
 
-  const pieceName = element.piece.piece_name.toLowerCase();
+  const pieceName = element.piece.piece_name.toUpperCase();
 
-  if (pieceName.includes(opponentColor.toLowerCase())) {
+  if (pieceName.includes(opponentColor)) {
     const el = document.getElementById(id);
-    el.classList.add("captureColor");
-
-    element.captureHighlight = true;
-
+    if (el) {
+      el.classList.add("captureColor");
+      element.captureHighlight = true;
+    }
     return true;
   }
 

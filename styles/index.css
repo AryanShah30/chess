@@ -60,7 +60,8 @@ body {
 }
 
 .captureColor {
-  background-color: #e77c66;
+  background-color: #e77c66 !important;
+  transition: background-color 0.2s ease;
 }
 
 .highlight {

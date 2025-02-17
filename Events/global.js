@@ -419,7 +419,10 @@ function callbackPawnPromotion(piece, id, originalPosition) {
   );
 
   changeTurn();
-  chessClock.switchTurn();
+  // Only switch turn on chess clock if it exists
+  if (chessClock) {
+    chessClock.switchTurn();
+  }
 
   if (checkForDraw()) {
     return;
@@ -656,7 +659,10 @@ function movePiece(piece, targetSquare, castle) {
         );
 
         changeTurn();
-        chessClock.switchTurn();
+        // Only switch turn on chess clock if it exists
+        if (chessClock) {
+          chessClock.switchTurn();
+        }
       });
       return;
     }
@@ -822,7 +828,10 @@ function movePiece(piece, targetSquare, castle) {
     );
 
     changeTurn();
-    chessClock.switchTurn();
+    // Only switch turn on chess clock if it exists
+    if (chessClock) {
+      chessClock.switchTurn();
+    }
   }
 
   if (checkForDraw()) {
