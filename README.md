@@ -55,7 +55,9 @@ chess/
 │   └── pieces/           # Chess piece images
 ├── Components/
 │   ├── ChessClock.js     # Chess clock functionality
+│   ├── ClockSetup.js     # Clock setup interface
 │   ├── Documentation.js  # In-app documentation
+│   ├── Scoresheet.js     # For managing game scoresheet
 │   └── ThemeSetup.js     # Theme and color customization
 ├── Data/
 │   ├── data.js           # General data configurations
@@ -63,12 +65,14 @@ chess/
 ├── Events/
 │   └── global.js         # Global event handling
 ├── Helper/
+│   ├── bugReportModal.js # Bug report modal
 │   ├── commonHelper.js   # Common utility functions
 │   ├── constants.js      # Constant values used across the app
+│   ├── modalCreator.js   # Helper for creating modals
 │   └── notifications.js  # User notifications and alerts
 ├── Render/
 │   └── main.js           # Main rendering logic for the board and pieces
-├── styles/
+├── Styles/
 │   └── index.css         # Styling for the application
 ├── index.html            # Entry point for the app
 └── index.js              # Main JavaScript file
