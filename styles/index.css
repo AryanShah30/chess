@@ -819,6 +819,16 @@ body {
 }
 
 @media (max-width: 768px) {
+  .highlight {
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    margin-top: 13px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: block;
+  }
+
   .theme-modal-content {
     min-width: 95%;
     padding: 20px;
@@ -973,24 +983,6 @@ body {
 
 .flip-icon:active {
   transform: scale(0.95) rotate(180deg);
-}
-
-@media (max-width: 480px) {
-  .theme-modal-content {
-    min-width: 95%;
-    width: 95%;
-    padding: 20px;
-  }
-}
-
-.board-controls {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 100;
 }
 
 .flip-button {
@@ -1620,17 +1612,6 @@ body {
   border-color: #4caf50;
 }
 
-.setup-disclaimer {
-  background-color: rgba(255, 0, 0, 0.1);
-  color: #d32f2f;
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  font-size: 14px;
-  text-align: center;
-  border: 1px solid rgba(255, 0, 0, 0.2);
-}
-
 .doc-close-btn,
 .close-setup-btn {
   background: var(--button-bg);
@@ -2228,10 +2209,11 @@ body {
 
   /* Scoresheet adjustments */
   .scoresheet {
-    width: 100%;
     margin: 1rem 0;
     height: 200px;
     order: 3;
+    padding-top: 10px;
+    margin-top: 0px;
   }
 
   /* Navigation and controls */
@@ -2417,8 +2399,7 @@ body {
 
   .doc-close-btn {
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 30px;
     background: transparent;
     color: var(--text-color);
     border: 1px solid var(--border-color);
@@ -2512,5 +2493,208 @@ body {
     .mobile-nav-content {
       padding-bottom: calc(env(safe-area-inset-bottom) + 24px);
     }
+  }
+}
+
+/* Mobile-specific styles for clock setup modal */
+@media screen and (max-width: 768px) {
+  .clock-setup-modal {
+    width: 90%;
+    max-width: 400px;
+    padding: 12px;
+    margin: 10px;
+    transform: scale(0.95);
+  }
+
+  .setup-header {
+    margin-bottom: 6px;
+  }
+
+  .setup-header h2 {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .setup-header .header-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .setup-disclaimer {
+    font-size: 11px;
+    padding: 6px;
+    margin: 6px 0;
+  }
+
+  .player-setup {
+    padding: 8px;
+    margin: 8px 0;
+  }
+
+  .player-setup h3 {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  #player1-name-input,
+  #player2-name-input {
+    padding: 6px;
+    height: 32px;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .time-setup {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .time-input-group {
+    margin-bottom: 0;
+  }
+
+  .time-input-group input {
+    width: 100%;
+    padding: 4px;
+    height: 28px;
+    font-size: 13px;
+  }
+
+  .time-input-group label {
+    font-size: 10px;
+    margin-top: 2px;
+  }
+
+  .button-container {
+    margin-top: 12px;
+  }
+
+  #start-game {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 0;
+  }
+
+  .close-setup-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+}
+
+/* Additional adjustments for even smaller screens */
+@media screen and (max-width: 480px) {
+  .clock-setup-modal {
+    width: 95%;
+    padding: 10px;
+    margin: 8px;
+    transform: scale(0.9);
+  }
+
+  .time-setup {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+  }
+}
+
+/* Mobile-specific styles for documentation modal */
+@media screen and (max-width: 768px) {
+  .documentation-modal {
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  .doc-header {
+    margin-bottom: 20px;
+  }
+
+  .doc-header h2 {
+    font-size: 20px;
+  }
+
+  .doc-section {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .doc-section-header h3 {
+    font-size: 18px;
+  }
+
+  .doc-section-content li {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .feature-card {
+    padding: 12px;
+  }
+
+  .feature-card .feature-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .feature-card h4 {
+    font-size: 14px;
+  }
+
+  .feature-card p {
+    font-size: 12px;
+  }
+
+  .documentation-overlay {
+    padding: 10px;
+  }
+}
+
+/* Mobile-specific styles for navigation close button */
+@media screen and (max-width: 768px) {
+  .mobile-nav-modal .doc-close-btn {
+    margin-top: 22px;
+  }
+}
+
+/* Mobile menu icon dark theme adjustment */
+@media screen and (max-width: 768px) {
+  [data-theme="dark"] .menu-icon {
+    filter: brightness(0) invert(1);
+  }
+}
+
+/* Mobile-specific styles for pawn promotion modal */
+@media screen and (max-width: 768px) {
+  .promotion-modal {
+    width: 280px;
+    padding: 10px;
+  }
+
+  .promotion-pieces {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .promotion-piece {
+    width: 50px;
+    height: 50px;
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  .promotion-piece img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 }

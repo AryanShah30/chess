@@ -1146,7 +1146,7 @@ function createThemeSetup() {
           <div class="nav-button" data-action="settings">
           <img src="Assets/images/game-settings.png" alt="Game Settings" class="section-icon">
               <span>Game Settings</span>
-              <div class="button-description">Customize game settings</div>
+              <div class="button-description">Customize settings and themes</div>
           </div>
             <div class="nav-button" data-action="flip">
               <img src="Assets/images/reset.png" alt="Flip Board" />
@@ -1154,9 +1154,9 @@ function createThemeSetup() {
               <div class="button-description">Rotate the board 180 degrees</div>
             </div>
             <div class="nav-button" data-action="timer">
-              <img src="Assets/images/timer.png" alt="Timer" />
-              <span>Timer</span>
-              <div class="button-description">Control game clock</div>
+              <img src="Assets/images/timer.png" alt="Clock Control" />
+              <span>Clock Control</span>
+              <div class="button-description">Control game clock to start and stop</div>
             </div>
             <div class="nav-button" data-action="theme">
               <img src="Assets/images/dark-mode.png" alt="Theme" />
