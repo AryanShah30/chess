@@ -1,8 +1,8 @@
-# Chess Webpage
+# Chess Platform: A Fully Open-Source, Backend-Free Chess Experience
 
 A fully open-source, browser-based chess platform delivering a lightweight and accessible chess experience—all without the need for backend servers.
 
-## Project Overview
+## Overview
 
 This project aims to deliver a lightweight, fully accessible chess experience that operates entirely in the browser. Unlike many existing chess platforms that require account creation, track user data, or depend on slow server interactions, this application offers a seamless and privacy-focused alternative.
 
@@ -10,23 +10,22 @@ Built from the ground up using pure JavaScript, every aspect of the game—from 
 
 ## Key Features
 
-- **No Signup:** Start playing immediately without the hassle of creating an account
-- **Always Available:** Enjoy uninterrupted access anytime
-- **Cross-Device Compatibility:** Play seamlessly on desktops, tablets, and smartphones
-- **Open Source:** View, modify, and extend the code to suit your needs
-- **Privacy-Focused:** No data collection or storage
-- **Free Access:** Completely free with no fees or licensing costs
-- **Optimized Performance:** Experience fast and responsive gameplay
-- **Backend Independence:** Runs entirely in the browser without server-side dependencies
+- **Instant Play:** No signup required—start playing immediately!
+- **Always Available:** Play anytime, anywhere, on any device
+- **Cross-Device Compatibility:** Enjoy a consistent experience on desktops, tablets, and smartphones
+- **Privacy-Focused:** Your data stays on your device—no tracking or storage
+- **Open Source:** Fully customizable and extendable by the community
+- **Optimized Performance:** Experience fast, responsive gameplay without latency
+- **Backend Independence:** Runs entirely in the browser
 
-## What's New on the Board
+## What's New
 
 - **Personalized Experience:** Customize player names and avatars
-- **Dynamic Time Controls:** Flexible time settings with options for hours, minutes, and seconds
-- **Diverse Piece Styles:** Choose from over 30 stunning piece designs (e.g., Alpha, Celtic, Fantasy)
-- **Tailored Board Colors:** Create the perfect ambiance using our intuitive color picker
-- **Complete Game Scoresheet:** Access a detailed scoresheet for every game
-- **Special Move Notation:** Keep track of special moves like castling and en passant with dedicated notation
+- **Dynamic Time Controls:** Flexible settings for hours, minutes, and seconds
+- **Diverse Piece Styles:** Over 30 stunning piece designs (e.g., Alpha, Celtic, Fantasy)
+- **Tailored Board Colors:** Use our intuitive color picker to set the perfect board ambiance
+- **Complete Game Scoresheet:** Detailed scoresheet available for every game
+- **Special Move Notation:** Dedicated notation for moves like castling and en passant
 
 ## Getting Started
 
@@ -49,30 +48,31 @@ Built from the ground up using pure JavaScript, every aspect of the game—from 
 3. Open `index.html` in your browser
 
 ## Project Structure
+```
 chess/
 ├── Assets/
-│ ├── images/
-│ └── pieces/
+│   ├── images/           # Visual assets and banners
+│   └── pieces/           # Chess piece images
 ├── Components/
-│ ├── ChessClock.js
-│ ├── Documentation.js
-│ └── ThemeSetup.js
+│   ├── ChessClock.js     # Chess clock functionality
+│   ├── Documentation.js  # In-app documentation
+│   └── ThemeSetup.js     # Theme and color customization
 ├── Data/
-│ ├── data.js
-│ └── pieces.js
+│   ├── data.js           # General data configurations
+│   └── pieces.js         # Piece definitions and configurations
 ├── Events/
-│ └── global.js
+│   └── global.js         # Global event handling
 ├── Helper/
-│ ├── commonHelper.js
-│ ├── constants.js
-│ └── notifications.js
+│   ├── commonHelper.js   # Common utility functions
+│   ├── constants.js      # Constant values used across the app
+│   └── notifications.js  # User notifications and alerts
 ├── Render/
-│ └── main.js
+│   └── main.js           # Main rendering logic for the board and pieces
 ├── styles/
-│ └── index.css
-├── index.html
-└── index.js
-
+│   └── index.css         # Styling for the application
+├── index.html            # Entry point for the app
+└── index.js              # Main JavaScript file
+```
 
 ## Future Development
 
@@ -93,6 +93,7 @@ Contributions are welcome! If you'd like to contribute:
 ## Bug Reports
 
 If you encounter any issues:
+
 1. Refresh the page first (as this is a frontend-only application)
 2. If the issue persists, please open an issue on GitHub with:
    - A description of the problem
@@ -101,8 +102,8 @@ If you encounter any issues:
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For inquiries or suggestions, please reach out through the [GitHub Repository](https://github.com/your-username/chess).
+For inquiries or suggestions, please reach out through our [GitHub Repository](https://github.com/AryanShah30/chess).
