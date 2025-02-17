@@ -1135,7 +1135,6 @@ function createThemeSetup() {
 
     if (!mobileNavToggle || !boardControls) return;
 
-    // Create modal HTML
     const modalHTML = `
       <div class="mobile-nav-modal" style="display: none;">
         <div class="mobile-nav-content">
@@ -1178,7 +1177,6 @@ function createThemeSetup() {
       </div>
     `;
 
-    // Add modal to body if it doesn't exist
     if (!document.querySelector('.mobile-nav-modal')) {
       document.body.insertAdjacentHTML('beforeend', modalHTML);
     }
@@ -1186,13 +1184,10 @@ function createThemeSetup() {
     const modal = document.querySelector('.mobile-nav-modal');
     const modalClose = modal.querySelector('.doc-close-btn');
 
-    // Remove existing event listeners
     mobileNavToggle.replaceWith(mobileNavToggle.cloneNode(true));
     
-    // Get the new toggle button after replacement
     const newToggle = document.querySelector('.mobile-nav-toggle');
-    
-    // Add click event listener for toggle
+
     newToggle.addEventListener('click', () => {
       modal.style.display = 'flex';
       setTimeout(() => {
@@ -1200,7 +1195,6 @@ function createThemeSetup() {
       }, 10);
     });
 
-    // Close modal on close button click
     modalClose.addEventListener('click', () => {
       modal.classList.remove('active');
       setTimeout(() => {
@@ -1208,13 +1202,11 @@ function createThemeSetup() {
       }, 300);
     });
 
-    // Handle button clicks
     const navButtons = modal.querySelectorAll('.nav-button');
     navButtons.forEach(button => {
       button.addEventListener('click', () => {
         const action = button.dataset.action;
-        
-        // Update active states based on current status
+
         switch(action) {
           case 'settings':
             document.querySelector('.settings-button').click();
@@ -1242,7 +1234,6 @@ function createThemeSetup() {
             break;
         }
 
-        // Close modal with delay
         setTimeout(() => {
           modal.classList.remove('active');
           setTimeout(() => {
@@ -1252,11 +1243,9 @@ function createThemeSetup() {
       });
     });
 
-    // Update active states when modal opens
     newToggle.addEventListener('click', () => {
       modal.style.display = 'flex';
       
-      // Sync active states with buttons
       const flipBtn = document.querySelector('.flip-button');
       const timerBtn = document.querySelector('.timer-button');
       const themeBtn = document.querySelector('.theme-toggle-button');
@@ -1271,10 +1260,8 @@ function createThemeSetup() {
     });
   }
 
-  // Run setup on initial load
   setupMobileNavigation();
 
-  // Run setup on window resize
   window.addEventListener('resize', setupMobileNavigation);
 }
 

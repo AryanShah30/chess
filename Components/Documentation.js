@@ -257,7 +257,6 @@ function createDocumentation() {
   closeBtn.addEventListener("click", animateClose);
 
   docIcon.addEventListener("click", () => {
-    // Reset all sections to collapsed state
     document.querySelectorAll('.doc-section-header').forEach(header => {
       header.classList.add('collapsed');
       const content = header.nextElementSibling;
@@ -270,7 +269,6 @@ function createDocumentation() {
       }
     });
 
-    // Show the modal
     docModal.style.transform = "";
     docModal.style.opacity = "1";
     docOverlay.style.opacity = "1";
@@ -281,8 +279,7 @@ function createDocumentation() {
     header.addEventListener('click', () => {
       const content = header.nextElementSibling;
       const isCollapsed = header.classList.contains('collapsed');
-      
-      // Close all other sections
+
       document.querySelectorAll('.doc-section-header').forEach(h => {
         if (h !== header) {
           h.classList.add('collapsed');
@@ -292,11 +289,9 @@ function createDocumentation() {
         }
       });
 
-      // Toggle current section
       header.classList.toggle('collapsed');
       content.style.display = isCollapsed ? 'block' : 'none';
       
-      // Rotate arrow
       const svg = header.querySelector('svg');
       if (svg) {
         svg.style.transform = isCollapsed ? 'rotate(-180deg)' : 'rotate(0deg)';

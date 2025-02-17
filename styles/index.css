@@ -1805,7 +1805,6 @@ body {
   opacity: 0.85;
 }
 
-/* Dark mode adjustments */
 [data-theme="dark"] .feature-card {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
@@ -1817,7 +1816,6 @@ body {
   background: rgba(255, 255, 255, 0.05);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .feature-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -1837,7 +1835,6 @@ body {
   }
 }
 
-/* Hover states for touch devices */
 @media (hover: none) {
   .feature-card:hover {
     transform: none;
@@ -2018,7 +2015,6 @@ body {
   line-height: 1.4;
 }
 
-/* Dark mode adjustments */
 [data-theme="dark"] .key-features li {
   background: rgba(255, 255, 255, 0.03);
 }
@@ -2028,7 +2024,6 @@ body {
   filter: brightness(0) invert(1);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .key-features ul {
     grid-template-columns: 1fr;
@@ -2044,12 +2039,10 @@ body {
   }
 }
 
-/* Add hover effect with green */
 .doc-section-header:hover h3 {
   color: #45a049;
 }
 
-/* Update any gradients or rgba colors */
 .feature-card.future-card:hover {
   background: linear-gradient(
     45deg,
@@ -2058,7 +2051,6 @@ body {
   );
 }
 
-/* Update focus states */
 .doc-section:focus-within .doc-section-header h3 {
   color: #4caf50;
 }
@@ -2084,7 +2076,6 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Mobile Responsive Fixes */
 @media screen and (max-width: 768px) {
   body {
     margin: 0;
@@ -2104,44 +2095,39 @@ body {
     max-width: 100%;
   }
 
-  /* Documentation icon positioning - removed code icon */
   .doc-icon {
     position: fixed;
     bottom: 1rem;
-    right: 1rem; /* Updated position since code icon is removed */
+    right: 1rem; 
     z-index: 900;
   }
 
-  /* Hide documentation icon when menu is open */
   .board-controls.active ~ .doc-icon {
     display: none;
   }
 
-  /* Board sizing fixes */
   #root {
     display: flex;
-    flex-direction: column; /* Stack rows vertically */
+    flex-direction: column; 
     width: 96vw;
     height: 96vw;
     margin: 0 auto;
   }
 
-  /* Row styling */
   #root > div {
-    display: flex; /* Make rows flex containers */
-    flex-direction: row; /* Arrange squares horizontally */
-    height: 12.5%; /* Each row takes 1/8 of the board height */
+    display: flex; 
+    flex-direction: row; 
+    height: 12.5%; 
   }
 
-  /* Square styling */
   .square {
-    width: 12.5%;  /* Each square takes 1/8 of the row width */
-    height: 100%;  /* Full height of the row */
+    width: 12.5%;  
+    height: 100%;  
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; /* Prevent squares from shrinking */
+    flex-shrink: 0; 
   }
 
   .piece {
@@ -2152,12 +2138,11 @@ body {
     object-fit: contain;
   }
 
-  /* Clock positioning */
   .left-container {
     width: 100%;
     order: -1;
     padding: 0.5rem;
-    gap: 10px;  /* Reduced gap since one element is hidden */
+    gap: 10px;  
   }
 
   .chess-clock {
@@ -2202,12 +2187,10 @@ body {
     text-align: center;
   }
 
-  /* Low time warning */
   .player-time.low-time {
     color: #ff4444;
   }
 
-  /* Scoresheet adjustments */
   .scoresheet {
     margin: 1rem 0;
     height: 200px;
@@ -2216,7 +2199,6 @@ body {
     margin-top: 0px;
   }
 
-  /* Navigation and controls */
   .board-controls {
     position: fixed;
     top: 0;
@@ -2234,7 +2216,6 @@ body {
     right: 0;
   }
 
-  /* Hide all control buttons by default */
   .flip-button,
   .settings-button,
   .timer-button,
@@ -2242,7 +2223,6 @@ body {
     display: none;
   }
 
-  /* Show buttons when navigation is active */
   .board-controls.active .flip-button,
   .board-controls.active .settings-button,
   .board-controls.active .timer-button,
@@ -2272,14 +2252,12 @@ body {
     height: 24px;
   }
 
-  /* Add spacing at the bottom */
   .chess-container::after {
     content: '';
     display: block;
     height: 2rem;
   }
 
-  /* Hide status box in mobile view */
   .status-box {
     display: none;
   }
@@ -2302,7 +2280,6 @@ body {
     color: #4caf50;
   }
 
-  /* Dark theme adjustments */
   [data-theme="dark"] .nav-button.active {
     background: rgba(76, 175, 80, 0.2);
   }
@@ -2312,7 +2289,6 @@ body {
   }
 }
 
-/* Additional adjustments for smaller screens */
 @media screen and (max-width: 480px) {
   .chess-container {
     padding: 0.5rem;
@@ -2336,7 +2312,6 @@ body {
     font-size: 1.2rem;
   }
 
-  /* Ensure bottom content is visible */
   .chess-container::after {
     height: 4rem;
   }
@@ -2348,12 +2323,10 @@ body {
   }
 }
 
-/* Hide mobile nav toggle by default */
 .mobile-nav-toggle {
   display: none;
 }
 
-/* Only show mobile elements on screens <= 768px */
 @media screen and (max-width: 768px) {
   .mobile-nav-modal {
     position: fixed;
@@ -2457,7 +2430,6 @@ body {
     margin-top: -4px;
   }
 
-  /* Dark theme adjustments */
   [data-theme="dark"] .mobile-nav-content {
     background: var(--container-bg-color, #262522);
   }
@@ -2479,7 +2451,6 @@ body {
     background: rgba(255, 255, 255, 0.1);
   }
 
-  /* Light theme specific */
   [data-theme="light"] .nav-button:hover {
     background: rgba(0, 0, 0, 0.05);
   }
@@ -2488,7 +2459,6 @@ body {
     filter: none;
   }
 
-  /* Safe area handling */
   @supports (padding-bottom: env(safe-area-inset-bottom)) {
     .mobile-nav-content {
       padding-bottom: calc(env(safe-area-inset-bottom) + 24px);
@@ -2496,7 +2466,6 @@ body {
   }
 }
 
-/* Mobile-specific styles for clock setup modal */
 @media screen and (max-width: 768px) {
   .clock-setup-modal {
     width: 90%;
@@ -2584,7 +2553,6 @@ body {
   }
 }
 
-/* Additional adjustments for even smaller screens */
 @media screen and (max-width: 480px) {
   .clock-setup-modal {
     width: 95%;
@@ -2599,7 +2567,6 @@ body {
   }
 }
 
-/* Mobile-specific styles for documentation modal */
 @media screen and (max-width: 768px) {
   .documentation-modal {
     width: 90%;
@@ -2623,7 +2590,7 @@ body {
   }
 
   .doc-section-content {
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden; 
   }
 
   .doc-section-header h3 {
@@ -2662,21 +2629,18 @@ body {
   }
 }
 
-/* Mobile-specific styles for navigation close button */
 @media screen and (max-width: 768px) {
   .mobile-nav-modal .doc-close-btn {
     margin-top: 22px;
   }
 }
 
-/* Mobile menu icon dark theme adjustment */
 @media screen and (max-width: 768px) {
   [data-theme="dark"] .menu-icon {
     filter: brightness(0) invert(1);
   }
 }
 
-/* Mobile-specific styles for pawn promotion modal */
 @media screen and (max-width: 768px) {
   .promotion-modal {
     width: 280px;
